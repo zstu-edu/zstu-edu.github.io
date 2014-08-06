@@ -1,0 +1,613 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>制作旋转CSS3下拉菜单（whirling CSS3 dropdown menu） - 微个日光日</title>
+	<meta name="author" content="Nicholas">
+
+	
+	<meta name="description" content="制作旋转CSS3下拉菜单（whirling CSS3 Dropdown Menu） 原文地址：http://www.script-tutorials.com/whirling-dropdown-menu/ 译者：微个日光日 很多下拉菜单都可以通过css3的选择器轻松实现。 &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="微个日光日" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://xiebaochun.github.io/blog/2013/11/04/whirling-css3-dropdown-menu/">
+	<link href="/public/favicon.png" rel="shortcut icon">
+	<link href="/public/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/public/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'> -->
+	<script src="/public/javascripts/jquery-1.7.2.min.js"></script>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!-- <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css"> -->
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+
+
+<body>
+
+    
+<link href="/public/stylesheets/topheader.css" media="screen, projection" rel="stylesheet" type="text/css">
+<div id="topheader">
+       <div class="info_wrap wrap">
+           <div class="info_show">
+                <i class="fl s_line"></i>
+                <ul class="my_btn fl">
+                    <li class="uname">
+                        <p>欢迎光临小站！</p>
+                    </li>
+                    <li class="fl s_line"></li>
+                </ul>
+                <ul class="friends">
+                    <li class="">
+                        <a href="#s1">友联</a>
+                         <ul class="submenu">
+                            <li><a href="http://ued.taobao.org/blog/" target="_blank">淘宝UED</a></li>
+                            <li><a href="http://www.blueidea.com/" target="_blank">蓝色理想</a></li>
+                            <li><a href="http://ux.etao.com/" target="_blank">一淘UED</a></li>
+                            <li><a href="http://cdc.tencent.com/" target="_blank">腾讯CDC</a></li>
+                            <li><a href="http://ecd.tencent.com/" target="_blank">腾讯ECD</a></li>
+                            <li><a href="http://www.ucdchina.com/" target="_blank">UCDChina</a></li>
+                            <li><a href="http://www.chinavisual.com/" target="_blank">视觉中国</a></li>
+                            <li><a href="http://www.uirss.com/" target="_blank">UIRSS</a></li>
+                        </ul>  
+                    </li>
+                     
+                </ul>
+                
+           </div>
+
+       </div>
+       <div class="logo_info_wrap">
+            <div class="logo_show wrap">
+                <div class="logo_wrap fl">
+                    <a href="http://www.juerry.com" class="logo" title="首页">首页</a>
+                </div>
+            </div>
+       </div>
+       <div id="navigation" class="wrap clearfix">
+            <div class="nav_item_wrap">
+                <ul class="nav_list clearfix">
+                    <li class="nav_item">
+                        <a id="nav_home" href="http://xiebaochun.github.io/index.html">首页</a>
+                    </li>
+                    <li class="nav_item category_shopping">
+                        <a href="">HTML前端</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >CSS3</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >游戏</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >应用</a>
+                    </li>
+                    <li class="nav_item category_second category_second_last">
+                        <a href="">插件</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="" >自习室</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="http://xiebaochun.github.io/mylab/index.html" >实验室</a>
+                    </li> 
+                    <li class="nav_item nav_item_tuan nav_item_fix posi_rale">
+                        <a id="textile" href="http://xiebaochun.github.io/textile.html">设计室</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </li>
+                    <!--<li class="nav_item nav_item_shop nav_item_fix posi_rale">
+                        <a href="" target="_blank"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    </li>-->
+                    <li class="nav_item last ">
+                        <a class="c" id="nav_resume" href="http://xiebaochun.github.io/public/index.html">博客</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+	<div style="min-width:100px;"class="container wrap">
+         
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><!--the weather pugin-->
+       <!-- <script defer src="http://julying.com/lab/weather/v3/jquery.weather.build.min.js?parentbox=body&moveArea=all&zIndex=2&move=1&drag=1&autoDrop=1&styleSize=big&style=_random&area=client&city=%E5%8C%97%E4%BA%AC"></script> -->
+<div class="profilepic">
+	<!-- <img style="width: 160px;" src="https://avatars1.githubusercontent.com/u/2996519?s=460"/> -->
+	<script src="/public/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			// $('.profilepic').append("<img src='http://mt1.baidu.com/timg?wh_rate=0&wapiknow&quality=100&size=w250&sec=0&di=309920a4e4cd155969da5e7aa66485d3&src=http%3A%2F%2Fimg.iknow.bdimg.com%2Fjctuijian%2F0626%2F6.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+</div>
+<!-- <hgroup>
+  <h1><a href="/public/">微个日光日</a></h1>
+  
+    <h2>one blog for share.</h2>
+  
+</hgroup>
+ -->
+<nav id="main-nav"><ul class="main-navigation">
+  <!-- <li><a href="http://xiebaochun.github.io">Home</a></li>
+  <li><a href="/public/blog/archives">Archives</a></li> -->
+  <!-- <li><a href="http://www.juerry.com/index.html">my lab</a></li> -->
+</ul>
+
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/xiebaochun" title="Twitter">Twitter</a>
+		
+		
+		<a class="github" href="https://github.com/xiebaochun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+<section>
+  <!-- <h1>Categories</h1> -->
+  <h1>分类</h1>
+    <ul id="category-list"><li><a href='/blog/categories/ios/'>ios (2)</a></li><li><a href='/blog/categories/other/'>other (13)</a></li><li><a href='/blog/categories/three-dot-js/'>three.js (1)</a></li><li><a href='/blog/categories/web/'>web (26)</a></li></ul>
+    <script type="text/javascript"> 
+           $("#category-list li").each(function()
+           {
+                $(this).children().attr("href","/public"+$(this).children().attr("href"));
+              
+           });
+    </script>
+</section>
+
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">制作旋转CSS3下拉菜单（whirling CSS3 Dropdown Menu）</h1>
+	<div class="entry-content" itemprop="articleBody"><p><img src="http://www.script-tutorials.com/demos/364/thumb.png" alt="" /></p>
+
+<p>原文地址：<a href="http://www.script-tutorials.com/whirling-dropdown-menu/">http://www.script-tutorials.com/whirling-dropdown-menu/</a></p>
+
+<p>译者：<a href="http://xiebaochun.github.io/">微个日光日</a></p>
+
+<!--more-->
+
+<p>很多下拉菜单都可以通过css3的选择器轻松实现。只要稍微激发一下你的创作灵感，你就可以做出一个真实而独特的设计。在今天的教程中，我们将创建一个特别的css3下拉菜单，当鼠标移动到父级菜单项时将会呈现新的下拉特效，子菜单项将会以旋转的方式出现。只要一步一步地跟着本教程就能创建这个菜单。</p>
+
+<h3 id="section">预览：</h3>
+
+<p><img src="http://www.script-tutorials.com/demos/364/menu.png" alt="" /></p>
+
+<p><a href="http://www.script-tutorials.com/demos/364/index.html">在线演示</a></p>
+
+<p><a href="http://www.script-tutorials.com/demos/364/source.zip">下载DEMO</a></p>
+
+<h3 id="html">步骤 1.HTML</h3>
+
+<p>首先需要为css菜单建一个HTML结构。和大部分下拉菜单类似，这是一个UL-LI结构的下拉菜单。下面是此菜单的HTML代码。</p>
+
+<p>index.html</p>
+
+<pre><code>&lt;ul class="menu"&gt;
+&lt;li&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#s1"&gt;Menu 1&lt;/a&gt;
+    &lt;ul class="submenu"&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu a&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu b&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu c&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu d&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu e&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu f&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu g&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu h&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/li&gt;
+&lt;li class="active"&gt;&lt;a href="#s2"&gt;Menu 2&lt;/a&gt;
+    &lt;ul class="submenu"&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu a&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu b&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu c&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu d&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu e&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu f&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu g&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu h&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="#"&gt;Menu 3&lt;/a&gt;
+    &lt;ul class="submenu"&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu a&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu b&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu c&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu d&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu e&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu f&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu g&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu h&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="#"&gt;Menu 4&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.script-tutorials.com/whirling-dropdown-menu/"&gt;Back to tutorial&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+
+<h3 id="css">步骤 2.CSS</h3>
+
+<p>css/main.css</p>
+
+<pre><code>.menu, .menu ul {
+list-style: none;
+padding: 0;
+margin: 0;
+}
+.menu {
+height: 58px;
+}
+.menu li {
+background: -moz-linear-gradient(#292929, #252525);
+background: -ms-linear-gradient(#292929, #252525);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #292929), color-stop(100%, #252525));
+background: -webkit-linear-gradient(#292929, #252525);
+background: -o-linear-gradient(#292929, #252525);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#292929', endColorstr='#252525');
+-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#292929', endColorstr='#252525')";
+background: linear-gradient(#292929, #252525);
+
+border-bottom: 2px solid #181818;
+border-top: 2px solid #303030;
+min-width: 160px;
+}
+.menu &gt; li {
+display: block;
+float: left;
+position: relative;
+}
+.menu &gt; li:first-child {
+border-radius: 5px 0 0;
+}
+.menu a {
+border-left: 3px solid rgba(0, 0, 0, 0);
+color: #808080;
+display: block;
+font-family: 'Lucida Console';
+font-size: 18px;
+line-height: 54px;
+padding: 0 25px;
+text-decoration: none;
+text-transform: uppercase;
+}
+</code></pre>
+
+<p>当鼠标移动到某个菜单项上时，将其高亮。</p>
+
+<pre><code>.menu li:hover {
+background-color: #1c1c1c;
+background: -moz-linear-gradient(#1c1c1c, #1b1b1b);
+background: -ms-linear-gradient(#1c1c1c, #1b1b1b);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1c1c1c), color-stop(100%, #1b1b1b));
+background: -webkit-linear-gradient(#1c1c1c, #1b1b1b);
+background: -o-linear-gradient(#1c1c1c, #1b1b1b);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1c1c1c', endColorstr='#1b1b1b');
+-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#1c1c1c', endColorstr='#1b1b1b')";
+background: linear-gradient(#1c1c1c, #1b1b1b);
+
+border-bottom: 2px solid #222222;
+border-top: 2px solid #1B1B1B;
+}
+.menu li:hover &gt; a {
+border-radius: 5px 0 0 0;
+border-left: 3px solid #C4302B;
+color: #C4302B;
+}
+</code></pre>
+
+<p>子菜单项默认是隐藏的，并且它的元素被选择了90度。当鼠标悬停在父级菜单项时，子菜单将显示它的所有菜单项。</p>
+
+<pre><code>/* submenu styles */
+.submenu {
+left: 0;
+max-height: 0;
+position: absolute;
+top: 100%;
+z-index: 0;
+
+-webkit-perspective: 400px;
+-moz-perspective: 400px;
+-ms-perspective: 400px;
+-o-perspective: 400px;
+perspective: 400px;
+}
+.submenu li {
+opacity: 0;
+
+-webkit-transform: rotateY(90deg);
+-moz-transform: rotateY(90deg);
+-ms-transform: rotateY(90deg);
+-o-transform: rotateY(90deg);
+transform: rotateY(90deg);
+
+-webkit-transition: opacity .4s, -webkit-transform .5s;
+-moz-transition: opacity .4s, -moz-transform .5s;
+-ms-transition: opacity .4s, -ms-transform .5s;
+-o-transition: opacity .4s, -o-transform .5s;
+transition: opacity .4s, transform .5s;
+}
+.menu .submenu li:hover a {
+border-left: 3px solid #454545;
+border-radius: 0;
+color: #ffffff;
+}
+.menu &gt; li:hover .submenu, .menu &gt; li:focus .submenu {
+max-height: 2000px;
+z-index: 10;
+}
+.menu &gt; li:hover .submenu li, .menu &gt; li:focus .submenu li {
+opacity: 1;
+
+-webkit-transform: none;
+-moz-transform: none;
+-ms-transform: none;
+-o-transform: none;
+transform: none;
+}
+</code></pre>
+
+<p>最后，为了使其更特别一点，给每个子菜单项添加一些延迟，这样他们就会依次显示出来。</p>
+
+<pre><code>/* CSS3 delays for transition effects */
+.menu li:hover .submenu li:nth-child(1) {
+-webkit-transition-delay: 0s;
+-moz-transition-delay: 0s;
+-ms-transition-delay: 0s;
+-o-transition-delay: 0s;
+transition-delay: 0s;
+}
+.menu li:hover .submenu li:nth-child(2) {
+-webkit-transition-delay: 50ms;
+-moz-transition-delay: 50ms;
+-ms-transition-delay: 50ms;
+-o-transition-delay: 50ms;
+transition-delay: 50ms;
+}
+.menu li:hover .submenu li:nth-child(3) {
+-webkit-transition-delay: 100ms;
+-moz-transition-delay: 100ms;
+-ms-transition-delay: 100ms;
+-o-transition-delay: 100ms;
+transition-delay: 100ms;
+}
+.menu li:hover .submenu li:nth-child(4) {
+-webkit-transition-delay: 150ms;
+-moz-transition-delay: 150ms;
+-ms-transition-delay: 150ms;
+-o-transition-delay: 150ms;
+transition-delay: 150ms;
+}
+.menu li:hover .submenu li:nth-child(5) {
+-webkit-transition-delay: 200ms;
+-moz-transition-delay: 200ms;
+-ms-transition-delay: 200ms;
+-o-transition-delay: 200ms;
+transition-delay: 200ms;
+}
+.menu li:hover .submenu li:nth-child(6) {
+-webkit-transition-delay: 250ms;
+-moz-transition-delay: 250ms;
+-ms-transition-delay: 250ms;
+-o-transition-delay: 250ms;
+transition-delay: 250ms;
+}
+.menu li:hover .submenu li:nth-child(7) {
+-webkit-transition-delay: 300ms;
+-moz-transition-delay: 300ms;
+-ms-transition-delay: 300ms;
+-o-transition-delay: 300ms;
+transition-delay: 300ms;
+}
+.menu li:hover .submenu li:nth-child(8) {
+-webkit-transition-delay: 350ms;
+-moz-transition-delay: 350ms;
+-ms-transition-delay: 350ms;
+-o-transition-delay: 350ms;
+transition-delay: 350ms;
+}
+
+.submenu li:nth-child(1) {
+-webkit-transition-delay: 350ms;
+-moz-transition-delay: 350ms;
+-ms-transition-delay: 350ms;
+-o-transition-delay: 350ms;
+transition-delay: 350ms;
+}
+.submenu li:nth-child(2) {
+-webkit-transition-delay: 300ms;
+-moz-transition-delay: 300ms;
+-ms-transition-delay: 300ms;
+-o-transition-delay: 300ms;
+transition-delay: 300ms;
+}
+.submenu li:nth-child(3) {
+-webkit-transition-delay: 250ms;
+-moz-transition-delay: 250ms;
+-ms-transition-delay: 250ms;
+-o-transition-delay: 250ms;
+transition-delay: 250ms;
+}
+.submenu li:nth-child(4) {
+-webkit-transition-delay: 200ms;
+-moz-transition-delay: 200ms;
+-ms-transition-delay: 200ms;
+-o-transition-delay: 200ms;
+transition-delay: 200ms;
+}
+.submenu li:nth-child(5) {
+-webkit-transition-delay: 150ms;
+-moz-transition-delay: 150ms;
+-ms-transition-delay: 150ms;
+-o-transition-delay: 150ms;
+transition-delay: 150ms;
+}
+.submenu li:nth-child(6) {
+-webkit-transition-delay: 100ms;
+-moz-transition-delay: 100ms;
+-ms-transition-delay: 100ms;
+-o-transition-delay: 100ms;
+transition-delay: 100ms;
+}
+.submenu li:nth-child(7) {
+-webkit-transition-delay: 50ms;
+-moz-transition-delay: 50ms;
+-ms-transition-delay: 50ms;
+-o-transition-delay: 50ms;
+transition-delay: 50ms;
+}
+.submenu li:nth-child(8) {
+-webkit-transition-delay: 0s;
+-moz-transition-delay: 0s;
+-ms-transition-delay: 0s;
+-o-transition-delay: 0s;
+transition-delay: 0s;
+}
+</code></pre>
+
+<p><a href="http://www.script-tutorials.com/demos/364/index.html">在线演示</a></p>
+
+<p><a href="http://www.script-tutorials.com/demos/364/source.zip">下载DEMO</a></p>
+
+<h3 id="section-1">总结:</h3>
+
+<p>我们只是随意地制作了一个css3下拉菜单。谢谢你耐心看完本教程，如果你喜欢今天的主题，请使用下面的社交平台将其分享给你的朋友吧！</p>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	
+	<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style_32x32">
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_tqq"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a href="http://www.jiathis.com/share?uid=1838235" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config = {data_track_clickback:'true'};
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1371541356556113" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1838235"></script>
+<!-- UY END -->
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2014 - Nicholas -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+<!-- Baidu Button BEGIN -->
+   <script type="text/javascript" id="bdshare_js" data="type=slide&amp;img=1&amp;pos=right&amp;uid=0" src="http://bdimg.share.baidu.com/static/js/bds_s_v2.js?cdnversion=389859"></script>
+   <script type="text/javascript">
+        var bds_config={"bdTop":300};
+        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+   </script>
+        <!-- Baidu Button END -->
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+			
+
+
+<!-- 
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+ -->
+
+
+
+		</div>
+	</div>
+</body>
+</html>

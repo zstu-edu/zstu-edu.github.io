@@ -1,0 +1,347 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>获取Canvas里的鼠标位置，不使用jquery - 微个日光日</title>
+	<meta name="author" content="Nicholas">
+
+	
+	<meta name="description" content="获取Canvas里的鼠标位置，不使用jquery 在写canvas游戏时，为了获取鼠标在canvas里的位置信息，这里有两种方法。 第一种： function getMousePos(canvas, evt) {
+var rect = canvas.getBoundingClientRect &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="微个日光日" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://xiebaochun.github.io/blog/2013/10/17/getting-cursor-position-in-a-canvas-without-jquery/">
+	<link href="/public/favicon.png" rel="shortcut icon">
+	<link href="/public/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/public/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'> -->
+	<script src="/public/javascripts/jquery-1.7.2.min.js"></script>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!-- <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css"> -->
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+
+
+<body>
+
+    
+<link href="/public/stylesheets/topheader.css" media="screen, projection" rel="stylesheet" type="text/css">
+<div id="topheader">
+       <div class="info_wrap wrap">
+           <div class="info_show">
+                <i class="fl s_line"></i>
+                <ul class="my_btn fl">
+                    <li class="uname">
+                        <p>欢迎光临小站！</p>
+                    </li>
+                    <li class="fl s_line"></li>
+                </ul>
+                <ul class="friends">
+                    <li class="">
+                        <a href="#s1">友联</a>
+                         <ul class="submenu">
+                            <li><a href="http://ued.taobao.org/blog/" target="_blank">淘宝UED</a></li>
+                            <li><a href="http://www.blueidea.com/" target="_blank">蓝色理想</a></li>
+                            <li><a href="http://ux.etao.com/" target="_blank">一淘UED</a></li>
+                            <li><a href="http://cdc.tencent.com/" target="_blank">腾讯CDC</a></li>
+                            <li><a href="http://ecd.tencent.com/" target="_blank">腾讯ECD</a></li>
+                            <li><a href="http://www.ucdchina.com/" target="_blank">UCDChina</a></li>
+                            <li><a href="http://www.chinavisual.com/" target="_blank">视觉中国</a></li>
+                            <li><a href="http://www.uirss.com/" target="_blank">UIRSS</a></li>
+                        </ul>  
+                    </li>
+                     
+                </ul>
+                
+           </div>
+
+       </div>
+       <div class="logo_info_wrap">
+            <div class="logo_show wrap">
+                <div class="logo_wrap fl">
+                    <a href="http://www.juerry.com" class="logo" title="首页">首页</a>
+                </div>
+            </div>
+       </div>
+       <div id="navigation" class="wrap clearfix">
+            <div class="nav_item_wrap">
+                <ul class="nav_list clearfix">
+                    <li class="nav_item">
+                        <a id="nav_home" href="http://xiebaochun.github.io/index.html">首页</a>
+                    </li>
+                    <li class="nav_item category_shopping">
+                        <a href="">HTML前端</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >CSS3</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >游戏</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >应用</a>
+                    </li>
+                    <li class="nav_item category_second category_second_last">
+                        <a href="">插件</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="" >自习室</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="http://xiebaochun.github.io/mylab/index.html" >实验室</a>
+                    </li> 
+                    <li class="nav_item nav_item_tuan nav_item_fix posi_rale">
+                        <a id="textile" href="http://xiebaochun.github.io/textile.html">设计室</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </li>
+                    <!--<li class="nav_item nav_item_shop nav_item_fix posi_rale">
+                        <a href="" target="_blank"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    </li>-->
+                    <li class="nav_item last ">
+                        <a class="c" id="nav_resume" href="http://xiebaochun.github.io/public/index.html">博客</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+	<div style="min-width:100px;"class="container wrap">
+         
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><!--the weather pugin-->
+       <!-- <script defer src="http://julying.com/lab/weather/v3/jquery.weather.build.min.js?parentbox=body&moveArea=all&zIndex=2&move=1&drag=1&autoDrop=1&styleSize=big&style=_random&area=client&city=%E5%8C%97%E4%BA%AC"></script> -->
+<div class="profilepic">
+	<!-- <img style="width: 160px;" src="https://avatars1.githubusercontent.com/u/2996519?s=460"/> -->
+	<script src="/public/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			// $('.profilepic').append("<img src='http://mt1.baidu.com/timg?wh_rate=0&wapiknow&quality=100&size=w250&sec=0&di=309920a4e4cd155969da5e7aa66485d3&src=http%3A%2F%2Fimg.iknow.bdimg.com%2Fjctuijian%2F0626%2F6.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+</div>
+<!-- <hgroup>
+  <h1><a href="/public/">微个日光日</a></h1>
+  
+    <h2>one blog for share.</h2>
+  
+</hgroup>
+ -->
+<nav id="main-nav"><ul class="main-navigation">
+  <!-- <li><a href="http://xiebaochun.github.io">Home</a></li>
+  <li><a href="/public/blog/archives">Archives</a></li> -->
+  <!-- <li><a href="http://www.juerry.com/index.html">my lab</a></li> -->
+</ul>
+
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/xiebaochun" title="Twitter">Twitter</a>
+		
+		
+		<a class="github" href="https://github.com/xiebaochun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+<section>
+  <!-- <h1>Categories</h1> -->
+  <h1>分类</h1>
+    <ul id="category-list"><li><a href='/blog/categories/ios/'>ios (2)</a></li><li><a href='/blog/categories/other/'>other (13)</a></li><li><a href='/blog/categories/three-dot-js/'>three.js (1)</a></li><li><a href='/blog/categories/web/'>web (26)</a></li></ul>
+    <script type="text/javascript"> 
+           $("#category-list li").each(function()
+           {
+                $(this).children().attr("href","/public"+$(this).children().attr("href"));
+              
+           });
+    </script>
+</section>
+
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">获取Canvas里的鼠标位置，不使用jquery</h1>
+	<div class="entry-content" itemprop="articleBody"><p><img src="data:image/jpeg;base64,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" alt="" /></p>
+
+<p>在写canvas游戏时，为了获取鼠标在canvas里的位置信息，这里有两种方法。
+<!--more--></p>
+
+<p>第一种：</p>
+
+<pre><code>function getMousePos(canvas, evt) {
+var rect = canvas.getBoundingClientRect(), root = document.documentElement;
+
+// return relative mouse position
+var mouseX = evt.clientX - rect.left - root.scrollLeft;
+var mouseY = evt.clientY - rect.top - root.scrollTop;
+return {
+  x: mouseX,
+  y: mouseY
+};
+  }
+
+  window.onload = function() {
+var canvas = document.getElementById('myCanvas');
+var context = canvas.getContext('2d');
+
+canvas.addEventListener('mousemove', function(evt) {
+  var mousePos = getMousePos(canvas, evt);
+  var message = "Mouse position: " + mousePos.x + "," + mousePos.y;
+  alert(message);
+}, false);
+  };
+</code></pre>
+
+<p>这种方法在页面滚动的情况下也适用。</p>
+
+<p>第二种：</p>
+
+<pre><code>function getMousePos(canvas, event)
+{
+var mouseX = event.pageX - canvas.offsetLeft;
+var mouseY = event.pageY - canvas.offsetTop;
+return {
+x: mouseX,
+y: mouseY };
+}
+</code></pre>
+
+<p>这种方法相对比较简单，但是不适用与页面滚动的情况，所以使用这种方法应该禁止页面滚动。</p>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	
+	<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style_32x32">
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_tqq"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a href="http://www.jiathis.com/share?uid=1838235" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config = {data_track_clickback:'true'};
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1371541356556113" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1838235"></script>
+<!-- UY END -->
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2014 - Nicholas -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+<!-- Baidu Button BEGIN -->
+   <script type="text/javascript" id="bdshare_js" data="type=slide&amp;img=1&amp;pos=right&amp;uid=0" src="http://bdimg.share.baidu.com/static/js/bds_s_v2.js?cdnversion=389859"></script>
+   <script type="text/javascript">
+        var bds_config={"bdTop":300};
+        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+   </script>
+        <!-- Baidu Button END -->
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+			
+
+
+<!-- 
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+ -->
+
+
+
+		</div>
+	</div>
+</body>
+</html>

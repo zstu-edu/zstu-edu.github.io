@@ -1,0 +1,674 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>一个HTML5+Easel.js游戏的例子 - 微个日光日</title>
+	<meta name="author" content="Nicholas">
+
+	
+	<meta name="description" content="一个HTML5+Easel.js游戏的例子 这是一个使用easeljs框架写的一个html5 RPG游戏,游戏很简单，主要是提供一个游戏的模板。下面是全部代码： &lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=" &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="微个日光日" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://xiebaochun.github.io/blog/2013/09/10/the-html5/">
+	<link href="/public/favicon.png" rel="shortcut icon">
+	<link href="/public/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/public/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'> -->
+	<script src="/public/javascripts/jquery-1.7.2.min.js"></script>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!-- <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css"> -->
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+
+
+<body>
+
+    
+<link href="/public/stylesheets/topheader.css" media="screen, projection" rel="stylesheet" type="text/css">
+<div id="topheader">
+       <div class="info_wrap wrap">
+           <div class="info_show">
+                <i class="fl s_line"></i>
+                <ul class="my_btn fl">
+                    <li class="uname">
+                        <p>欢迎光临小站！</p>
+                    </li>
+                    <li class="fl s_line"></li>
+                </ul>
+                <ul class="friends">
+                    <li class="">
+                        <a href="#s1">友联</a>
+                         <ul class="submenu">
+                            <li><a href="http://ued.taobao.org/blog/" target="_blank">淘宝UED</a></li>
+                            <li><a href="http://www.blueidea.com/" target="_blank">蓝色理想</a></li>
+                            <li><a href="http://ux.etao.com/" target="_blank">一淘UED</a></li>
+                            <li><a href="http://cdc.tencent.com/" target="_blank">腾讯CDC</a></li>
+                            <li><a href="http://ecd.tencent.com/" target="_blank">腾讯ECD</a></li>
+                            <li><a href="http://www.ucdchina.com/" target="_blank">UCDChina</a></li>
+                            <li><a href="http://www.chinavisual.com/" target="_blank">视觉中国</a></li>
+                            <li><a href="http://www.uirss.com/" target="_blank">UIRSS</a></li>
+                        </ul>  
+                    </li>
+                     
+                </ul>
+                
+           </div>
+
+       </div>
+       <div class="logo_info_wrap">
+            <div class="logo_show wrap">
+                <div class="logo_wrap fl">
+                    <a href="http://www.juerry.com" class="logo" title="首页">首页</a>
+                </div>
+            </div>
+       </div>
+       <div id="navigation" class="wrap clearfix">
+            <div class="nav_item_wrap">
+                <ul class="nav_list clearfix">
+                    <li class="nav_item">
+                        <a id="nav_home" href="http://xiebaochun.github.io/index.html">首页</a>
+                    </li>
+                    <li class="nav_item category_shopping">
+                        <a href="">HTML前端</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >CSS3</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >游戏</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >应用</a>
+                    </li>
+                    <li class="nav_item category_second category_second_last">
+                        <a href="">插件</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="" >自习室</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="http://xiebaochun.github.io/mylab/index.html" >实验室</a>
+                    </li> 
+                    <li class="nav_item nav_item_tuan nav_item_fix posi_rale">
+                        <a id="textile" href="http://xiebaochun.github.io/textile.html">设计室</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </li>
+                    <!--<li class="nav_item nav_item_shop nav_item_fix posi_rale">
+                        <a href="" target="_blank"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    </li>-->
+                    <li class="nav_item last ">
+                        <a class="c" id="nav_resume" href="http://xiebaochun.github.io/public/index.html">博客</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+	<div style="min-width:100px;"class="container wrap">
+         
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><!--the weather pugin-->
+       <!-- <script defer src="http://julying.com/lab/weather/v3/jquery.weather.build.min.js?parentbox=body&moveArea=all&zIndex=2&move=1&drag=1&autoDrop=1&styleSize=big&style=_random&area=client&city=%E5%8C%97%E4%BA%AC"></script> -->
+<div class="profilepic">
+	<!-- <img style="width: 160px;" src="https://avatars1.githubusercontent.com/u/2996519?s=460"/> -->
+	<script src="/public/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			// $('.profilepic').append("<img src='http://mt1.baidu.com/timg?wh_rate=0&wapiknow&quality=100&size=w250&sec=0&di=309920a4e4cd155969da5e7aa66485d3&src=http%3A%2F%2Fimg.iknow.bdimg.com%2Fjctuijian%2F0626%2F6.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+</div>
+<!-- <hgroup>
+  <h1><a href="/public/">微个日光日</a></h1>
+  
+    <h2>one blog for share.</h2>
+  
+</hgroup>
+ -->
+<nav id="main-nav"><ul class="main-navigation">
+  <!-- <li><a href="http://xiebaochun.github.io">Home</a></li>
+  <li><a href="/public/blog/archives">Archives</a></li> -->
+  <!-- <li><a href="http://www.juerry.com/index.html">my lab</a></li> -->
+</ul>
+
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/xiebaochun" title="Twitter">Twitter</a>
+		
+		
+		<a class="github" href="https://github.com/xiebaochun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+<section>
+  <!-- <h1>Categories</h1> -->
+  <h1>分类</h1>
+    <ul id="category-list"><li><a href='/blog/categories/ios/'>ios (2)</a></li><li><a href='/blog/categories/other/'>other (13)</a></li><li><a href='/blog/categories/three-dot-js/'>three.js (1)</a></li><li><a href='/blog/categories/web/'>web (26)</a></li></ul>
+    <script type="text/javascript"> 
+           $("#category-list li").each(function()
+           {
+                $(this).children().attr("href","/public"+$(this).children().attr("href"));
+              
+           });
+    </script>
+</section>
+
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">一个HTML5+Easel.js游戏的例子</h1>
+	<div class="entry-content" itemprop="articleBody"><p>这是一个使用easeljs框架写的一个html5 RPG游戏,游戏很简单，主要是提供一个游戏的模板。下面是全部代码：
+<!--more--></p>
+
+<pre><code>&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;style&gt; 
+body {
+background-color: #000;
+}
+&lt;/style&gt;
+
+&lt;script src="lib/easeljs-0.6.0.min.js"&gt;&lt;/script&gt;
+&lt;script src="JS/Platform.js"&gt;&lt;/script&gt;
+&lt;script src="JS/Hero.js"&gt;&lt;/script&gt;
+&lt;script src="JS/Crate.js"&gt;&lt;/script&gt;
+
+&lt;script&gt;
+var KEYCODE_SPACE = 32, KEYCODE_LEFT = 37, KEYCODE_RIGHT = 39;
+var canvas, stage, lfheld, rtheld, platforms, crates, hero, heroCenter, key, door, gameTxt;
+
+var keyDn = false, play=true, dir="right";
+var loaded = 0, vy = 0, vx = 0;
+var jumping = false, inAir = true, gravity = 2;
+
+var img = new Image();
+var bgimg = new Image();
+var kimg = new Image();
+var dimg = new Image();
+
+var platformW = [300, 100, 180, 260, 260, 100, 100];
+var platformX = [40, 220, 320, 580, 700, 760, 760];
+var platformY = [460, 380, 300, 250, 550, 350, 450];
+document.onkeydown=handleKeyDown;
+document.onkeyup=handleKeyUp;
+
+function init(){
+canvas = document.getElementById("canvas"); 
+stage = new createjs.Stage(canvas);
+bgimg.onload = this.handleImageLoad;
+
+bgimg.src = "img/scene.jpg";
+
+kimg.onload = this.handleImageLoad;
+
+kimg.src="img/key.png";
+
+dimg.onload = this.handleImageLoad;
+
+dimg.src = "img/door.jpg";
+
+img.onload = this.handleImageLoad;
+
+img.src = "img/hero.png";
+}
+
+function handleImageLoad(event) {
+loaded+=1;
+if (loaded==4){
+start();
+}
+}
+
+function handleKeyDown(e) {
+if(!e){ var e = window.event; }
+switch(e.keycode) {
+case KEYCODE_LEFT: lfHeld = true;
+dir="left"; break;
+case KEYCODE_RIGHT: rtHeld = true;
+dir="right"; break;
+case KEYCODE_SPACE: jump(); break;
+}
+}
+
+
+function handleKeyUp(e) {
+if(!e){ var e = window.event; }
+switch(e.keycode) {
+case KEYCODE_LEFT: lfHeld = false;
+keyDn=false; hero.gotoAndStop("idle_h"); break;
+case KEYCODE_RIGHT: rtHeld = false;
+keyDn=false; hero.gotoAndStop("idle"); break;
+}
+}
+
+
+
+
+function start(){
+var bg = new createjs.Bitmap(bgimg);
+stage.addChild(bg);
+door = new createjs.Bitmap(dimg);
+door.x = 131;
+door.y = 384;
+stage.addChild(door);
+hero = new Hero(img);
+hero.x = 80;
+hero.y = 450;
+stage.addChild(Hero);
+
+crates = new Array();
+paltforms = new Array();
+for(i=0; i &lt; platformW.length; i++){
+var platform = new Platform(platformW[i],20);
+platforms.push(platform);
+stage.addChild(platform);
+platform.x = platformX[i];
+platform.y = platformY[i];
+}
+
+for(j=0; j &lt; 5; j++){
+var crate = new Crate();
+crates.push(crate);
+stage.addChild(crate);
+resetCrates(crate);
+}
+key = new createjs.Bitmap(kimg);
+key.x = 900;
+key.y = 490;
+stage.addChild(key);
+
+Ticker.setFPS(30);
+Ticker.addListener(window);
+stage.update();
+}
+
+function tick() {
+heroCenter = hero.y-40;
+if (play){
+vy+=gravity;
+if (inAir){
+hero.y+=vy;
+}
+if (vy&gt;15){
+vy=15;
+}
+for(i=0; i &lt; platforms.length; i++){
+if (hero.y &gt;= platforms[i].y &amp;&amp; hero.y&lt;=(platforms[i].y+platforms[i].height) &amp;&amp; hero.x&gt;
+platforms[i].x &amp;&amp; hero.x&lt;(platforms[i].
+x+platforms[i].width)){;
+hero.y=platforms[i].y;
+vy=0;
+jumping = false;
+inAir = false;
+break;
+}else{
+inAir = true;
+}
+}
+for(j=0; j &lt; crates.length; j++){
+var ct = crates[j];
+ct.y+=ct.speed;
+ct.rotation+=3;
+if (ct.y&gt;650){
+resetCrates(ct);
+}
+if (collisionHero (ct.x, ct.y, 20)){
+gameOver();}
+}
+if (collisionHero (key.x+20, key.y+20,
+20)){
+key.visible=false;
+door.visible=false;
+}
+if (collisionHero (door.x+20, door.y+40,
+20) &amp;&amp; key.visible==false){nextLevel();}
+if (lfHeld){vx = -5;}
+if (rtHeld){vx = 5;}
+
+if(lfHeld &amp;&amp; keyDn==false &amp;&amp; inAir==false)
+{
+hero.gotoAndPlay("walk_h");
+keyDn=true;
+}
+if(rtHeld &amp;&amp; keyDn==false &amp;&amp;
+inAir==false){
+hero.gotoAndPlay("walk");
+keyDn=true;
+}
+if (dir=="left" &amp;&amp; keyDn==false &amp;&amp;
+inAir==false){
+hero.gotoAndStop("idle_h");
+}
+if (dir=="right" &amp;&amp; keyDn==false &amp;&amp;
+inAir==false){
+hero.gotoAndStop("idle");
+}
+
+hero.x+=vx;
+vx=vx*0.5;
+if (hero.y&gt;610){
+gameOver();
+}
+}
+stage.update();
+}
+
+function end(){
+play=false;
+var l = crates.length;
+for (var i=0; i&lt;l; i++){
+var c = crates[i];
+resetCrates(c);
+}
+hero.visible=false;
+stage.update();
+}
+
+function nextLevel(){
+gameTxt = new createjs.Text("Well Done\n\n",
+"36px Arial", "#000");
+ gameTxt.text += "Prepare for Level 2";
+ gameTxt.textAlign = "center";
+ gameTxt.x = canvas.width / 2;
+ gameTxt.y = canvas.height / 4;
+ stage.addChild(gameTxt);
+ end();
+}
+function gameOver(){
+gameTxt = new createjs.Text("Game Over\n\n",
+"36px Arial", "#000");
+gameTxt.text += "Click to Play Again.";
+gameTxt.textAlign = "center";
+gameTxt.x = canvas.width / 2;
+gameTxt.y = canvas.height / 4;
+stage.addChild(gameTxt);
+end();
+canvas.onclick = handleClick;
+}
+
+function handleClick() {
+canvas.onclick = null;
+hero.visible=true;
+hero.x = 80;
+hero.y = 450;
+door.visible=true;
+key.visible=true;
+stage.removeChild(gameTxt);
+play=true;
+}
+function collisionHero (xPos, yPos,
+Radius){
+var distX = xPos - hero.x;
+var distY = yPos - heroCenter;
+var distR = Radius + 20;
+if (distX * distX + distY * distY &lt;=
+distR * distR){
+return true;
+}
+}
+function jump(){
+if (jumping == false &amp;&amp; inAir == false){
+if (dir=="right"){
+hero.gotoAndStop("jump");
+}else{
+hero.gotoAndStop("jump_h");
+}
+hero.y -=20;
+vy = -25;
+jumping = true;
+keyDn=false;
+}
+}
+function resetCrates(crt) {
+crt.x = canvas.width * Math.random()|0;
+crt.y = 0 - Math.random()*500;
+crt.speed = (Math.random()*5)+8;
+}
+
+
+
+
+
+&lt;/script&gt;
+
+&lt;title&gt;Game&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body onload="init();"&gt;
+
+
+
+
+&lt;canvas id="canvas" width="960px" height="600px"&gt;&lt;/canvas&gt;
+
+
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<h3 id="jsplalformjs">需要导入的js头文件Plalform.js:</h3>
+
+<pre><code> (function(window) {
+function Platform(w,h) {
+this.width = w;
+this.height = h;
+this.initialize();
+}
+
+Platform.prototype = new createjs.Container ();
+Platform.prototype.platformBody = null;
+Platform.prototype.Container_initialize = Platform.prototype.initialize;
+
+Platform.prototype.initialize = function() {
+this.Container_initialize();
+this.platformBody = new createjs.Shape();
+this.addChild(this.platformBody);
+this.makeShape();
+}
+
+Platform.prototype.makeShape = function() {
+var g = this.platformBody.graphics;
+g.drawRect(0,0,this.width,this.height);
+}
+window.Platform = Platform;
+}(window));
+</code></pre>
+
+<h3 id="herojs">Hero.js:</h3>
+
+<pre><code>(function(window) {
+function Hero(imgHero) {
+this.initialize(imgHero);
+}
+
+Hero.prototype = new createjs.BitmapAnimation();
+Hero.prototype.Animation_initialize = Hero.prototype.initialize;
+Hero.prototype.initialize = function(imgHero) {
+var spriteSheet = new createjs.SpriteSheet({
+
+images: [imgHero], 
+frames: {width: 60, height: 85, regX: 29, regY: 80}, animations: {
+walk: [0, 19, "walk"],
+idle: [20, 20],
+jump: [21, 21] } });
+
+SpriteSheetUtils
+.addFlippedFrames(spriteSheet, true, false, 
+false);
+this.Animation_initialize(spriteSheet);
+this.gotoAndStop("idle");
+}
+window.Hero = Hero;
+}(window));
+</code></pre>
+
+<h3 id="cratejs">Crate.js:</h3>
+
+<pre><code>(function(window) {
+function Crate() {
+this.initialize();
+}
+
+Crate.prototype = new createjs.Container();
+Crate.prototype.img = new Image();
+Crate.prototype.Container_initialize =
+Crate.prototype.initialize;
+Crate.prototype.initialize = function() {
+
+this.Container_initialize();
+var bmp = new createjs.Bitmap("img/crate.jpg");
+bmp.x=-20;
+bmp.y=-20;
+this.addChild(bmp);}
+window.Crate = Crate;
+}(window));
+</code></pre>
+
+<p>参考：<a href="http://stackoverflow.com/questions/16093618/html5-easel-js-game-problems">http://stackoverflow.com/questions/16093618/html5-easel-js-game-problems</a></p>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	
+	<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style_32x32">
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_tqq"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a href="http://www.jiathis.com/share?uid=1838235" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config = {data_track_clickback:'true'};
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1371541356556113" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1838235"></script>
+<!-- UY END -->
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2014 - Nicholas -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+<!-- Baidu Button BEGIN -->
+   <script type="text/javascript" id="bdshare_js" data="type=slide&amp;img=1&amp;pos=right&amp;uid=0" src="http://bdimg.share.baidu.com/static/js/bds_s_v2.js?cdnversion=389859"></script>
+   <script type="text/javascript">
+        var bds_config={"bdTop":300};
+        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+   </script>
+        <!-- Baidu Button END -->
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+			
+
+
+<!-- 
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+ -->
+
+
+
+		</div>
+	</div>
+</body>
+</html>

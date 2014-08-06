@@ -1,0 +1,464 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>javascript运行机制及其执行顺序 - 微个日光日</title>
+	<meta name="author" content="Nicholas">
+
+	
+	<meta name="description" content="Javascript运行机制及其执行顺序 在前端开发领域已有些年头了，对javascript的认识也逐渐清晰明朗，在不同时期对任何事物都有不同的了解，或程度上，或性质上。今天写一下我对javascript运行机制的一些总结。 javascript的性质：描述性脚本语言， &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="微个日光日" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://xiebaochun.github.io/blog/2014/06/27/javascript-operating-mechanisim-execution-sequnece/">
+	<link href="/public/favicon.png" rel="shortcut icon">
+	<link href="/public/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/public/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'> -->
+	<script src="/public/javascripts/jquery-1.7.2.min.js"></script>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!-- <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css"> -->
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+
+
+<body>
+
+    
+<link href="/public/stylesheets/topheader.css" media="screen, projection" rel="stylesheet" type="text/css">
+<div id="topheader">
+       <div class="info_wrap wrap">
+           <div class="info_show">
+                <i class="fl s_line"></i>
+                <ul class="my_btn fl">
+                    <li class="uname">
+                        <p>欢迎光临小站！</p>
+                    </li>
+                    <li class="fl s_line"></li>
+                </ul>
+                <ul class="friends">
+                    <li class="">
+                        <a href="#s1">友联</a>
+                         <ul class="submenu">
+                            <li><a href="http://ued.taobao.org/blog/" target="_blank">淘宝UED</a></li>
+                            <li><a href="http://www.blueidea.com/" target="_blank">蓝色理想</a></li>
+                            <li><a href="http://ux.etao.com/" target="_blank">一淘UED</a></li>
+                            <li><a href="http://cdc.tencent.com/" target="_blank">腾讯CDC</a></li>
+                            <li><a href="http://ecd.tencent.com/" target="_blank">腾讯ECD</a></li>
+                            <li><a href="http://www.ucdchina.com/" target="_blank">UCDChina</a></li>
+                            <li><a href="http://www.chinavisual.com/" target="_blank">视觉中国</a></li>
+                            <li><a href="http://www.uirss.com/" target="_blank">UIRSS</a></li>
+                        </ul>  
+                    </li>
+                     
+                </ul>
+                
+           </div>
+
+       </div>
+       <div class="logo_info_wrap">
+            <div class="logo_show wrap">
+                <div class="logo_wrap fl">
+                    <a href="http://www.juerry.com" class="logo" title="首页">首页</a>
+                </div>
+            </div>
+       </div>
+       <div id="navigation" class="wrap clearfix">
+            <div class="nav_item_wrap">
+                <ul class="nav_list clearfix">
+                    <li class="nav_item">
+                        <a id="nav_home" href="http://xiebaochun.github.io/index.html">首页</a>
+                    </li>
+                    <li class="nav_item category_shopping">
+                        <a href="">HTML前端</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >CSS3</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >游戏</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >应用</a>
+                    </li>
+                    <li class="nav_item category_second category_second_last">
+                        <a href="">插件</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="" >自习室</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="http://xiebaochun.github.io/mylab/index.html" >实验室</a>
+                    </li> 
+                    <li class="nav_item nav_item_tuan nav_item_fix posi_rale">
+                        <a id="textile" href="http://xiebaochun.github.io/textile.html">设计室</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </li>
+                    <!--<li class="nav_item nav_item_shop nav_item_fix posi_rale">
+                        <a href="" target="_blank"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    </li>-->
+                    <li class="nav_item last ">
+                        <a class="c" id="nav_resume" href="http://xiebaochun.github.io/public/index.html">博客</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+	<div style="min-width:100px;"class="container wrap">
+         
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><!--the weather pugin-->
+       <!-- <script defer src="http://julying.com/lab/weather/v3/jquery.weather.build.min.js?parentbox=body&moveArea=all&zIndex=2&move=1&drag=1&autoDrop=1&styleSize=big&style=_random&area=client&city=%E5%8C%97%E4%BA%AC"></script> -->
+<div class="profilepic">
+	<!-- <img style="width: 160px;" src="https://avatars1.githubusercontent.com/u/2996519?s=460"/> -->
+	<script src="/public/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			// $('.profilepic').append("<img src='http://mt1.baidu.com/timg?wh_rate=0&wapiknow&quality=100&size=w250&sec=0&di=309920a4e4cd155969da5e7aa66485d3&src=http%3A%2F%2Fimg.iknow.bdimg.com%2Fjctuijian%2F0626%2F6.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+</div>
+<!-- <hgroup>
+  <h1><a href="/public/">微个日光日</a></h1>
+  
+    <h2>one blog for share.</h2>
+  
+</hgroup>
+ -->
+<nav id="main-nav"><ul class="main-navigation">
+  <!-- <li><a href="http://xiebaochun.github.io">Home</a></li>
+  <li><a href="/public/blog/archives">Archives</a></li> -->
+  <!-- <li><a href="http://www.juerry.com/index.html">my lab</a></li> -->
+</ul>
+
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/xiebaochun" title="Twitter">Twitter</a>
+		
+		
+		<a class="github" href="https://github.com/xiebaochun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+<section>
+  <!-- <h1>Categories</h1> -->
+  <h1>分类</h1>
+    <ul id="category-list"><li><a href='/blog/categories/ios/'>ios (2)</a></li><li><a href='/blog/categories/other/'>other (13)</a></li><li><a href='/blog/categories/three-dot-js/'>three.js (1)</a></li><li><a href='/blog/categories/web/'>web (26)</a></li></ul>
+    <script type="text/javascript"> 
+           $("#category-list li").each(function()
+           {
+                $(this).children().attr("href","/public"+$(this).children().attr("href"));
+              
+           });
+    </script>
+</section>
+
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Javascript运行机制及其执行顺序</h1>
+	<div class="entry-content" itemprop="articleBody"><p>在前端开发领域已有些年头了，对javascript的认识也逐渐清晰明朗，在不同时期对任何事物都有不同的了解，或程度上，或性质上。今天写一下我对javascript运行机制的一些总结。</p>
+
+<p>javascript的性质：描述性脚本语言，直接由browser动态解析执行。</p>
+
+<p>那么js的解析原理和执行顺序是怎么样的呢？在此先了解一下基本的一些概念。</p>
+
+<!--more-->
+
+<h2 id="js">1、js代码块</h2>
+<p>例如：</p>
+
+<pre><code>''' javascript hello word http://xiebaochun.github.io
+
+&lt;script type="text/javascript&gt;
+console.log("this is code block1");
+&lt;/script&gt;
+&lt;script type="text/javascript&gt;
+console.log("this is code block2");
+&lt;/script&gt;
+
+'''
+</code></pre>
+
+<p>js按照代码块动态编译并执行，代码块之间相互独立，仅共享变量和方法。例如：</p>
+
+<pre><code>&lt;script type="text/javascript"&gt;  
+  console.log(str);//因为没有定义str，所以浏览器会出错，下面的不能运行  
+  console.log("this is block1");//没有运行到这里  
+  var test = "this is first varaible";  
+&lt;/script&gt;  
+&lt;script type="text/javascript"&gt;  
+  console.log("this is block2"); //这里有运行到  
+  console.log(test); //打印"我是代码块一变量"  
+&lt;/script&gt; 
+</code></pre>
+
+<p>上面的代码中代码块1中会报错，但不影响代码块2的执行，此即其独立性。代码块2可调用块1中的变量，即块间共享性。</p>
+
+<h2 id="section">2、声明式函数与赋值式函数</h2>
+<p>js中，函数分为声明式函数与赋值式函数，具体可参考我之前写的<a href="http://xiebaochun.github.io/public/blog/2013/10/09/function-declarations-vs-function-expressions/">函数声明和函数表达式</a></p>
+
+<p>这里简单举个例子：</p>
+
+<pre><code>&lt;script type="text/javascript"&gt;  
+     function Fn(){ //声明式函数  
+      
+     }  
+      
+     var Fn = function{  //赋值式函数（函数表达式）
+      
+     }  
+&lt;/script&gt; 
+</code></pre>
+
+<p>重点理解：js预编译期，声明式函数会先被提取出来，然后再按顺序执行js代码。</p>
+
+<h2 id="section-1">3、预编译期与执行期</h2>
+<p>js解析分为：预编译期（预处理）与执行期。</p>
+
+<p>重点提示：预编译期JS会对本代码块中的所有声明的变量和函数进行处理（类似与C语言的编译），但需要注意的是此时处理函数的只是声明式函数，而且变量也只是进行了声明但未进行初始化以及赋值。</p>
+
+<p>如：</p>
+
+<pre><code>&lt;script type="text/javascript"&gt;  
+ Fn();  //执行结果："执行了函数2",同名函数后者会覆盖前者  
+ function Fn(){ //函数1  
+console.log("执行了函数1");  
+ }  
+  
+ function Fn(){  //函数2  
+console.log("执行了函数2");  
+ }  
+&lt;/script&gt;
+</code></pre>
+
+<hr />
+
+<pre><code>&lt;script type="text/javascript"&gt;  
+  Fn();  //执行结果："执行了声明式函数",在预编译期声明函数及被处理了，所以即使Fn()调用函数放在声明函数前也能执行。  
+  function Fn(){ //声明式函数  
+ console.log("执行了声明式函数");  
+  }  
+  
+  var Fn = function(){  //赋值式函数  
+ console.log("执行了赋值式函数");  
+  }  
+&lt;/script&gt; 
+</code></pre>
+
+<hr />
+
+<pre><code>//代码块一  
+&lt;script type="text/javascript"&gt;  
+  console.log(str);//浏览器报错,但并没有弹出信息窗  
+&lt;/script&gt;  
+//代码块二  
+&lt;script type="text/javascript"&gt;  
+  console.log(str); //弹窗"undefined"  
+  var str = "aaa";  
+&lt;/script&gt;  
+//js在预处理期对变量进行了声明处理,但是并没有进行初始化与赋值，所以导致代码块二中的变量是unfiened的，而代码一中的变量是完全不存在&lt;span style="font-family: Arial, Helvetica, sans-serif;"&gt;的，所以浏览器报错。&lt;/span&gt; 
+</code></pre>
+
+<p>理解了上面的几个术语，相信大家对JS的运行机制已经有了个大概的印象了，现在我们来看个例子：</p>
+
+<pre><code>&lt;script type="text/javascript"&gt;  
+  Fn();  //浏览器报错:"undefined"  
+&lt;/script&gt;  
+&lt;script type="text/javascript"&gt;  
+  function Fn(){ //函数1  
+  alert("执行了函数1");  
+  }  
+&lt;/script&gt;
+</code></pre>
+
+<p>为什么运行上面的代码浏览器会报错呢？声明函数不是会在预处理期就会被处理了吗，怎么还会找不到Fn()函数呢？其实这是一个理解误点，我们上面说了JS引擎是按照代码块来顺序执行的，其实完整的说应该是按照代码块来进行预处理和执行的，也就是说预处理的只是执行到的代码块的声明函数和变量，而对于还未加载的代码块，是没法进行预处理的，这也是边编译边处理的核心所在。</p>
+
+<h2 id="section-2">总结：</h2>
+
+<pre><code>  step 1.  读入第一个代码块。
+  step 2.  做语法分析，有错则报语法错误（比如括号不匹配等），并跳转到step5。
+  step 3.  对var变量和function定义做“预编译处理”（永远不会报错的，因为只解析正确的声明）。
+  step 4.  执行代码段，有错则报错（比如变量未定义）。
+  step 5.  如果还有下一个代码段，则读入下一个代码段，重复step2。
+  step6. 结束。
+</code></pre>
+
+<p>而根据HTML文档流的执行顺序，需要在页面元素渲染前执行的js代码应该放在&lt;body&gt;前面的<script>代码块中，而需要在页面元素加载完后的js放在&lt;/body&gt;元素后面，body标签的onload事件是在最后执行的。</script></p>
+
+<pre><code>&lt;script type="text/javascript"&gt;  
+alert("first");  
+function Fn(){  
+alert("third");  
+}  
+&lt;/script&gt;  
+&lt;body onload="Fn()"&gt;  
+  
+&lt;/body&gt;  
+&lt;script type="text/javascript"&gt;  
+alert("second");  
+&lt;/script&gt;  
+</code></pre>
+
+<p>如果有什么问题可在留言板中留言，我会第一时间回答。</p>
+
+<p>下面是测试数学公式：</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+
+\begin{align*}
+  & \phi(x,y) = \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right)
+  = \sum_{i=1}^n \sum_{j=1}^n x_i y_j \phi(e_i, e_j) = \\
+  & (x_1, \ldots, x_n) \left( \begin{array}{ccc}
+      \phi(e_1, e_1) & \cdots & \phi(e_1, e_n) \\
+      \vdots & \ddots & \vdots \\
+      \phi(e_n, e_1) & \cdots & \phi(e_n, e_n)
+    \end{array} \right)
+  \left( \begin{array}{c}
+      y_1 \\
+      \vdots \\
+      y_n
+    \end{array} \right)
+\end{align*}
+ %]]></script>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	
+	<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style_32x32">
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_tqq"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a href="http://www.jiathis.com/share?uid=1838235" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config = {data_track_clickback:'true'};
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1371541356556113" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1838235"></script>
+<!-- UY END -->
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2014 - Nicholas -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+<!-- Baidu Button BEGIN -->
+   <script type="text/javascript" id="bdshare_js" data="type=slide&amp;img=1&amp;pos=right&amp;uid=0" src="http://bdimg.share.baidu.com/static/js/bds_s_v2.js?cdnversion=389859"></script>
+   <script type="text/javascript">
+        var bds_config={"bdTop":300};
+        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+   </script>
+        <!-- Baidu Button END -->
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+			
+
+
+<!-- 
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+ -->
+
+
+
+		</div>
+	</div>
+</body>
+</html>

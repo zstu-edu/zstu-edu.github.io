@@ -1,0 +1,340 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>jQuery 入门总结 - 微个日光日</title>
+	<meta name="author" content="Nicholas">
+
+	
+	<meta name="description" content="jQuery 入门总结 今天放假，没地方可去，给新手推荐点 jQuery 教程吧。 1、《15天学会jQuery》这本书间的很基础，很适合于新手，大致从基础讲了一些 什么是jQuery 以及jQuery的使用和常用函数。
+麻雀虽小五脏俱全。 下载地址：http://julying.com/ &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="微个日光日" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://xiebaochun.github.io/blog/2013/09/24/jquery-tutorials-sumary/">
+	<link href="/public/favicon.png" rel="shortcut icon">
+	<link href="/public/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/public/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'> -->
+	<script src="/public/javascripts/jquery-1.7.2.min.js"></script>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!-- <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css"> -->
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+
+
+<body>
+
+    
+<link href="/public/stylesheets/topheader.css" media="screen, projection" rel="stylesheet" type="text/css">
+<div id="topheader">
+       <div class="info_wrap wrap">
+           <div class="info_show">
+                <i class="fl s_line"></i>
+                <ul class="my_btn fl">
+                    <li class="uname">
+                        <p>欢迎光临小站！</p>
+                    </li>
+                    <li class="fl s_line"></li>
+                </ul>
+                <ul class="friends">
+                    <li class="">
+                        <a href="#s1">友联</a>
+                         <ul class="submenu">
+                            <li><a href="http://ued.taobao.org/blog/" target="_blank">淘宝UED</a></li>
+                            <li><a href="http://www.blueidea.com/" target="_blank">蓝色理想</a></li>
+                            <li><a href="http://ux.etao.com/" target="_blank">一淘UED</a></li>
+                            <li><a href="http://cdc.tencent.com/" target="_blank">腾讯CDC</a></li>
+                            <li><a href="http://ecd.tencent.com/" target="_blank">腾讯ECD</a></li>
+                            <li><a href="http://www.ucdchina.com/" target="_blank">UCDChina</a></li>
+                            <li><a href="http://www.chinavisual.com/" target="_blank">视觉中国</a></li>
+                            <li><a href="http://www.uirss.com/" target="_blank">UIRSS</a></li>
+                        </ul>  
+                    </li>
+                     
+                </ul>
+                
+           </div>
+
+       </div>
+       <div class="logo_info_wrap">
+            <div class="logo_show wrap">
+                <div class="logo_wrap fl">
+                    <a href="http://www.juerry.com" class="logo" title="首页">首页</a>
+                </div>
+            </div>
+       </div>
+       <div id="navigation" class="wrap clearfix">
+            <div class="nav_item_wrap">
+                <ul class="nav_list clearfix">
+                    <li class="nav_item">
+                        <a id="nav_home" href="http://xiebaochun.github.io/index.html">首页</a>
+                    </li>
+                    <li class="nav_item category_shopping">
+                        <a href="">HTML前端</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >CSS3</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >游戏</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >应用</a>
+                    </li>
+                    <li class="nav_item category_second category_second_last">
+                        <a href="">插件</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="" >自习室</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="http://xiebaochun.github.io/mylab/index.html" >实验室</a>
+                    </li> 
+                    <li class="nav_item nav_item_tuan nav_item_fix posi_rale">
+                        <a id="textile" href="http://xiebaochun.github.io/textile.html">设计室</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </li>
+                    <!--<li class="nav_item nav_item_shop nav_item_fix posi_rale">
+                        <a href="" target="_blank"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    </li>-->
+                    <li class="nav_item last ">
+                        <a class="c" id="nav_resume" href="http://xiebaochun.github.io/public/index.html">博客</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+	<div style="min-width:100px;"class="container wrap">
+         
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><!--the weather pugin-->
+       <!-- <script defer src="http://julying.com/lab/weather/v3/jquery.weather.build.min.js?parentbox=body&moveArea=all&zIndex=2&move=1&drag=1&autoDrop=1&styleSize=big&style=_random&area=client&city=%E5%8C%97%E4%BA%AC"></script> -->
+<div class="profilepic">
+	<!-- <img style="width: 160px;" src="https://avatars1.githubusercontent.com/u/2996519?s=460"/> -->
+	<script src="/public/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			// $('.profilepic').append("<img src='http://mt1.baidu.com/timg?wh_rate=0&wapiknow&quality=100&size=w250&sec=0&di=309920a4e4cd155969da5e7aa66485d3&src=http%3A%2F%2Fimg.iknow.bdimg.com%2Fjctuijian%2F0626%2F6.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+</div>
+<!-- <hgroup>
+  <h1><a href="/public/">微个日光日</a></h1>
+  
+    <h2>one blog for share.</h2>
+  
+</hgroup>
+ -->
+<nav id="main-nav"><ul class="main-navigation">
+  <!-- <li><a href="http://xiebaochun.github.io">Home</a></li>
+  <li><a href="/public/blog/archives">Archives</a></li> -->
+  <!-- <li><a href="http://www.juerry.com/index.html">my lab</a></li> -->
+</ul>
+
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/xiebaochun" title="Twitter">Twitter</a>
+		
+		
+		<a class="github" href="https://github.com/xiebaochun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+<section>
+  <!-- <h1>Categories</h1> -->
+  <h1>分类</h1>
+    <ul id="category-list"><li><a href='/blog/categories/ios/'>ios (2)</a></li><li><a href='/blog/categories/other/'>other (13)</a></li><li><a href='/blog/categories/three-dot-js/'>three.js (1)</a></li><li><a href='/blog/categories/web/'>web (26)</a></li></ul>
+    <script type="text/javascript"> 
+           $("#category-list li").each(function()
+           {
+                $(this).children().attr("href","/public"+$(this).children().attr("href"));
+              
+           });
+    </script>
+</section>
+
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">jQuery 入门总结</h1>
+	<div class="entry-content" itemprop="articleBody"><p>今天放假，没地方可去，给新手推荐点 jQuery 教程吧。</p>
+
+<h4 id="jquery-jquery-jquery">1、《15天学会jQuery》这本书间的很基础，很适合于新手，大致从基础讲了一些 什么是jQuery 以及jQuery的使用和常用函数。</h4>
+<p>麻雀虽小五脏俱全。
+<!--more-->
+下载地址：<a href="http://julying.com/blog/uploadfile/2011/0403/20110403024320212.rar">http://julying.com/blog/uploadfile/2011/0403/20110403024320212.rar</a></p>
+
+<h3 id="jquery-142">2、《jQuery 教程、帮助文档1.4.2》。</h3>
+
+<p>学习，从模仿开始。如果你想把jQuery 学好，那么你必须熟记常用函数，你要知道 jQuery 能做什么，不能做什么。
+老手偶尔用这个查一下函数的使用方法，
+新手应该反复练习教程中列举的所有函数，做到而能详熟。</p>
+
+<p>下载地址： <a href="http://julying.com/blog/uploadfile/2011/0403/20110403052022136.chm">http://julying.com/blog/uploadfile/2011/0403/20110403052022136.chm</a></p>
+
+<h3 id="jquery-">3、学完这两个，你就可以模仿、研究别人的 jQuery 插件了，甚至自己开发插件。</h3>
+
+<h3 id="jquery--jquery">4、如果你用 jQuery 比较少，是一个后台程序员，那么你按照上面的步骤简单学习 jQuery就可以了；</h3>
+<p>如果你想学好 jQuery ，做一个厉害的前端攻城师，我建议你先学习一本 javascript 教程，再来学 jQuery。 因为 jQuery 仅仅是 javascript 的一个函数库，而已。
+世间万事万物，都是需要一个根、一个基础。
+特别是计算机编程，基础越扎实，以后的成就越高，就会很容易突破少有瓶颈，这也是 一个 三流大学 和一个 一流大学 毕业生之间的重要差别之一。</p>
+
+<h3 id="section">5、 在新手看来，总是不断涌现很多新技术。</h3>
+<p>在高手看来，新技术不过是就技术的延伸、多态、继承。</p>
+
+<h3 id="section-1">6、很多人，都很迫切急于求成。</h3>
+<p>好像各行各业都是，整个中国都特别的浮躁，大家都特别的急功近利。
+然、每个人心中都有一个江湖。
+写代码就像练武功，古代的那些武者，三十年磨一剑。
+对于新手，我要说的就是，低头做事，抬头看路，只问耕耘、不问收获，踏踏实实做人、做事，三年之后，武功必成。
+如果你勤勤恳恳努力三年，背会jQuery绝大多数函数，理解方法，熟记 jQuery 源代码设计思路，想进 腾讯，百度这种级别公司是相当容易的。</p>
+
+<h3 id="section-2">7、大道至简，知易行难</h3>
+<p>编写代码到最后就会上升到“禅”的境界，正所谓，世间大道、殊途同归。</p>
+
+<h3 id="javascript">8、推荐一篇文章吧：《悟透Javascript》</h3>
+<p>下载地址：<a href="http://julying.com/blog/uploadfile/2011/0403/20110403054528605.pdf">http://julying.com/blog/uploadfile/2011/0403/20110403054528605.pdf</a></p>
+
+<p>原文地址：<a href="http://julying.com/blog/tutorial-of-jquery-point-summary/">http://julying.com/blog/tutorial-of-jquery-point-summary/</a></p>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	
+	<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style_32x32">
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_tqq"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a href="http://www.jiathis.com/share?uid=1838235" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config = {data_track_clickback:'true'};
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1371541356556113" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1838235"></script>
+<!-- UY END -->
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2014 - Nicholas -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+<!-- Baidu Button BEGIN -->
+   <script type="text/javascript" id="bdshare_js" data="type=slide&amp;img=1&amp;pos=right&amp;uid=0" src="http://bdimg.share.baidu.com/static/js/bds_s_v2.js?cdnversion=389859"></script>
+   <script type="text/javascript">
+        var bds_config={"bdTop":300};
+        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+   </script>
+        <!-- Baidu Button END -->
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+			
+
+
+<!-- 
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+ -->
+
+
+
+		</div>
+	</div>
+</body>
+</html>

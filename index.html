@@ -1,0 +1,755 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>微个日光日</title>
+	<meta name="author" content="Nicholas">
+
+	
+	<meta name="description" content="Jul 1st, 2014 three.js rigging_and_skeletal_animation_in_three.js JavaScript
+and stuff
+github.com/roman01la
+Rigging and skeletal animation in Three. &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="微个日光日" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://xiebaochun.github.io/">
+	<link href="/public/favicon.png" rel="shortcut icon">
+	<link href="/public/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/public/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'> -->
+	<script src="/public/javascripts/jquery-1.7.2.min.js"></script>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!-- <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css"> -->
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+
+
+<body>
+
+    
+<link href="/public/stylesheets/topheader.css" media="screen, projection" rel="stylesheet" type="text/css">
+<div id="topheader">
+       <div class="info_wrap wrap">
+           <div class="info_show">
+                <i class="fl s_line"></i>
+                <ul class="my_btn fl">
+                    <li class="uname">
+                        <p>欢迎光临小站！</p>
+                    </li>
+                    <li class="fl s_line"></li>
+                </ul>
+                <ul class="friends">
+                    <li class="">
+                        <a href="#s1">友联</a>
+                         <ul class="submenu">
+                            <li><a href="http://ued.taobao.org/blog/" target="_blank">淘宝UED</a></li>
+                            <li><a href="http://www.blueidea.com/" target="_blank">蓝色理想</a></li>
+                            <li><a href="http://ux.etao.com/" target="_blank">一淘UED</a></li>
+                            <li><a href="http://cdc.tencent.com/" target="_blank">腾讯CDC</a></li>
+                            <li><a href="http://ecd.tencent.com/" target="_blank">腾讯ECD</a></li>
+                            <li><a href="http://www.ucdchina.com/" target="_blank">UCDChina</a></li>
+                            <li><a href="http://www.chinavisual.com/" target="_blank">视觉中国</a></li>
+                            <li><a href="http://www.uirss.com/" target="_blank">UIRSS</a></li>
+                        </ul>  
+                    </li>
+                     
+                </ul>
+                
+           </div>
+
+       </div>
+       <div class="logo_info_wrap">
+            <div class="logo_show wrap">
+                <div class="logo_wrap fl">
+                    <a href="http://www.xiebaochun.github.com" class="logo" title="首页">首页</a>
+                </div>
+            </div>
+       </div>
+       <div id="navigation" class="wrap clearfix">
+            <div class="nav_item_wrap">
+                <ul class="nav_list clearfix">
+                    <li class="nav_item">
+                        <a id="nav_home" href="http://xiebaochun.github.io/index.html">首页</a>
+                    </li>
+                    <li class="nav_item category_shopping">
+                        <a href="">HTML前端</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >CSS3</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >游戏</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >应用</a>
+                    </li>
+                    <li class="nav_item category_second category_second_last">
+                        <a href="">插件</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="" >自习室</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="http://xiebaochun.github.io/mylab/index.html" >实验室</a>
+                    </li> 
+                    <li class="nav_item nav_item_tuan nav_item_fix posi_rale">
+                        <a id="textile" href="http://xiebaochun.github.io/textile.html">设计室</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </li>
+                    <!--<li class="nav_item nav_item_shop nav_item_fix posi_rale">
+                        <a href="" target="_blank"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    </li>-->
+                    <li class="nav_item last ">
+                        <a class="c" id="nav_resume" href="http://xiebaochun.github.io/public/index.html">博客</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+	<div style="min-width:100px;"class="container wrap">
+         
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><!--the weather pugin-->
+       <!-- <script defer src="http://julying.com/lab/weather/v3/jquery.weather.build.min.js?parentbox=body&moveArea=all&zIndex=2&move=1&drag=1&autoDrop=1&styleSize=big&style=_random&area=client&city=%E5%8C%97%E4%BA%AC"></script> -->
+<div class="profilepic">
+	<!-- <img style="width: 160px;" src="https://avatars1.githubusercontent.com/u/2996519?s=460"/> -->
+	<script src="/public/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			// $('.profilepic').append("<img src='http://mt1.baidu.com/timg?wh_rate=0&wapiknow&quality=100&size=w250&sec=0&di=309920a4e4cd155969da5e7aa66485d3&src=http%3A%2F%2Fimg.iknow.bdimg.com%2Fjctuijian%2F0626%2F6.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+</div>
+<!-- <hgroup>
+  <h1><a href="/public/">微个日光日</a></h1>
+  
+    <h2>one blog for share.</h2>
+  
+</hgroup>
+ -->
+<nav id="main-nav"><ul class="main-navigation">
+  <!-- <li><a href="http://xiebaochun.github.io">Home</a></li>
+  <li><a href="/public/blog/archives">Archives</a></li> -->
+  <!-- <li><a href="http://www.juerry.com/index.html">my lab</a></li> -->
+</ul>
+
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/xiebaochun" title="Twitter">Twitter</a>
+		
+		
+		<a class="github" href="https://github.com/xiebaochun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+<section>
+  <!-- <h1>Categories</h1> -->
+  <h1>分类</h1>
+    <ul id="category-list"><li><a href='/blog/categories/ios/'>ios (2)</a></li><li><a href='/blog/categories/other/'>other (13)</a></li><li><a href='/blog/categories/three-dot-js/'>three.js (1)</a></li><li><a href='/blog/categories/web/'>web (26)</a></li></ul>
+    <script type="text/javascript"> 
+           $("#category-list li").each(function()
+           {
+                $(this).children().attr("href","/public"+$(this).children().attr("href"));
+              
+           });
+    </script>
+</section>
+
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner">
+<div itemscope itemtype="http://schema.org/Blog">
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-01T11:16:00+08:00" data-updated="true" itemprop="datePublished">Jul 1<span>st</span>, 2014</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/public/blog/categories/three-dot-js/'>three.js</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/public/blog/2014/07/01/rigging-and-skeletal-animation-in-three-dot-js/" itemprop="url">rigging_and_skeletal_animation_in_three.js</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>JavaScript
+and stuff
+github.com/roman01la
+Rigging and skeletal animation in Three.js
+Update: Do not move/rotate the armature, this will cause geometry stretching. Align the first bone using its tail/head position
+Three.js supports some basic rigging and skeletal animation. The simplest way to achieve a nice character animation is to make it in appropriate software first. This article is going to be about Blender rigging workflow and how to do the best for a clean Three.js export.
+Here’s a very nice and detailed article about rigging and animating in Blender with further exporting and scene setup in Three.js. Actually I got this thing after reading the article. Here’s my, actually same, workflow, but with some tips and additions.
+That’s what we’ll get when all thing will be done.</p>
+
+<p>Lets create a simple shape. You’ll need Blender itself and exporter script, check the article about external models to find out.
+Create a mesh
+Remove camera and light from the scene and extrude the box. Select it with RMB, go into Edit mode with Tab, hit A to unselect the object, hit Ctrl+Tab and select Face select mode. Select one face with RMB, hit E, hold Ctrl and drag the mouse to extrude the face. Drag it until you get another cube in same size. Click LMB and release Ctrl key. Do the process for one more time to make another cube.</p>
+
+<p>Create an armature
+Now, add an armature. Hit Z to go to Wireframe view mode. Hit Shift+A, select Armature -&gt; Single Bone, this will add a bone. Rotate and position the bone as shown below. Position the bone using its tail/head position. Select armature, go to Edit mode, select bone, hit E, hold Ctrl and drag to create a new bone. Create another two bones, so you’ll get four bones armature.</p>
+
+<p>Create and assign vertex groups
+So here we have a mesh and an armature, the next step is to assign the geometry to the appropriate bones. It can be done in two ways: automatic assignment and manual. I prefer manual, you can choose assignment polygons more precisely.
+Each set of polys is called a vertex group, and the name of the group should be exact same like the name of the bone we want assign to. Usually, in Blender, the first bone name is Bone, the second one is Bone.001, the next is Bone.002 and so on.
+Select the mesh and go to Edit mode. Go to Object Data tab in the Properties panel. Hit + under the Vertex Groups list to add a new group, call it Bone.001, this is the second bone of the armature. Choose Face select mode and select all five faces of the first cube with Shift+RMB. Once you’ve done make sure that the right vertex group is chosen, hit Assign button under Vertex Groups. Now the first cube geometry will be transformed with its bone. You can check the assignment by selecting a vertex group and hit Select button, if there are extra faces, select only them and hit Remove button. Repeat the process for the rest of the mesh.
+Tip: For more complex geometry to create nearby vertex groups and make sure that there are no same faces assigned to both, create the first vertex group, select it in the list, hit select to select its faces, select all faces of the second vertex group which are the nearest to first group faces, make sure the first vertex group is selected, hit Deselect and you’ll get edge selection which is a boundary between two groups. Now you create the second vertex group based on that line.
+Tip: When the armature is about to have a static geometry, read further about it, it also must be assigned to its bone, otherwise it won’t be visible. So, we need to select all the faces that are not belong to any other vertex groups. The trick here is to select all groups (choose group in the list and hit Select) and then hit Ctrl+I which states for Inverse Selection, selected faces can be assigned to static vertex group.</p>
+
+<p>There’s one more action required to finish with assignment. We need to parent the mesh to the armature. Go to Object mode, select mesh, go to Object tab in the Properties panel and hit Parent box under relations section, select Armature object. Hit the box below and select Armature from the list. If the mesh has changed its position, align it back to the bones.
+Animate the armature
+The armature is ready for animation. Make sure the mark is in the first frame position on the timeline. Select the armature and go to Pose mode (Ctrl+Tab), select the bone, hit I to add a keyframe and choose LocRotScale. Move the mark to frame 10 and move the bone, add another keyframe. Do it with all bones and play with position and time, except the first one. The first bone is the support bone and it should be static. Do not change its position, just add a keyframe in the first frame. This is useful when you are doing a hand animation, for example, where only fingers are moving and the hand itself should be static. Select the last keyframe of the animation and hit E to set the end of the anim. Three.js will play the animation from the first to the last defined keyframes. That means if you have a gap before the first keyframe, it won’t be played. Just add another keyframe in the first frame position to make that gap playable in Three.js.</p>
+
+<p>In the article I’ve mentioned at the beginning there’s a section about removing unused actions of the animation, to make sure Three.js will play the right one. This is a good point, but is not required if you are making all stuff carefully. But still, read about it.
+Export the model
+If everything is ok and you are happy with your skeleton and anim, it’s time to export things. Make sure you have installed exporter script. Select both mesh and armature. Go to File -&gt; Export -&gt; Three.js. Enable the next options in the Export Three.js section: skinning, bones and skeletal animation. Export the model.
+Setup Three.js scene
+Use a scene setup from one of the previous articles, adjust light and camera position.
+We need a loader to load the model, create SkinnedMesh instance using model geometry and materials and enable skinning on its materials.
+var loader = new THREE.JSONLoader();
+var animation;</p>
+
+<p>// load the model and create everything
+loader.load(‘model.js’, function (geometry, materials) {
+  var mesh, material;</p>
+
+<p>// create a mesh
+  mesh = new THREE.SkinnedMesh(
+    geometry,
+    new THREE.MeshFaceMaterial(materials)
+  );</p>
+
+<p>// define materials collection
+  material = mesh.material.materials;</p>
+
+<p>// enable skinning
+  for (var i = 0; i &lt; materials.length; i++) {
+    var mat = materials[i];</p>
+
+<pre><code>mat.skinning = true;   }
+</code></pre>
+
+<p>scene.add(mesh);</p>
+
+<p>// add animation data to the animation handler
+  THREE.AnimationHandler.add(mesh.geometry.animation);</p>
+
+<p>// create animation
+  animation = new THREE.Animation(
+    mesh,
+    ‘ArmatureAction’,
+    THREE.AnimationHandler.CATMULLROM
+  );</p>
+
+<p>// play the anim
+  animation.play();</p>
+
+<p>render();
+});</p>
+
+<p>function render() {
+  animation.update(.01);
+  renderer.render(scene, camera);
+  requestAnimationFrame(render);
+}
+9 months ago
+#webgl  #threejs  #blender  #rigging  #skeletal animation
+8 notes</p>
+
+<p>mashabatsea likes this</p>
+
+<p>jhclaura likes this</p>
+
+<p>laugharne-me reblogged this from roman01la</p>
+
+<p>recto-ver-so likes this</p>
+
+<p>oivoodoo likes this</p>
+
+<p>paraknight likes this</p>
+
+<p>prostheticknowledge likes this</p>
+
+<p>datahacker likes this</p>
+
+<p>roman01la posted this
+Ashley theme by Jxnblk</p>
+
+		
+		
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-30T14:53:00+08:00" data-updated="true" itemprop="datePublished">Jun 30<span>th</span>, 2014</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/public/blog/categories/web/'>web</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/public/blog/2014/06/30/webgl-with-three-dot-js-basics/" itemprop="url">webgl_with_three.js:basicst(three.js基础入门）</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>先来一段废话：3D graphics in the browser have been a hot topic ever since it was first introduced. But if you were to create your apps using plain WebGL, it would take ages. This is exactly why some really useful libraries have recently came about. Three.js is one of the most popular, and in this series I will show you how best to use it in order to create stunning 3D experiences for your users.</p>
+
+<p>Before we begin, I do expect you to have a basic understanding of 3D space before you start reading this tutorial, as I won’t be explaining stuff like coordinates, vectors, etc.</p>
+
+
+		
+		<a href="/public/blog/2014/06/30/webgl-with-three-dot-js-basics/" class="more-link">继续阅读&rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-29T21:22:00+08:00" data-updated="true" itemprop="datePublished">Jun 29<span>th</span>, 2014</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/public/blog/categories/web/'>web</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/public/blog/2014/06/29/webgl-with-the-three-dot-js-models-and-animation/" itemprop="url">webgl之three.js模型和动画</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>自从3d图形被引入浏览器，浏览器中的3D图形开发就变成一个热门的话题。但是如果你直接使用原始的webgl api来开发应用将会很费劲。因此诞生了很多与之相关的类库。three.js是最流行的一个，在此文中我将介绍它。</p>
+
+<p><a href="http://xiebaochun.github.io/mylab/webgl/webgl-models-animation/final/">在线演示</a> <a href="https://github.com/xiebaochun/webgl-models-animation">源码下载</a></p>
+
+<p>在开始本文之前，我默认你已经具有了3D空间的基本知识，比如坐标和向量等。
+
+		
+		<a href="/public/blog/2014/06/29/webgl-with-the-three-dot-js-models-and-animation/" class="more-link">继续阅读&rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-27T19:59:00+08:00" data-updated="true" itemprop="datePublished">Jun 27<span>th</span>, 2014</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/public/blog/categories/web/'>web</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/public/blog/2014/06/27/javascript-operating-mechanisim-execution-sequnece/" itemprop="url">Javascript运行机制及其执行顺序</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>在前端开发领域已有些年头了，对javascript的认识也逐渐清晰明朗，在不同时期对任何事物都有不同的了解，或程度上，或性质上。今天写一下我对javascript运行机制的一些总结。</p>
+
+<p>javascript的性质：描述性脚本语言，直接由browser动态解析执行。</p>
+
+<p>那么js的解析原理和执行顺序是怎么样的呢？在此先了解一下基本的一些概念。</p>
+
+
+		
+		<a href="/public/blog/2014/06/27/javascript-operating-mechanisim-execution-sequnece/" class="more-link">继续阅读&rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-11T14:00:00+08:00" data-updated="true" itemprop="datePublished">Nov 11<span>th</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/public/blog/categories/web/'>web</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/public/blog/2013/11/11/e-commerce-website-designs-2013/" itemprop="url">2013电商网站设计（E-Commerce Website Designs 2013）</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p><img src="http://www.script-tutorials.com/demos/365/thumb.png" alt="" /></p>
+
+<p>原文地址：<a href="http://www.script-tutorials.com/e-commerce-website-designs-2013/">http://www.script-tutorials.com/e-commerce-website-designs-2013/</a></p>
+
+<p>译者：微个日光日</p>
+
+
+		
+		<a href="/public/blog/2013/11/11/e-commerce-website-designs-2013/" class="more-link">继续阅读&rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-04T14:39:00+08:00" data-updated="true" itemprop="datePublished">Nov 4<span>th</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/public/blog/categories/web/'>web</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/public/blog/2013/11/04/whirling-css3-dropdown-menu/" itemprop="url">制作旋转CSS3下拉菜单（whirling CSS3 Dropdown Menu）</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p><img src="http://www.script-tutorials.com/demos/364/thumb.png" alt="" /></p>
+
+<p>原文地址：<a href="http://www.script-tutorials.com/whirling-dropdown-menu/">http://www.script-tutorials.com/whirling-dropdown-menu/</a></p>
+
+<p>译者：<a href="http://xiebaochun.github.io/">微个日光日</a></p>
+
+
+		
+		<a href="/public/blog/2013/11/04/whirling-css3-dropdown-menu/" class="more-link">继续阅读&rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-30T16:54:00+08:00" data-updated="true" itemprop="datePublished">Oct 30<span>th</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/public/blog/categories/web/'>web</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/public/blog/2013/10/30/learning-sites-collection/" itemprop="url">（学习网址大全）learning Sites Collection</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>更新by：me</p>
+
+
+		
+		<a href="/public/blog/2013/10/30/learning-sites-collection/" class="more-link">继续阅读&rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-30T11:02:00+08:00" data-updated="true" itemprop="datePublished">Oct 30<span>th</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/public/blog/categories/web/'>web</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/public/blog/2013/10/30/html5-audio-player-with-playlist/" itemprop="url">制作HTML5音频播放器（HTML5 Audio Player With Playlist）</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p><img src="https://raw.githubusercontent.com/xiebaochun/juerryimages/master/html5/audioplayer/bg.jpg" alt="" /></p>
+
+<p>也许对于很多人来说这是人生中第一次制作音频播放器。通常你会选择一个可用的播放器，一般是flash播放器。但是你也许已经发现，flash播放器在移动设备（如iPhone/Android)上不能很好的工作。今天，我将教你如何使用HTML5技术制作你自己的音频播放器。这个播放器包含了以下元素：title(标题），author(作家），cover（封面），基本的控制（播放/暂停，前进/后退），两个滑动条（jQuery UI sliders）:音量滑动条和一个歌曲跟踪器(song tracker)，还有一个歌曲列表。
+
+		
+		<a href="/public/blog/2013/10/30/html5-audio-player-with-playlist/" class="more-link">继续阅读&rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-22T17:13:00+08:00" data-updated="true" itemprop="datePublished">Oct 22<span>nd</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/public/blog/categories/web/'>web</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/public/blog/2013/10/22/unifying-touch-and-mouse-how-pointer-envents-will-make-cross-browser-touch-support-easy/" itemprop="url">Unifying Touch and Mouse:how Pointer Envents Will Make Cross-browser Touch Support Easy</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p><img src="http://blogs.msdn.com/cfs-file.ashx/__key/communityserver-blogs-components-weblogfiles/00-00-01-10-46-metablogapi/4300.clip_5F00_image001_5F00_thumb_5F00_4E7D303E.png" alt="" /></p>
+
+<p>原文地址：<a href="http://blogs.msdn.com/b/davrous/archive/2013/10/21/handling-touch-in-your-html5-apps-thanks-to-the-pointer-events-of-ie10-and-windows-8.aspx">http://blogs.msdn.com/b/davrous/archive/2013/10/21/handling-touch-in-your-html5-apps-thanks-to-the-pointer-events-of-ie10-and-windows-8.aspx</a></p>
+
+<p>我经常听到这样的问题”手机和平板上这么多触控功能，我要从哪开始着手研究”,还有“开发一个触控输入最简单的方法是什么？”答案是：“很复杂。”</p>
+
+
+		
+		<a href="/public/blog/2013/10/22/unifying-touch-and-mouse-how-pointer-envents-will-make-cross-browser-touch-support-easy/" class="more-link">继续阅读&rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-17T14:37:00+08:00" data-updated="true" itemprop="datePublished">Oct 17<span>th</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/public/blog/categories/web/'>web</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/public/blog/2013/10/17/getting-cursor-position-in-a-canvas-without-jquery/" itemprop="url">获取Canvas里的鼠标位置，不使用jquery</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p><img src="data:image/jpeg;base64,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" alt="" /></p>
+
+<p>在写canvas游戏时，为了获取鼠标在canvas里的位置信息，这里有两种方法。
+
+		
+		<a href="/public/blog/2013/10/17/getting-cursor-position-in-a-canvas-without-jquery/" class="more-link">继续阅读&rarr;</a>
+	</div>
+
+</article>
+
+</div>
+<nav id="pagenavi">
+    
+    
+        <a href="/public/blog/page/2/" class="next">Next</a>
+    
+    <div class="center"><a href="/public/blog/archives">Blog Archives</a></div>
+</nav></div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2014 - Nicholas -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+<!-- Baidu Button BEGIN -->
+   <script type="text/javascript" id="bdshare_js" data="type=slide&amp;img=1&amp;pos=right&amp;uid=0" src="http://bdimg.share.baidu.com/static/js/bds_s_v2.js?cdnversion=389859"></script>
+   <script type="text/javascript">
+        var bds_config={"bdTop":300};
+        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+   </script>
+        <!-- Baidu Button END -->
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+			
+
+
+<!-- 
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+ -->
+
+
+
+		</div>
+	</div>
+</body>
+</html>

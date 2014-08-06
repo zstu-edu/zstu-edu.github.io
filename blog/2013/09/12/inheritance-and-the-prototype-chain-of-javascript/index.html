@@ -1,0 +1,427 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>javascript:继承和原型链 - 微个日光日</title>
+	<meta name="author" content="Nicholas">
+
+	
+	<meta name="description" content="Javascript:继承和原型链 JavaScript：继承和原型链（译） 原文：Inheritance and the prototype chain 译者：youngsterxyf 对于具备基于类的编程语言（如Java或C++）经验的程序员来说，JavaScript有点混乱， &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="微个日光日" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://xiebaochun.github.io/blog/2013/09/12/inheritance-and-the-prototype-chain-of-javascript/">
+	<link href="/public/favicon.png" rel="shortcut icon">
+	<link href="/public/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/public/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'> -->
+	<script src="/public/javascripts/jquery-1.7.2.min.js"></script>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!-- <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css"> -->
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+
+
+<body>
+
+    
+<link href="/public/stylesheets/topheader.css" media="screen, projection" rel="stylesheet" type="text/css">
+<div id="topheader">
+       <div class="info_wrap wrap">
+           <div class="info_show">
+                <i class="fl s_line"></i>
+                <ul class="my_btn fl">
+                    <li class="uname">
+                        <p>欢迎光临小站！</p>
+                    </li>
+                    <li class="fl s_line"></li>
+                </ul>
+                <ul class="friends">
+                    <li class="">
+                        <a href="#s1">友联</a>
+                         <ul class="submenu">
+                            <li><a href="http://ued.taobao.org/blog/" target="_blank">淘宝UED</a></li>
+                            <li><a href="http://www.blueidea.com/" target="_blank">蓝色理想</a></li>
+                            <li><a href="http://ux.etao.com/" target="_blank">一淘UED</a></li>
+                            <li><a href="http://cdc.tencent.com/" target="_blank">腾讯CDC</a></li>
+                            <li><a href="http://ecd.tencent.com/" target="_blank">腾讯ECD</a></li>
+                            <li><a href="http://www.ucdchina.com/" target="_blank">UCDChina</a></li>
+                            <li><a href="http://www.chinavisual.com/" target="_blank">视觉中国</a></li>
+                            <li><a href="http://www.uirss.com/" target="_blank">UIRSS</a></li>
+                        </ul>  
+                    </li>
+                     
+                </ul>
+                
+           </div>
+
+       </div>
+       <div class="logo_info_wrap">
+            <div class="logo_show wrap">
+                <div class="logo_wrap fl">
+                    <a href="http://www.juerry.com" class="logo" title="首页">首页</a>
+                </div>
+            </div>
+       </div>
+       <div id="navigation" class="wrap clearfix">
+            <div class="nav_item_wrap">
+                <ul class="nav_list clearfix">
+                    <li class="nav_item">
+                        <a id="nav_home" href="http://xiebaochun.github.io/index.html">首页</a>
+                    </li>
+                    <li class="nav_item category_shopping">
+                        <a href="">HTML前端</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >CSS3</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >游戏</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >应用</a>
+                    </li>
+                    <li class="nav_item category_second category_second_last">
+                        <a href="">插件</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="" >自习室</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="http://xiebaochun.github.io/mylab/index.html" >实验室</a>
+                    </li> 
+                    <li class="nav_item nav_item_tuan nav_item_fix posi_rale">
+                        <a id="textile" href="http://xiebaochun.github.io/textile.html">设计室</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </li>
+                    <!--<li class="nav_item nav_item_shop nav_item_fix posi_rale">
+                        <a href="" target="_blank"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    </li>-->
+                    <li class="nav_item last ">
+                        <a class="c" id="nav_resume" href="http://xiebaochun.github.io/public/index.html">博客</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+	<div style="min-width:100px;"class="container wrap">
+         
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><!--the weather pugin-->
+       <!-- <script defer src="http://julying.com/lab/weather/v3/jquery.weather.build.min.js?parentbox=body&moveArea=all&zIndex=2&move=1&drag=1&autoDrop=1&styleSize=big&style=_random&area=client&city=%E5%8C%97%E4%BA%AC"></script> -->
+<div class="profilepic">
+	<!-- <img style="width: 160px;" src="https://avatars1.githubusercontent.com/u/2996519?s=460"/> -->
+	<script src="/public/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			// $('.profilepic').append("<img src='http://mt1.baidu.com/timg?wh_rate=0&wapiknow&quality=100&size=w250&sec=0&di=309920a4e4cd155969da5e7aa66485d3&src=http%3A%2F%2Fimg.iknow.bdimg.com%2Fjctuijian%2F0626%2F6.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+</div>
+<!-- <hgroup>
+  <h1><a href="/public/">微个日光日</a></h1>
+  
+    <h2>one blog for share.</h2>
+  
+</hgroup>
+ -->
+<nav id="main-nav"><ul class="main-navigation">
+  <!-- <li><a href="http://xiebaochun.github.io">Home</a></li>
+  <li><a href="/public/blog/archives">Archives</a></li> -->
+  <!-- <li><a href="http://www.juerry.com/index.html">my lab</a></li> -->
+</ul>
+
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/xiebaochun" title="Twitter">Twitter</a>
+		
+		
+		<a class="github" href="https://github.com/xiebaochun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+<section>
+  <!-- <h1>Categories</h1> -->
+  <h1>分类</h1>
+    <ul id="category-list"><li><a href='/blog/categories/ios/'>ios (2)</a></li><li><a href='/blog/categories/other/'>other (13)</a></li><li><a href='/blog/categories/three-dot-js/'>three.js (1)</a></li><li><a href='/blog/categories/web/'>web (26)</a></li></ul>
+    <script type="text/javascript"> 
+           $("#category-list li").each(function()
+           {
+                $(this).children().attr("href","/public"+$(this).children().attr("href"));
+              
+           });
+    </script>
+</section>
+
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Javascript:继承和原型链</h1>
+	<div class="entry-content" itemprop="articleBody"><h3 id="javascript">JavaScript：继承和原型链（译）</h3>
+
+<p>原文：<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Inheritance_and_the_prototype_chain?redirectlocale=en-US&amp;redirectslug=JavaScript%2FGuide%2FInheritance_and_the_prototype_chain">Inheritance and the prototype chain</a></p>
+
+<p>译者：<a href="https://github.com/youngsterxyf">youngsterxyf</a></p>
+
+<p>对于具备基于类的编程语言（如Java或C++）经验的程序员来说，JavaScript有点混乱，因为它是一种动态语言，并且不提供<code>class</code>的实现（虽然关键字<code>class</code>是保留的，不可用作变量名）。</p>
+
+<p>说到继承，JavaScript只有一种结构：对象。每个对象都有一个内部链接指向另一个对象，这个对象称为原型 (prototype)。那个原型对象也有自己的原型，如此直到某个对象以<code>null</code>作为其原型。<code>null</code>，根据定义，没有原型，作为这种<strong>原型链</strong>的最后一环而存在。
+<!--more--></p>
+
+<h2 id="section"><code>以原型链实现继承</code></h2>
+
+<h3 id="section-1">继承属性</h3>
+<hr />
+<p>JavaScript对象可看作是动态地装载属性（这里指<strong>自有属性</strong>）的”包包”，并且每个对象都有一个链指向一个原型对象。如下即为当尝试访问一个属性时发生的事情：</p>
+
+<pre><code>// 假设有个对象o，其原型链如下所示：
+// {a: 1, b: 2} ---&gt; {b: 3, c: 4} ---&gt; null
+// 'a'和'b'是o的自有属性。
+
+// 本例中，someObject.[[Prototype]]指定someObject的原型。
+// 这完全是一种标记符号（基于ECMAScript标准中所使用的），不可用于脚本中。
+
+console.log(o.a);   // 1
+// o有一个自有属性'a'吗？是的，其值为1
+ 
+console.log(o.b);   // 2
+// o有自有属性'b'吗？是的，其值为2
+// o的原型也有一个属性'b'，但是这里不会被访问。这被称为“属性隐藏”（property shadowing）
+
+console.log(o.c);   // 4
+// o有自有属性'c'吗？没有，检查它的原型
+// o.[[Prototype]]有自有属性'c'吗？是的，其值为4。
+
+console.log(o.d);   // undefined
+// o有自有属性'd'吗？没有，检查其原型
+// o.[[Prototype]]有自有属性'd'吗？没有，检查其原型
+// o.[[Prototype]].[[Prototype]]为null，停止搜索，没有找到属性，返回undefined。
+</code></pre>
+
+<p>将一个属性分配给一个对象会创建一个自有属性。对于获取和设置属性的行为规则，唯一的例外是当一个继承而来的属性带有一个<strong>属性值获取器或设置器</strong>。</p>
+
+<h2 id="section-2">继承”方法”</h2>
+
+<p>JavaScript没有以基于类的编程语言定义方法的形式出现的”方法”。JavaScript中，任何函数都可以作为一个属性被添加到一个对象。一个继承而来的函数，操作起来与任何其他属性相同，包括如上所示的属性隐藏（在这里，称为方法覆盖）。</p>
+
+<p>当执行一个继承而来的函数时，<strong>this</strong>的值指向继承对象，而不是原型对象，该函数是原型对象的自有属性。</p>
+
+<pre><code>var o = {
+a: 2,
+m: function(b) {
+return this.a + 1;
+}
+};
+ 
+console.log(o.m()); // 3
+// 这里当调用o.m时，'this'引用o
+
+var p = Object.create(o);
+// p是一个继承自o的对象
+ 
+p.a = 12;   // 为p创建一个自有属性'a'
+console.log(p.m()); // 13
+// 这里调用p.m时，'this'引用p
+// 因此，当p继承了o的函数m，'this.a'意味着p.a，p的自有属性'a' ##`创建对象的不同方式，以及由此产生的原型链`
+</code></pre>
+
+<h3 id="section-3"><strong>以语法结构创建对象</strong></h3>
+
+<pre><code>var o = {a: 1};
+
+// 新创建的对象o有Object.prototype作为其[[Prototype]]
+// o没有名为'hasOwnProperty'的自有属性
+// hasOwnProperty是Object.prototype的自有属性。因此o从Object.prototype继承了hasOwnProperty
+// Object.prototype以null为其prototype。
+// o ---&gt; Object.prototype ---&gt; null
+ 
+var a = ["yo", "whadup", "?"];
+
+// 数组继承自Array.prototype（它具有indexOf, forEach等方法）。
+// 该原型链如下所示：
+// a ---&gt; Array.prototype ---&gt; Object.prototype ---&gt; null
+
+function f() {
+return 2;
+}
+
+// 函数继承自Function.prototype（它具有call，bind等方法）：
+// f ---&gt; Function.prototype ---&gt; Object.prototype ---&gt; null ###使用构造器
+</code></pre>
+
+<p>JavaScript中，”构造器””就”是一个恰好以new操作符调用的函数。</p>
+
+<pre><code>function Graph() {
+this.vertexes = [];
+this.edges = [];
+}
+
+Graph.prototype = {
+addVertex: function(v) {
+this.vertexes.push(v);
+}
+};
+
+var g = new Graph();
+// g是一个带有自有属性'vertexes'和'edges'的对象。
+// 执行new Graph()后，g.[[Prototype]]是Graph.prototype的值。
+使用Object.create
+</code></pre>
+
+<p>ECMAScript 5引入了一个新方法：Object.create。调用这个方法会创建一个新对象。这个对象的原型是该函数的第一个参数：</p>
+
+<pre><code>var a = {a: 1};
+// a ---&gt; Object.prototype ---&gt; null
+
+var b = Object.create(a);
+// b ---&gt; a ---&gt; Object.prototype ---&gt; null
+console.log(b.a);   // 1 (继承而来)
+
+var c = Object.create(b);
+// c ---&gt; b ---&gt; a ---&gt; Object.prototype ---&gt; null
+
+var d = Object.create(null);
+// d ---&gt; null
+console.log(d.hasOwnProperty);  // undefined，因为d并不继承自Object.prototype
+</code></pre>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	
+	<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style_32x32">
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_tqq"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a href="http://www.jiathis.com/share?uid=1838235" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config = {data_track_clickback:'true'};
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1371541356556113" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1838235"></script>
+<!-- UY END -->
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2014 - Nicholas -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+<!-- Baidu Button BEGIN -->
+   <script type="text/javascript" id="bdshare_js" data="type=slide&amp;img=1&amp;pos=right&amp;uid=0" src="http://bdimg.share.baidu.com/static/js/bds_s_v2.js?cdnversion=389859"></script>
+   <script type="text/javascript">
+        var bds_config={"bdTop":300};
+        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+   </script>
+        <!-- Baidu Button END -->
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+			
+
+
+<!-- 
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+ -->
+
+
+
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,830 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: web | 微个日光日]]></title>
+  <link href="http://xiebaochun.github.io/blog/categories/web/atom.xml" rel="self"/>
+  <link href="http://xiebaochun.github.io/"/>
+  <updated>2014-07-03T19:11:01+08:00</updated>
+  <id>http://xiebaochun.github.io/</id>
+  <author>
+    <name><![CDATA[Nicholas]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[webgl_with_three.js:basicst(three.js基础入门）]]></title>
+    <link href="http://xiebaochun.github.io/blog/2014/06/30/webgl-with-three-dot-js-basics/"/>
+    <updated>2014-06-30T14:53:00+08:00</updated>
+    <id>http://xiebaochun.github.io/blog/2014/06/30/webgl-with-three-dot-js-basics</id>
+    <content type="html"><![CDATA[<p>先来一段废话：3D graphics in the browser have been a hot topic ever since it was first introduced. But if you were to create your apps using plain WebGL, it would take ages. This is exactly why some really useful libraries have recently came about. Three.js is one of the most popular, and in this series I will show you how best to use it in order to create stunning 3D experiences for your users.</p>
+
+<p>Before we begin, I do expect you to have a basic understanding of 3D space before you start reading this tutorial, as I won’t be explaining stuff like coordinates, vectors, etc.</p>
+
+<!--more-->
+
+<h2 id="step1">step1:准备</h2>
+
+<p>准备三文件：index.html,main.js,style.css.下面是代码：</p>
+
+<p>index.html:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;link rel="stylesheet" href="./style.css"&gt;
+&lt;script src="./three.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;script src="./main.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>引入样式和脚本，为了好看点，在style.css中添加如下code:</p>
+
+<pre><code>canvas {
+position: fixed;
+top: 0;
+left: 0;
+}
+</code></pre>
+
+<p>这样canvas将会位于页面左上角，默认情况下body的margin是8像素。</p>
+
+<h2 id="step2">step2:场景和渲染器</h2>
+
+<p>three.js的物件渲染方式是：将所有物件放到一个显示列表中，然后将它们渲染到屏幕。</p>
+
+<p>这里有一个THREE.Scene的对象，他就是存放所有要显示的物件的地方。一个渲染器同时只能渲染一个场景，但是你可以在不同场景之间来回切换。</p>
+
+<p>渲染器只是将所有的物件从场景中渲染到webgl的canvas。但这货也支持SVG或者2D canvas,但是这里只会将webgl中的canvas。（如果不知道它们之间的区别，可以google或者aol，但不要度娘）。</p>
+
+<p>然后将窗口的宽和高存放在俩变量中，方便后面使用，实在不想定义也可以。</p>
+
+<pre><code>var width=window.innerWidth;
+var height=window.innerHeight;
+</code></pre>
+
+<p>接着定义渲染器和场景，别偷懒，这个一定要有。</p>
+
+<pre><code>//创建webgl渲染器，antialias设为true,使物件边缘光滑一点
+var renderer=new THREE.WebGLRenderer({antialias:true});
+renderer.setSize(width,height);//设置渲染的尺寸
+//在页面中插入webgl canvas这货
+document.body.appendChild(renderer.domElement);
+//创建场景
+var scene=new THREE.Scene;
+</code></pre>
+
+<p>在倒数第二行，你也可以用你喜欢的Jquery来向页面中插入canvas元素：</p>
+
+<pre><code>$('body').append(renderer.domElement));
+</code></pre>
+
+<h2 id="step3">step3：添加立方体</h2>
+
+<p>就像学习任何一门语言一样，一开始通常会写一个hello world！的demo。学习3D引擎，通常会绘制一个立方体。</p>
+
+<p><a href="http://code.tutsplus.com/tutorials/webgl-with-threejs-basics--net-35688">http://code.tutsplus.com/tutorials/webgl-with-threejs-basics–net-35688</a></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[webgl之three.js模型和动画]]></title>
+    <link href="http://xiebaochun.github.io/blog/2014/06/29/webgl-with-the-three-dot-js-models-and-animation/"/>
+    <updated>2014-06-29T21:22:00+08:00</updated>
+    <id>http://xiebaochun.github.io/blog/2014/06/29/webgl-with-the-three-dot-js-models-and-animation</id>
+    <content type="html"><![CDATA[<p>自从3d图形被引入浏览器，浏览器中的3D图形开发就变成一个热门的话题。但是如果你直接使用原始的webgl api来开发应用将会很费劲。因此诞生了很多与之相关的类库。three.js是最流行的一个，在此文中我将介绍它。</p>
+
+<p><a href="http://xiebaochun.github.io/mylab/webgl/webgl-models-animation/final/">在线演示</a> <a href="https://github.com/xiebaochun/webgl-models-animation">源码下载</a></p>
+
+<p>在开始本文之前，我默认你已经具有了3D空间的基本知识，比如坐标和向量等。
+<!--more--></p>
+
+<h2 id="section">准备:</h2>
+<p>本文将在之前的代码基础上开始。下载并解压我提供的资源，你就可以开始了。</p>
+
+<h2 id="step1blender">step1:在blender中导出模型</h2>
+<p>在blender中导出three.js支持的模型，你需要注意以下几点：</p>
+
+<p><strong>- 首先，remove the parenting。</strong>three.js导出插件不会导出任何你留下的动画（还有Armature Modifier）</p>
+
+<p><strong>- 其次，群组顶点。</strong>如想让骨骼移动移动时，周围的顶点也随之移动，那么就必须将他们群组起来，并将组的名字命名为骨骼的名字。</p>
+
+<p><strong>- 第三，可以只有一个动画。</strong>这可能是一个大问题，但是之后我会解释。</p>
+
+<p>同样，当你导出时，在导出器中确保一下这些选项都勾选了：skinning,Bones和Skeletal Animation(骨骼动画）。</p>
+
+<h2 id="step2">step2:导入模型</h2>
+
+<p>导入模型非常的简单。这里有一个特殊类，即THREE.JSONLoader（他会为我们处理所有的导入相关工作。当然，它只能导入JSON格式的models,但是three.js建议使用他们，所以我将只介绍这个loader（其他的loader也是一样的）。让我们首先初始化它:</p>
+
+<pre><code>var loader=new THREE.JSONLoader;
+var animation;
+</code></pre>
+
+<p>这里不需要参数。我们需要为动画定义一个变量，这样我们可以在后面访问它。现在我们可以加载模型了：</p>
+
+<pre><code>loader.load('./model.js',function(geometry,materials){
+var skinnedMesh=new THREE.SkinnedMesh(geometry,new THREE.MeshFaceMaterial(materials));
+skinnedMesh.positon.y=50;
+skinnedMesh.scale.set(15,15,15);
+scene.add(skinnedMesh);
+
+animate(skinnedMesh);
+});
+</code></pre>
+
+<p>此load方法接受两个参数：一个是model的path,还有一个是回调函数。这个回调函数在导入model完成后被调用（你可以在此之前显示一个加载进度条给用户）。这个回调函数调用时将会传入两个参数：一个是model的几何体和它的材质（随model一起导出来的）。在这个回调函数中，我们创建了mesh。但是这次的是THREE.SkinnedMesh，它支持动画。</p>
+
+<p>接下来，我们将model往上移动50个单位，置于立方体的顶端，将其放大15倍（因为它很小，在blender制作中），并将其添加到场景中。接下来我们调用aimate函数，它会配置并运行动画。</p>
+
+<h2 id="step3">step3:动画</h2>
+
+<p>现在我们配置动画。下面是animate函数的原型：</p>
+
+<pre><code>function animate(skinnedMesh){
+  var mterials=skinnedMesh.material.materials;
+
+  for(var k in materials){
+ materials[k].skinning=true;
+}
+
+ THREE.AnimationHeander.add(skinnedMesh.geometry.animation);
+  animation=new THREE.Animation(skinnedMesh,"ArmatureAction",THREE.AnimationHander.CATMULLROM);
+  animation.play();
+}
+</code></pre>
+
+<p>首先我们必须开启model中所有部件的蒙皮动画。接下来，必须将model中的动画（animation）添加到THREE.AnimationHandler并创建THREE.Animation对象。参数依次为：mesh（动画网格），model中的动画名称和插值类型（在像人这种复杂模型中很有用，可以使网格平滑过渡）。最后，我们执行动画。</p>
+
+<p>但是现在打开浏览器的话，你会发现模型并没有动。</p>
+
+<p><img src="https://cdn.tutsplus.com/net/uploads/2013/12/model_still.png" alt="" /></p>
+
+<p>为此，我们需要添加一行代码到render函数中，就是位于particleSystem旋转的下面：</p>
+
+<pre><code>if(animation) animation.update(delta);
+</code></pre>
+
+<p>这样就可以定时更新动画了，因为THREE.AnimationHandler知道去渲染那一帧。现在打开浏览器，你将会看到顶部的立方体左右弯曲摆动。</p>
+
+<p><img src="https://cdn.tutsplus.com/net/uploads/2013/12/model_animated.png" alt="" /></p>
+
+<h2 id="step4">step4:多个动画</h2>
+
+<p>现在model中只有一个动画队列，现在我们想将每个动画添加到一个队列中，当一个动画结束，另一个立马接着开始执行。接下来,在导出model后，需要修改动画代码。其中1-3秒为站立动画，从第三秒到最后为行走动画。然后在render函数中检查每一秒的动画名字，如果到了当前队列的最后时间，将停止动画并从新开始。</p>
+
+<pre><code>var currentSequence='standing';
+
+function(render){
+...
+   if(animation) animation.update(delta);
+   if(currentSequence=='standing'){
+  if(animation.currentTime&gt;4){
+ animation.stop();
+ animation.play(false,0);//play the animation not looped,from 0 0s
+   }
+ }else if(currentSequence=='walking'){
+  if(animation.currentTime&lt;=4||aniamtion.currentTime&gt;8){
+  animation.stop();
+  animation.play(false,4);//play the animation not looped,from 4s
+ }
+  }
+  ...
+ }
+</code></pre>
+
+<p>在此，在正确的时间以非循环模式执行动画。当然，如果用户的帧率真的低的话，会出现怪异的现象，因为delta会更高，以致animation.cuurentTime可能比特定队列的限制时间大，从而会执行下一队列的部分动画。但是只要delta在300-500m之间，问题是不会太大的。</p>
+
+<p>现在更改animate函数来执行行走动画，只要添加如下参数至animation.play中即可：</p>
+
+<pre><code>animation.play(false,0);
+</code></pre>
+
+<p>我们也可以让用户通过按键a来切换动画。在文件的底部添加如下代码，只要在render()调用之前。</p>
+
+<pre><code>document.addEventListenner('keyup',function(e){
+  if(e.keyCode=="A'.charCodeAt(0)){
+ currentSequece==(currentSequece=='standing'?'walking':'standing');
+   }
+});
+</code></pre>
+
+<h2 id="step5attach-to-bone">step5：Attach to bone（依附骨骼）</h2>
+
+<p>此项技术非常适合RPG game(角色扮演游戏），但是也使用于其他一般的游戏。这涉及到将其他对象依附到骨骼动画对象中，比如衣服，武器，等。</p>
+
+<p>让我们以loader.load回调函数开始吧，添加如下代码至scene.add（skinnedMesh）下面：</p>
+
+<pre><code>item=new THREE.Mesh(new THREE.CubeGeometry(100,10,10),new THREE.MeshBasicMaterial({color:0xff0000}));
+item.position.x=50;
+pivot=new THREE.Object3D();
+pivot.scale.set(0.15,0.15,0.15);
+pivot=add(item);
+pivot.useQuaternion=true;
+skinnedMesh.add(pivot);
+</code></pre>
+
+<p>此item既是要模拟依附到动画对象中的一个物件。让他围绕着一个特定的点旋转，但是不是中心点，我们将为它添加一个pivot对象，并将其向右移动50个单位。并缩小至0.15倍，因为我么要将其添加到已经放大了15倍的skinnedMesh中。最后在将其添加至我们的动画中之前，我们命令它使用quaternions(四元数，矩阵）。</p>
+
+<p>通常，四元数是一个数字系统，但是Three.js已经强大到不用我们去关心这些底层的数据了。如果你感兴趣的话可以google或者aol，但千万别度娘。这些四元数是用来旋转物件（也是对象），而不会出现gimbal lock的危险。</p>
+
+<p>现在在render函数中，更新对象的位置和旋转：</p>
+
+<pre><code>pivot.position=new THREE.Vector3().getPositionFromMatrix(skinnedMesh.bones[2].skinnedMatrix);
+pivot.quaternion.setFromRotationMatrix(skinnedMesh.bones[2].skinnedMatrix);
+</code></pre>
+
+<p>在这里，首先我们将pivot的位置设为model最后一个骨骼的相同位置。我们使用skinnedMatrix属性来计算它。然后我们使用同样的属性来为pivot计算旋转矩阵。完之，打开浏览器，将会看见一个红色的物件（如下）依附到了我们的模型：</p>
+
+<p><img src="https://cdn.tutsplus.com/net/uploads/2013/12/attach_to_bone.png" alt="" /></p>
+
+<h2 id="section-1">总结：</h2>
+
+<p>我希望你能在此文中能获得想要的知识点。文中代码工程可以免费下载并使用。下一次，我们将会介绍OpenGL/webGL的shader,即显卡编程。</p>
+
+<p>这里提供一下3d模型下载的网址：
+<a href="http://tf3dm.com/">http://tf3dm.com/</a>
+<a href="http://www.turbosquid.com/Search/3D-Models/free/fbx">http://www.turbosquid.com/Search/3D-Models/free/fbx</a>
+<a href="http://free.cgtrader.com/">http://free.cgtrader.com/</a></p>
+
+<p><a href="http://code.tutsplus.com/tutorials/webgl-with-threejs-models-and-animation--net-35993">http://code.tutsplus.com/tutorials/webgl-with-threejs-models-and-animation–net-35993</a></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[javascript运行机制及其执行顺序]]></title>
+    <link href="http://xiebaochun.github.io/blog/2014/06/27/javascript-operating-mechanisim-execution-sequnece/"/>
+    <updated>2014-06-27T19:59:00+08:00</updated>
+    <id>http://xiebaochun.github.io/blog/2014/06/27/javascript-operating-mechanisim-execution-sequnece</id>
+    <content type="html"><![CDATA[<p>在前端开发领域已有些年头了，对javascript的认识也逐渐清晰明朗，在不同时期对任何事物都有不同的了解，或程度上，或性质上。今天写一下我对javascript运行机制的一些总结。</p>
+
+<p>javascript的性质：描述性脚本语言，直接由browser动态解析执行。</p>
+
+<p>那么js的解析原理和执行顺序是怎么样的呢？在此先了解一下基本的一些概念。</p>
+
+<!--more-->
+
+<h2 id="js">1、js代码块</h2>
+<p>例如：</p>
+
+<pre><code>''' javascript hello word http://xiebaochun.github.io
+
+&lt;script type="text/javascript&gt;
+console.log("this is code block1");
+&lt;/script&gt;
+&lt;script type="text/javascript&gt;
+console.log("this is code block2");
+&lt;/script&gt;
+
+'''
+</code></pre>
+
+<p>js按照代码块动态编译并执行，代码块之间相互独立，仅共享变量和方法。例如：</p>
+
+<pre><code>&lt;script type="text/javascript"&gt;  
+  console.log(str);//因为没有定义str，所以浏览器会出错，下面的不能运行  
+  console.log("this is block1");//没有运行到这里  
+  var test = "this is first varaible";  
+&lt;/script&gt;  
+&lt;script type="text/javascript"&gt;  
+  console.log("this is block2"); //这里有运行到  
+  console.log(test); //打印"我是代码块一变量"  
+&lt;/script&gt; 
+</code></pre>
+
+<p>上面的代码中代码块1中会报错，但不影响代码块2的执行，此即其独立性。代码块2可调用块1中的变量，即块间共享性。</p>
+
+<h2 id="section">2、声明式函数与赋值式函数</h2>
+<p>js中，函数分为声明式函数与赋值式函数，具体可参考我之前写的<a href="http://xiebaochun.github.io/public/blog/2013/10/09/function-declarations-vs-function-expressions/">函数声明和函数表达式</a></p>
+
+<p>这里简单举个例子：</p>
+
+<pre><code>&lt;script type="text/javascript"&gt;  
+     function Fn(){ //声明式函数  
+      
+     }  
+      
+     var Fn = function{  //赋值式函数（函数表达式）
+      
+     }  
+&lt;/script&gt; 
+</code></pre>
+
+<p>重点理解：js预编译期，声明式函数会先被提取出来，然后再按顺序执行js代码。</p>
+
+<h2 id="section-1">3、预编译期与执行期</h2>
+<p>js解析分为：预编译期（预处理）与执行期。</p>
+
+<p>重点提示：预编译期JS会对本代码块中的所有声明的变量和函数进行处理（类似与C语言的编译），但需要注意的是此时处理函数的只是声明式函数，而且变量也只是进行了声明但未进行初始化以及赋值。</p>
+
+<p>如：</p>
+
+<pre><code>&lt;script type="text/javascript"&gt;  
+ Fn();  //执行结果："执行了函数2",同名函数后者会覆盖前者  
+ function Fn(){ //函数1  
+console.log("执行了函数1");  
+ }  
+  
+ function Fn(){  //函数2  
+console.log("执行了函数2");  
+ }  
+&lt;/script&gt;
+</code></pre>
+
+<hr />
+
+<pre><code>&lt;script type="text/javascript"&gt;  
+  Fn();  //执行结果："执行了声明式函数",在预编译期声明函数及被处理了，所以即使Fn()调用函数放在声明函数前也能执行。  
+  function Fn(){ //声明式函数  
+ console.log("执行了声明式函数");  
+  }  
+  
+  var Fn = function(){  //赋值式函数  
+ console.log("执行了赋值式函数");  
+  }  
+&lt;/script&gt; 
+</code></pre>
+
+<hr />
+
+<pre><code>//代码块一  
+&lt;script type="text/javascript"&gt;  
+  console.log(str);//浏览器报错,但并没有弹出信息窗  
+&lt;/script&gt;  
+//代码块二  
+&lt;script type="text/javascript"&gt;  
+  console.log(str); //弹窗"undefined"  
+  var str = "aaa";  
+&lt;/script&gt;  
+//js在预处理期对变量进行了声明处理,但是并没有进行初始化与赋值，所以导致代码块二中的变量是unfiened的，而代码一中的变量是完全不存在&lt;span style="font-family: Arial, Helvetica, sans-serif;"&gt;的，所以浏览器报错。&lt;/span&gt; 
+</code></pre>
+
+<p>理解了上面的几个术语，相信大家对JS的运行机制已经有了个大概的印象了，现在我们来看个例子：</p>
+
+<pre><code>&lt;script type="text/javascript"&gt;  
+  Fn();  //浏览器报错:"undefined"  
+&lt;/script&gt;  
+&lt;script type="text/javascript"&gt;  
+  function Fn(){ //函数1  
+  alert("执行了函数1");  
+  }  
+&lt;/script&gt;
+</code></pre>
+
+<p>为什么运行上面的代码浏览器会报错呢？声明函数不是会在预处理期就会被处理了吗，怎么还会找不到Fn()函数呢？其实这是一个理解误点，我们上面说了JS引擎是按照代码块来顺序执行的，其实完整的说应该是按照代码块来进行预处理和执行的，也就是说预处理的只是执行到的代码块的声明函数和变量，而对于还未加载的代码块，是没法进行预处理的，这也是边编译边处理的核心所在。</p>
+
+<h2 id="section-2">总结：</h2>
+
+<pre><code>  step 1.  读入第一个代码块。
+  step 2.  做语法分析，有错则报语法错误（比如括号不匹配等），并跳转到step5。
+  step 3.  对var变量和function定义做“预编译处理”（永远不会报错的，因为只解析正确的声明）。
+  step 4.  执行代码段，有错则报错（比如变量未定义）。
+  step 5.  如果还有下一个代码段，则读入下一个代码段，重复step2。
+  step6. 结束。
+</code></pre>
+
+<p>而根据HTML文档流的执行顺序，需要在页面元素渲染前执行的js代码应该放在&lt;body&gt;前面的<script>代码块中，而需要在页面元素加载完后的js放在&lt;/body&gt;元素后面，body标签的onload事件是在最后执行的。</script></p>
+
+<pre><code>&lt;script type="text/javascript"&gt;  
+alert("first");  
+function Fn(){  
+alert("third");  
+}  
+&lt;/script&gt;  
+&lt;body onload="Fn()"&gt;  
+  
+&lt;/body&gt;  
+&lt;script type="text/javascript"&gt;  
+alert("second");  
+&lt;/script&gt;  
+</code></pre>
+
+<p>如果有什么问题可在留言板中留言，我会第一时间回答。</p>
+
+<p>下面是测试数学公式：</p>
+
+<script type="math/tex; mode=display">% &lt;![CDATA[
+
+\begin{align*}
+  & \phi(x,y) = \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right)
+  = \sum_{i=1}^n \sum_{j=1}^n x_i y_j \phi(e_i, e_j) = \\
+  & (x_1, \ldots, x_n) \left( \begin{array}{ccc}
+      \phi(e_1, e_1) & \cdots & \phi(e_1, e_n) \\
+      \vdots & \ddots & \vdots \\
+      \phi(e_n, e_1) & \cdots & \phi(e_n, e_n)
+    \end{array} \right)
+  \left( \begin{array}{c}
+      y_1 \\
+      \vdots \\
+      y_n
+    \end{array} \right)
+\end{align*}
+ %]]&gt;</script>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[2013电商网站设计（E-Commerce Website Designs 2013）]]></title>
+    <link href="http://xiebaochun.github.io/blog/2013/11/11/e-commerce-website-designs-2013/"/>
+    <updated>2013-11-11T14:00:00+08:00</updated>
+    <id>http://xiebaochun.github.io/blog/2013/11/11/e-commerce-website-designs-2013</id>
+    <content type="html"><![CDATA[<p><img src="http://www.script-tutorials.com/demos/365/thumb.png" alt="" /></p>
+
+<p>原文地址：<a href="http://www.script-tutorials.com/e-commerce-website-designs-2013/">http://www.script-tutorials.com/e-commerce-website-designs-2013/</a></p>
+
+<p>译者：微个日光日</p>
+
+<!--more-->
+
+<p>今天我想讨论的主题是电商，准确的说是探索一个关于在线商店设计思想。
+在线商店的主人偶尔需要更新网站的设计，这里我想起了响应式模板和移动技术。每个人都知道移动技术正在快速的发展，几乎人人都有一部手机。响应式设计给我们提供了巨大的机会：网站访问的频率和增加的规模。在今天的文章中，我挑选了一些很有趣的响应式模板网站。</p>
+
+<p>1.USM Modular Furniture</p>
+
+<p><img src="http://www.script-tutorials.com/demos/365/img1.jpg" alt="" /></p>
+
+<p>2.Bold &amp; Noble</p>
+
+<p><img src="http://www.script-tutorials.com/demos/365/img2.jpg" alt="" /></p>
+
+<p>3.Greats Brand</p>
+
+<p><img src="http://www.script-tutorials.com/demos/365/img3.jpg" alt="" /></p>
+
+<ol>
+  <li>Create and customize your own cube</li>
+</ol>
+
+<p><img src="http://www.script-tutorials.com/demos/365/img4.jpg" alt="" /></p>
+
+<ol>
+  <li>The Gadget Flow</li>
+</ol>
+
+<p><img src="http://www.script-tutorials.com/demos/365/img5.jpg" alt="" /></p>
+
+<ol>
+  <li>Snipcart</li>
+</ol>
+
+<p><img src="http://www.script-tutorials.com/demos/365/img6.jpg" alt="" /></p>
+
+<ol>
+  <li>Noodlebox</li>
+</ol>
+
+<p><img src="http://www.script-tutorials.com/demos/365/img7.jpg" alt="" /></p>
+
+<ol>
+  <li>Burberry</li>
+</ol>
+
+<p><img src="http://www.script-tutorials.com/demos/365/img8.jpg" alt="" /></p>
+
+<ol>
+  <li>Folksy</li>
+</ol>
+
+<p><img src="http://www.script-tutorials.com/demos/365/img9.jpg" alt="" /></p>
+
+<ol>
+  <li>Sneaker District</li>
+</ol>
+
+<p><img src="http://www.script-tutorials.com/demos/365/img10.jpg" alt="" /></p>
+
+<p>总结：</p>
+
+<p>今天主要是收集了一些比较有趣的网站主题，感谢你的欣赏。如果你觉得这篇文章不错的话请你使用下面的社交平台将其分享给你的好友吧！</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[制作旋转CSS3下拉菜单（whirling CSS3 dropdown menu）]]></title>
+    <link href="http://xiebaochun.github.io/blog/2013/11/04/whirling-css3-dropdown-menu/"/>
+    <updated>2013-11-04T14:39:00+08:00</updated>
+    <id>http://xiebaochun.github.io/blog/2013/11/04/whirling-css3-dropdown-menu</id>
+    <content type="html"><![CDATA[<p><img src="http://www.script-tutorials.com/demos/364/thumb.png" alt="" /></p>
+
+<p>原文地址：<a href="http://www.script-tutorials.com/whirling-dropdown-menu/">http://www.script-tutorials.com/whirling-dropdown-menu/</a></p>
+
+<p>译者：<a href="http://xiebaochun.github.io/">微个日光日</a></p>
+
+<!--more-->
+
+<p>很多下拉菜单都可以通过css3的选择器轻松实现。只要稍微激发一下你的创作灵感，你就可以做出一个真实而独特的设计。在今天的教程中，我们将创建一个特别的css3下拉菜单，当鼠标移动到父级菜单项时将会呈现新的下拉特效，子菜单项将会以旋转的方式出现。只要一步一步地跟着本教程就能创建这个菜单。</p>
+
+<h3 id="section">预览：</h3>
+
+<p><img src="http://www.script-tutorials.com/demos/364/menu.png" alt="" /></p>
+
+<p><a href="http://www.script-tutorials.com/demos/364/index.html">在线演示</a></p>
+
+<p><a href="http://www.script-tutorials.com/demos/364/source.zip">下载DEMO</a></p>
+
+<h3 id="html">步骤 1.HTML</h3>
+
+<p>首先需要为css菜单建一个HTML结构。和大部分下拉菜单类似，这是一个UL-LI结构的下拉菜单。下面是此菜单的HTML代码。</p>
+
+<p>index.html</p>
+
+<pre><code>&lt;ul class="menu"&gt;
+&lt;li&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#s1"&gt;Menu 1&lt;/a&gt;
+    &lt;ul class="submenu"&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu a&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu b&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu c&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu d&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu e&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu f&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu g&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu h&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/li&gt;
+&lt;li class="active"&gt;&lt;a href="#s2"&gt;Menu 2&lt;/a&gt;
+    &lt;ul class="submenu"&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu a&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu b&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu c&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu d&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu e&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu f&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu g&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu h&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="#"&gt;Menu 3&lt;/a&gt;
+    &lt;ul class="submenu"&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu a&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu b&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu c&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu d&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu e&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu f&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu g&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Submenu h&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="#"&gt;Menu 4&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.script-tutorials.com/whirling-dropdown-menu/"&gt;Back to tutorial&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+
+<h3 id="css">步骤 2.CSS</h3>
+
+<p>css/main.css</p>
+
+<pre><code>.menu, .menu ul {
+list-style: none;
+padding: 0;
+margin: 0;
+}
+.menu {
+height: 58px;
+}
+.menu li {
+background: -moz-linear-gradient(#292929, #252525);
+background: -ms-linear-gradient(#292929, #252525);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #292929), color-stop(100%, #252525));
+background: -webkit-linear-gradient(#292929, #252525);
+background: -o-linear-gradient(#292929, #252525);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#292929', endColorstr='#252525');
+-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#292929', endColorstr='#252525')";
+background: linear-gradient(#292929, #252525);
+
+border-bottom: 2px solid #181818;
+border-top: 2px solid #303030;
+min-width: 160px;
+}
+.menu &gt; li {
+display: block;
+float: left;
+position: relative;
+}
+.menu &gt; li:first-child {
+border-radius: 5px 0 0;
+}
+.menu a {
+border-left: 3px solid rgba(0, 0, 0, 0);
+color: #808080;
+display: block;
+font-family: 'Lucida Console';
+font-size: 18px;
+line-height: 54px;
+padding: 0 25px;
+text-decoration: none;
+text-transform: uppercase;
+}
+</code></pre>
+
+<p>当鼠标移动到某个菜单项上时，将其高亮。</p>
+
+<pre><code>.menu li:hover {
+background-color: #1c1c1c;
+background: -moz-linear-gradient(#1c1c1c, #1b1b1b);
+background: -ms-linear-gradient(#1c1c1c, #1b1b1b);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1c1c1c), color-stop(100%, #1b1b1b));
+background: -webkit-linear-gradient(#1c1c1c, #1b1b1b);
+background: -o-linear-gradient(#1c1c1c, #1b1b1b);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1c1c1c', endColorstr='#1b1b1b');
+-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#1c1c1c', endColorstr='#1b1b1b')";
+background: linear-gradient(#1c1c1c, #1b1b1b);
+
+border-bottom: 2px solid #222222;
+border-top: 2px solid #1B1B1B;
+}
+.menu li:hover &gt; a {
+border-radius: 5px 0 0 0;
+border-left: 3px solid #C4302B;
+color: #C4302B;
+}
+</code></pre>
+
+<p>子菜单项默认是隐藏的，并且它的元素被选择了90度。当鼠标悬停在父级菜单项时，子菜单将显示它的所有菜单项。</p>
+
+<pre><code>/* submenu styles */
+.submenu {
+left: 0;
+max-height: 0;
+position: absolute;
+top: 100%;
+z-index: 0;
+
+-webkit-perspective: 400px;
+-moz-perspective: 400px;
+-ms-perspective: 400px;
+-o-perspective: 400px;
+perspective: 400px;
+}
+.submenu li {
+opacity: 0;
+
+-webkit-transform: rotateY(90deg);
+-moz-transform: rotateY(90deg);
+-ms-transform: rotateY(90deg);
+-o-transform: rotateY(90deg);
+transform: rotateY(90deg);
+
+-webkit-transition: opacity .4s, -webkit-transform .5s;
+-moz-transition: opacity .4s, -moz-transform .5s;
+-ms-transition: opacity .4s, -ms-transform .5s;
+-o-transition: opacity .4s, -o-transform .5s;
+transition: opacity .4s, transform .5s;
+}
+.menu .submenu li:hover a {
+border-left: 3px solid #454545;
+border-radius: 0;
+color: #ffffff;
+}
+.menu &gt; li:hover .submenu, .menu &gt; li:focus .submenu {
+max-height: 2000px;
+z-index: 10;
+}
+.menu &gt; li:hover .submenu li, .menu &gt; li:focus .submenu li {
+opacity: 1;
+
+-webkit-transform: none;
+-moz-transform: none;
+-ms-transform: none;
+-o-transform: none;
+transform: none;
+}
+</code></pre>
+
+<p>最后，为了使其更特别一点，给每个子菜单项添加一些延迟，这样他们就会依次显示出来。</p>
+
+<pre><code>/* CSS3 delays for transition effects */
+.menu li:hover .submenu li:nth-child(1) {
+-webkit-transition-delay: 0s;
+-moz-transition-delay: 0s;
+-ms-transition-delay: 0s;
+-o-transition-delay: 0s;
+transition-delay: 0s;
+}
+.menu li:hover .submenu li:nth-child(2) {
+-webkit-transition-delay: 50ms;
+-moz-transition-delay: 50ms;
+-ms-transition-delay: 50ms;
+-o-transition-delay: 50ms;
+transition-delay: 50ms;
+}
+.menu li:hover .submenu li:nth-child(3) {
+-webkit-transition-delay: 100ms;
+-moz-transition-delay: 100ms;
+-ms-transition-delay: 100ms;
+-o-transition-delay: 100ms;
+transition-delay: 100ms;
+}
+.menu li:hover .submenu li:nth-child(4) {
+-webkit-transition-delay: 150ms;
+-moz-transition-delay: 150ms;
+-ms-transition-delay: 150ms;
+-o-transition-delay: 150ms;
+transition-delay: 150ms;
+}
+.menu li:hover .submenu li:nth-child(5) {
+-webkit-transition-delay: 200ms;
+-moz-transition-delay: 200ms;
+-ms-transition-delay: 200ms;
+-o-transition-delay: 200ms;
+transition-delay: 200ms;
+}
+.menu li:hover .submenu li:nth-child(6) {
+-webkit-transition-delay: 250ms;
+-moz-transition-delay: 250ms;
+-ms-transition-delay: 250ms;
+-o-transition-delay: 250ms;
+transition-delay: 250ms;
+}
+.menu li:hover .submenu li:nth-child(7) {
+-webkit-transition-delay: 300ms;
+-moz-transition-delay: 300ms;
+-ms-transition-delay: 300ms;
+-o-transition-delay: 300ms;
+transition-delay: 300ms;
+}
+.menu li:hover .submenu li:nth-child(8) {
+-webkit-transition-delay: 350ms;
+-moz-transition-delay: 350ms;
+-ms-transition-delay: 350ms;
+-o-transition-delay: 350ms;
+transition-delay: 350ms;
+}
+
+.submenu li:nth-child(1) {
+-webkit-transition-delay: 350ms;
+-moz-transition-delay: 350ms;
+-ms-transition-delay: 350ms;
+-o-transition-delay: 350ms;
+transition-delay: 350ms;
+}
+.submenu li:nth-child(2) {
+-webkit-transition-delay: 300ms;
+-moz-transition-delay: 300ms;
+-ms-transition-delay: 300ms;
+-o-transition-delay: 300ms;
+transition-delay: 300ms;
+}
+.submenu li:nth-child(3) {
+-webkit-transition-delay: 250ms;
+-moz-transition-delay: 250ms;
+-ms-transition-delay: 250ms;
+-o-transition-delay: 250ms;
+transition-delay: 250ms;
+}
+.submenu li:nth-child(4) {
+-webkit-transition-delay: 200ms;
+-moz-transition-delay: 200ms;
+-ms-transition-delay: 200ms;
+-o-transition-delay: 200ms;
+transition-delay: 200ms;
+}
+.submenu li:nth-child(5) {
+-webkit-transition-delay: 150ms;
+-moz-transition-delay: 150ms;
+-ms-transition-delay: 150ms;
+-o-transition-delay: 150ms;
+transition-delay: 150ms;
+}
+.submenu li:nth-child(6) {
+-webkit-transition-delay: 100ms;
+-moz-transition-delay: 100ms;
+-ms-transition-delay: 100ms;
+-o-transition-delay: 100ms;
+transition-delay: 100ms;
+}
+.submenu li:nth-child(7) {
+-webkit-transition-delay: 50ms;
+-moz-transition-delay: 50ms;
+-ms-transition-delay: 50ms;
+-o-transition-delay: 50ms;
+transition-delay: 50ms;
+}
+.submenu li:nth-child(8) {
+-webkit-transition-delay: 0s;
+-moz-transition-delay: 0s;
+-ms-transition-delay: 0s;
+-o-transition-delay: 0s;
+transition-delay: 0s;
+}
+</code></pre>
+
+<p><a href="http://www.script-tutorials.com/demos/364/index.html">在线演示</a></p>
+
+<p><a href="http://www.script-tutorials.com/demos/364/source.zip">下载DEMO</a></p>
+
+<h3 id="section-1">总结:</h3>
+
+<p>我们只是随意地制作了一个css3下拉菜单。谢谢你耐心看完本教程，如果你喜欢今天的主题，请使用下面的社交平台将其分享给你的朋友吧！</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,776 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>windows Controls and WPF UserControls inside an xna game project - 微个日光日</title>
+	<meta name="author" content="Nicholas">
+
+	
+	<meta name="description" content="Windows Controls and WPF UserControls Inside an Xna Game Project In this article we will be working on using Windows Controls and WPF UserControls &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="微个日光日" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://xiebaochun.github.io/blog/2013/09/18/windows-controls-and-wpf-usercontrols-inside-an-xna-game-project/">
+	<link href="/public/favicon.png" rel="shortcut icon">
+	<link href="/public/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/public/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'> -->
+	<script src="/public/javascripts/jquery-1.7.2.min.js"></script>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!-- <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css"> -->
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+
+
+<body>
+
+    
+<link href="/public/stylesheets/topheader.css" media="screen, projection" rel="stylesheet" type="text/css">
+<div id="topheader">
+       <div class="info_wrap wrap">
+           <div class="info_show">
+                <i class="fl s_line"></i>
+                <ul class="my_btn fl">
+                    <li class="uname">
+                        <p>欢迎光临小站！</p>
+                    </li>
+                    <li class="fl s_line"></li>
+                </ul>
+                <ul class="friends">
+                    <li class="">
+                        <a href="#s1">友联</a>
+                         <ul class="submenu">
+                            <li><a href="http://ued.taobao.org/blog/" target="_blank">淘宝UED</a></li>
+                            <li><a href="http://www.blueidea.com/" target="_blank">蓝色理想</a></li>
+                            <li><a href="http://ux.etao.com/" target="_blank">一淘UED</a></li>
+                            <li><a href="http://cdc.tencent.com/" target="_blank">腾讯CDC</a></li>
+                            <li><a href="http://ecd.tencent.com/" target="_blank">腾讯ECD</a></li>
+                            <li><a href="http://www.ucdchina.com/" target="_blank">UCDChina</a></li>
+                            <li><a href="http://www.chinavisual.com/" target="_blank">视觉中国</a></li>
+                            <li><a href="http://www.uirss.com/" target="_blank">UIRSS</a></li>
+                        </ul>  
+                    </li>
+                     
+                </ul>
+                
+           </div>
+
+       </div>
+       <div class="logo_info_wrap">
+            <div class="logo_show wrap">
+                <div class="logo_wrap fl">
+                    <a href="http://www.juerry.com" class="logo" title="首页">首页</a>
+                </div>
+            </div>
+       </div>
+       <div id="navigation" class="wrap clearfix">
+            <div class="nav_item_wrap">
+                <ul class="nav_list clearfix">
+                    <li class="nav_item">
+                        <a id="nav_home" href="http://xiebaochun.github.io/index.html">首页</a>
+                    </li>
+                    <li class="nav_item category_shopping">
+                        <a href="">HTML前端</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >CSS3</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >游戏</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >应用</a>
+                    </li>
+                    <li class="nav_item category_second category_second_last">
+                        <a href="">插件</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="" >自习室</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="http://xiebaochun.github.io/mylab/index.html" >实验室</a>
+                    </li> 
+                    <li class="nav_item nav_item_tuan nav_item_fix posi_rale">
+                        <a id="textile" href="http://xiebaochun.github.io/textile.html">设计室</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </li>
+                    <!--<li class="nav_item nav_item_shop nav_item_fix posi_rale">
+                        <a href="" target="_blank"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    </li>-->
+                    <li class="nav_item last ">
+                        <a class="c" id="nav_resume" href="http://xiebaochun.github.io/public/index.html">博客</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+	<div style="min-width:100px;"class="container wrap">
+         
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><!--the weather pugin-->
+       <!-- <script defer src="http://julying.com/lab/weather/v3/jquery.weather.build.min.js?parentbox=body&moveArea=all&zIndex=2&move=1&drag=1&autoDrop=1&styleSize=big&style=_random&area=client&city=%E5%8C%97%E4%BA%AC"></script> -->
+<div class="profilepic">
+	<!-- <img style="width: 160px;" src="https://avatars1.githubusercontent.com/u/2996519?s=460"/> -->
+	<script src="/public/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			// $('.profilepic').append("<img src='http://mt1.baidu.com/timg?wh_rate=0&wapiknow&quality=100&size=w250&sec=0&di=309920a4e4cd155969da5e7aa66485d3&src=http%3A%2F%2Fimg.iknow.bdimg.com%2Fjctuijian%2F0626%2F6.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+</div>
+<!-- <hgroup>
+  <h1><a href="/public/">微个日光日</a></h1>
+  
+    <h2>one blog for share.</h2>
+  
+</hgroup>
+ -->
+<nav id="main-nav"><ul class="main-navigation">
+  <!-- <li><a href="http://xiebaochun.github.io">Home</a></li>
+  <li><a href="/public/blog/archives">Archives</a></li> -->
+  <!-- <li><a href="http://www.juerry.com/index.html">my lab</a></li> -->
+</ul>
+
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/xiebaochun" title="Twitter">Twitter</a>
+		
+		
+		<a class="github" href="https://github.com/xiebaochun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+<section>
+  <!-- <h1>Categories</h1> -->
+  <h1>分类</h1>
+    <ul id="category-list"><li><a href='/blog/categories/ios/'>ios (2)</a></li><li><a href='/blog/categories/other/'>other (13)</a></li><li><a href='/blog/categories/three-dot-js/'>three.js (1)</a></li><li><a href='/blog/categories/web/'>web (26)</a></li></ul>
+    <script type="text/javascript"> 
+           $("#category-list li").each(function()
+           {
+                $(this).children().attr("href","/public"+$(this).children().attr("href"));
+              
+           });
+    </script>
+</section>
+
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Windows Controls and WPF UserControls Inside an Xna Game Project</h1>
+	<div class="entry-content" itemprop="articleBody"><p>In this article we will be working on using Windows Controls and WPF UserControls inside an XNA Game Project.</p>
+
+<p>They tell Windows Controls cant be used inside an XNA game let alone WPF. Well, that has been proved in this article.</p>
+
+<!--more-->
+
+<h3 id="components">Components:</h3>
+
+<h4 id="windows-controls-well-be-using">Windows Controls we’ll be using</h4>
+
+<ul>
+  <li>Button</li>
+  <li>TextBox</li>
+  <li>CheckBox</li>
+  <li>ElementHost</li>
+</ul>
+
+<h4 id="tools">Tools</h4>
+
+<p>XNA GS 3.1 veya Visual Studio 2008(SP1)
+.NET Framework 3.5(SP1)</p>
+
+<p>We are creating a new project:</p>
+
+<p><img src="http://www.c-sharpcorner.com/UploadFile/iersoy/windows-controls-and-wpf-usercontrols-inside-an-xna-game-project/Images/image1.gif" alt="" /></p>
+
+<p>Now we will add reference.Project-&gt;Add Reference and then choose “System.Windows.Forms” namespace.</p>
+
+<p><img src="http://www.c-sharpcorner.com/UploadFile/iersoy/windows-controls-and-wpf-usercontrols-inside-an-xna-game-project/Images/image2.gif" alt="" /></p>
+
+<p>And declare it on Game1.cs:</p>
+
+<p><img src="http://www.c-sharpcorner.com/UploadFile/iersoy/windows-controls-and-wpf-usercontrols-inside-an-xna-game-project/Images/image3.gif" alt="" /></p>
+
+<p>Note: You may need to declare and add reference to “System.Drawing” namespace as well. </p>
+
+<h4 id="textbox-control">TextBox Control:</h4>
+
+<p>An Input control we can use on Windows Forms.We add Textbox to our XNA project:</p>
+
+<p>In anywhere we can declare variables:</p>
+
+<pre><code>TextBox text1 = new TextBox();
+</code></pre>
+
+<p>With that we have created a new Textbox variable.We are adding the code below to our Initialize() function. </p>
+
+<pre><code> protected override void Initialize()
+    {            
+        base.Initialize();
+        text1.Location = new System.Drawing.Point(40, 40);
+        text1.BorderStyle = BorderStyle.None;
+        text1.Multiline = true;
+        text1.Size = new Size(400, 400);
+        Control.FromHandle(Window.Handle).Controls.Add(text1);
+    }
+</code></pre>
+
+<p>Let us explain : “Control.FromHandle(Window.Handle).Controls.Add(ornek);” </p>
+
+<p>“Control.FromHandle” - helps us to call the handle we will add textbox.</p>
+
+<p>“Control.FromHandle(Window.Handle)” We take the Handle of GameWindow class named Window.Game class is not a control.But because of GameWindow is a control that can be used on XNA project,we can call and add Windows Controls through it.We were able to add or remove any control while coding in Windows Forms because Windows Forms was itself a control too.Now let me tell you this: “Form class &amp; GameWindow class looks alike”.By thinking so we can make RAD(Rapid Application Development) in XNA just like we do while developing Windows Form Based Applications.</p>
+
+<p>But if you run the project,you will not be able to enter a key inside TextBox class.</p>
+
+<p>Because while Textbox class uses “System.Windows.Forms.Keys”,XNA accepts only “XNA.Framework.Input.Keys”.Although we cant make it with the Windows-Way,we will make it as we do on XNA Inputs.</p>
+
+<pre><code>string var_text1;
+</code></pre>
+
+<p>we add a string valuable that will store all the texts from your input and then assign to our text1 named TextBox class</p>
+
+<pre><code>protected override void Update(GameTime gameTime)
+ {
+   base.Update(gameTime);
+   if (text1.Focused)
+{
+  KeyboardState ns = Keyboard.GetState();
+  foreach (Microsoft.Xna.Framework.Input.Keys a in ns.GetPressedKeys())
+{ 
+  var_text1 = a.ToString();
+  text1.Text += var_text1;
+}
+ }
+ }
+</code></pre>
+
+<p>“KeyboardState ns = Keyboard.GetState();” -&gt; we get all the input from Keyboard(“ns.GetPressedKeys()”).This helps us to to write any key value to our Textbox.</p>
+
+<p>If you wish you may not take all the keys,just use “if-else” structure and take any key you want to.</p>
+
+<p>Let us run the project.Whats going to happen?</p>
+
+<p><img src="http://www.c-sharpcorner.com/UploadFile/iersoy/windows-controls-and-wpf-usercontrols-inside-an-xna-game-project/Images/image4.gif" alt="" /></p>
+
+<p>When we press a key,it wrote as we pressed 5 times.Let me explain this:</p>
+
+<p>In Xna, every event happens on Update function depends on Gametime value.1 sec process is repeated 5 times so that the game window refreshes as we want.Why is it 1 sec/5? Because in continuous things like “chasing a car,shooting an opponent” we must see whats happening instantly.The user must feel like he is playing a “Real-time” game.Because of that Gametime repeats 5 times in 1 sec.Even 1 sec can differ sometime.</p>
+
+<p>Lets go back to our project.How we will solve this?</p>
+
+<p>create an int variable and query it on Update function.</p>
+
+<pre><code>int ct = 0; //the start value must be 0 so it cant be repeated.
+</code></pre>
+
+<p>Then update our Update function seen below:</p>
+
+<pre><code>protected override void Update(GameTime gameTime)
+ {
+   base.Update(gameTime);
+   if (text1.Focused)
+{
+  ct = ct -1;
+  if(ct &lt; 0)
+   {
+ ct = 5;
+   }
+
+ if(ct == 0)
+   {
+ KeyboardState ns = Keyboard.GetState();
+ foreach (Microsoft.Xna.Framework.Input.Keys a in ns.GetPressedKeys())
+  { 
+   var_text1 = a.ToString();
+   Text1.Text += var_text1;
+  }
+   }
+ }
+  }
+</code></pre>
+
+<p>And you can enter any value without repeating:</p>
+
+<p><img src="http://www.c-sharpcorner.com/UploadFile/iersoy/windows-controls-and-wpf-usercontrols-inside-an-xna-game-project/Images/image5.gif" alt="" /></p>
+
+<p>Thats it! You have created a Textbox control inside an XNA Window…</p>
+
+<h4 id="button-control">BUTTON Control:</h4>
+
+<p>Button control helps us to accept a process.In this section i will be talking about how to add a button control and its eventhandler.</p>
+
+<p>We declare our Button Class first.</p>
+
+<pre><code>Button btn = new Button();
+</code></pre>
+
+<p>To add this inside project-update Initialize function just like below:</p>
+
+<pre><code>protected override void Initialize()
+ {
+   base.Initialize();
+   btn.Text = "Press Me!";
+   btn.Location = new System.Drawing.Point(50, 50);
+   btn.FlatStyle = FlatStyle.Popup;
+   Control.FromHandle(Window.Handle).Controls.Add(btn);
+ }
+</code></pre>
+
+<p>Now lets write down a simple EventHandler that will show us a MessageBox.</p>
+
+<pre><code>protected override void Initialize()
+  {
+base.Initialize();
+btn.Text = "Press Me!";
+btn.Location = new System.Drawing.Point(50, 50);
+btn.FlatStyle = FlatStyle.Popup;
+btn.Click += new System.EventHandler(ButtonClick);
+Control.FromHandle(Window.Handle).Controls.Add(btn);
+  }
+
+private void ButtonClick(object sender, EventArgs e)
+  {
+MessageBox.Show("Button is Clicked!");
+  }
+</code></pre>
+
+<p>By doing so we have added “Windows Control-Based” events inside XNA Game.</p>
+
+<p><img src="http://www.c-sharpcorner.com/UploadFile/iersoy/windows-controls-and-wpf-usercontrols-inside-an-xna-game-project/Images/image6.gif" alt="" /></p>
+
+<h4 id="checkbox-control">CHECKBOX Control:</h4>
+
+<p>Checkbox control helps us to select multi-options.</p>
+
+<p>We declare it as seen below:</p>
+
+<pre><code>CheckBox cb = new CheckBox();
+</code></pre>
+
+<p>Using it:</p>
+
+<pre><code>protected override void Initialize()
+ {
+   base.Initialize();
+   cb.CheckState = CheckState.Unchecked;
+   cb.Location = new System.Drawing.Point(50, 50);
+   cb.Text = "Yes";
+   cb.BackColor = System.Drawing.Color.CornflowerBlue;
+   Control.FromHandle(Window.Handle).Controls.Add(cb);
+ }
+</code></pre>
+
+<p><img src="http://www.c-sharpcorner.com/UploadFile/iersoy/windows-controls-and-wpf-usercontrols-inside-an-xna-game-project/Images/image7.gif" alt="" /></p>
+
+<p>Lets create an eventhandler and change the text value of checkbox object.</p>
+
+<pre><code>protected override void Initialize()
+ {
+   base.Initialize();
+   cb.CheckState = CheckState.Indeterminate;
+   cb.Location = new System.Drawing.Point(50, 50);
+   cb.Text = "Indeterminate";
+   cb.BackColor = System.Drawing.Color.CornflowerBlue;
+   cb.CheckStateChanged += new EventHandler(CBChanged);
+   Control.FromHandle(Window.Handle).Controls.Add(cb);
+ }
+private void CBChanged(Object sender, EventArgs e)
+ {
+  if (cb.CheckState == CheckState.Unchecked)
+ {
+   cb.Text = "No";
+ }
+  else if (cb.CheckState == CheckState.Checked)
+ {
+   cb.Text = "Yes";
+ }
+ }
+</code></pre>
+
+<p>We have changed the code a little bit.</p>
+
+<p>Check=Checked
+No Check=Unchecked
+Both of Them=Indeterminate</p>
+
+<p>Lets run it!</p>
+
+<p>Indeterminate Mode:</p>
+
+<p><img src="http://www.c-sharpcorner.com/UploadFile/iersoy/windows-controls-and-wpf-usercontrols-inside-an-xna-game-project/Images/image8.gif" alt="" /></p>
+
+<p>Unchecked Mode:</p>
+
+<p><img src="http://www.c-sharpcorner.com/UploadFile/iersoy/windows-controls-and-wpf-usercontrols-inside-an-xna-game-project/Images/image9.gif" alt="" /></p>
+
+<p>Checked Mode:</p>
+
+<p><img src="http://www.c-sharpcorner.com/UploadFile/iersoy/windows-controls-and-wpf-usercontrols-inside-an-xna-game-project/Images/image10.gif" alt="" /></p>
+
+<p>I have explained Windows controls as detailed as i can.Now lets talk about the most exciting feature: WPF!</p>
+
+<h4 id="wpf-user-controls">WPF User Controls:</h4>
+
+<p>WPF User Controls are the most exciting controls we can add inside XNA Game.</p>
+
+<p>But first we need to add some references that a WPF Application alone needs:
+- Presentation Core
+- Presentation Framework
+- UIAutomationProvider
+- WindowsBase
+- WindowsFormsIntegration
+After that we will be adding our pre-made WPFUserControl from Project-&gt;”Add Existing Item…”</p>
+
+<p><img src="http://www.c-sharpcorner.com/UploadFile/iersoy/windows-controls-and-wpf-usercontrols-inside-an-xna-game-project/Images/image11.gif" alt="" /></p>
+
+<p>Find the files with Windows Markup Files &amp; C# Source file and add them:</p>
+
+<p><img src="http://www.c-sharpcorner.com/UploadFile/iersoy/windows-controls-and-wpf-usercontrols-inside-an-xna-game-project/Images/image12.gif" alt="" /></p>
+
+<p>Now what we will do is to add them to our project as we have done before.</p>
+
+<p>You can add the namespace we used for WPF UserControl. </p>
+
+<pre><code>using WindowsFormsApplication1;  //That's the Namespace we have used inside WPF UserControl
+</code></pre>
+
+<p>Inside this WPF User Control we have added a combobox and an event “SelectionChanged” which shows us message for the selected item.</p>
+
+<h4 id="code-of-wpf-usercontrol">Code of WPF UserControl:</h4>
+
+<pre><code>private void comboBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+  {
+ComboBoxItem cbi = ((ComboBox)sender).SelectedItem as ComboBoxItem;
+MessageBox.Show(cbi.Content.ToString());
+  }
+</code></pre>
+
+<h4 id="xaml-of-wpf-usercontrol">XAML of WPF UserControl:</h4>
+
+<pre><code>&lt;UserControl x:Class="WindowsFormsApplication1.Kontrol1"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+Height="300" Width="300"&gt;
+&lt;Grid&gt;
+&lt;ComboBox Height="23" Margin="48,70,132,0" Name="comboBox1" VerticalAlignment="Top" SelectionChanged="comboBox1_SelectionChanged"&gt;
+&lt;ComboBoxItem&gt;1&lt;/ComboBoxItem&gt;
+&lt;ComboBoxItem&gt;2&lt;/ComboBoxItem&gt;
+&lt;ComboBoxItem&gt;3&lt;/ComboBoxItem&gt;
+&lt;ComboBoxItem&gt;4&lt;/ComboBoxItem&gt;
+&lt;/ComboBox&gt;
+&lt;/Grid&gt;
+&lt;/UserControl&gt;
+</code></pre>
+
+<p>Lets add the control!</p>
+
+<pre><code>Kontrol1 kontrol11 = new Kontrol1();
+</code></pre>
+
+<p>We declared the control.</p>
+
+<p>Then inside “Initialize()” function call our control named Kontrol11…</p>
+
+<pre><code>protected override void Initialize()
+ {
+   base.Initialize();
+   //ElementHost object helps us to connect a WPF User Control.
+   ElementHost elementHost1 = new ElementHost();
+   elementHost1.Location = new System.Drawing.Point(308, 69);
+   elementHost1.Name = "elementHost1";
+   elementHost1.Size = new System.Drawing.Size(350, 181);
+   elementHost1.TabIndex = 1;
+   elementHost1.Text = "elementHost1";
+   elementHost1.Child = this.kontrol11;
+   Control.FromHandle(Window.Handle).Controls.Add(elementHost1);
+ }
+</code></pre>
+
+<p>As you can see above we have added a WPF UserControl to our project</p>
+
+<p>Lets run this project.Whats going to happen?</p>
+
+<p><img src="http://www.c-sharpcorner.com/UploadFile/iersoy/windows-controls-and-wpf-usercontrols-inside-an-xna-game-project/Images/image13.gif" alt="" /></p>
+
+<p>Yes Different UIS such as XAML cannot be used in directly inside an XNA Game.For that we must convert it to Single-Threaded.</p>
+
+<p>Open your Program.cs file:</p>
+
+<p>Change as it is:</p>
+
+<pre><code>using System;
+
+namespace DemoTest
+{
+static class Program
+{ 
+[STAThread]
+static void Main(string[] args)
+{
+using (Game1 game = new Game1())
+{
+game.Run();
+}
+}
+}
+}
+</code></pre>
+
+<p>[STAThread] Helps us to achieve this.Now our project is Single Threaded.And call any different UIs inside XNA!</p>
+
+<p><img src="http://www.c-sharpcorner.com/UploadFile/iersoy/windows-controls-and-wpf-usercontrols-inside-an-xna-game-project/Images/image14.gif" alt="" /></p>
+
+<p>As you can see we have added it inside XNA Game!</p>
+
+<p><img src="http://www.c-sharpcorner.com/UploadFile/iersoy/windows-controls-and-wpf-usercontrols-inside-an-xna-game-project/Images/image15.gif" alt="" /></p>
+
+<p>We are selecting an item and then:</p>
+
+<p>It shows us the selected value. </p>
+
+<p><img src="http://www.c-sharpcorner.com/UploadFile/iersoy/windows-controls-and-wpf-usercontrols-inside-an-xna-game-project/Images/image16.gif" alt="" /></p>
+
+<p>In this article I have written as detailed as much to explain how we can do all of this inside XNA Game.</p>
+
+<p>By doing so you have integrated Windows Controls and WPF User Controls inside XNA!</p>
+
+<p>I will tell much more about REXA(Rich-Effects XNA Applications) in the following days.</p>
+
+<h4 id="update---full-screen">Update:   FULL SCREEN</h4>
+
+<p>As you well know these samples run Windowed Mode.But what if they were running Full Screen?</p>
+
+<p>If we use XNA’s graphics.ToggleFullScreen() or graphics.IsFullScreen=true  then all the things we have used -like Windows Controls and Dialogs- will disappear.Thats because Direct3D that XNA uses will take over the control and remove all the Window-based controls and dialogs from full screen view.</p>
+
+<p>If we cant use XNA Framework for full screen what are we going to do? </p>
+
+<p>It is easy to call a one-line code for full screen,isnt it? Well what are you going to do when you face something like that not able to see Windows Controls or anything related to Windows Object Model?</p>
+
+<p>Theres a solution! : We will develop it the “Windows-Way”..</p>
+
+<p>We will be using Windows API for Full Screen.So what i suggest you is to follow the steps then you will find it most easy:</p>
+
+<h5 id="add-these-references-by-coding">1) Add these references by coding:</h5>
+
+<pre><code>using System.Runtime.InteropServices;
+</code></pre>
+
+<h5 id="add-windows-api-declarations">2) Add Windows API declarations:</h5>
+
+<p>[    DllImport(“user32.dll”)]
+    private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndIntertAfter, int X, int Y, int cx, int cy, int uFlags);
+    [DllImport(“user32.dll”)]
+    private static extern int GetSystemMetrics(int Which);</p>
+
+<pre><code>private const int SM_CXSCREEN = 0;
+private const int SM_CYSCREEN = 1;
+private IntPtr HWND_TOP = IntPtr.Zero;
+private const int SWP_SHOWWINDOW = 64;
+
+These are going to show full screen or restore Windowed Mode.
+
+3) Get Screen Values:
+
+public int ScreenX
+{
+  get
+  {
+return GetSystemMetrics(SM_CXSCREEN);
+  }
+}
+public int ScreenY
+{
+  get
+  {
+return GetSystemMetrics(SM_CYSCREEN);
+  }
+}
+</code></pre>
+
+<h5 id="write-full-screen--restore-codes">4) Write Full Screen &amp; Restore Codes:</h5>
+
+<pre><code>private void FullScreen()
+{
+Form.FromHandle(Window.Handle).FindForm().WindowState=FormWindowState.Maximized;
+Form.FromHandle(Window.Handle).FindForm().FormBorderStyle = FormBorderStyle.None;
+Form.FromHandle(Window.Handle).FindForm().TopMost = true;
+SetWindowPos(Window.Handle, HWND_TOP, 0, 0, ScreenX, ScreenY, SWP_SHOWWINDOW);
+}
+private void Restore()
+{
+Form.FromHandle(Window.Handle).FindForm().WindowState = FormWindowState.Normal;
+Form.FromHandle(Window.Handle).FindForm().FormBorderStyle = FormBorderStyle.FixedDialog;
+Form.FromHandle(Window.Handle).FindForm().TopMost = false;
+}
+</code></pre>
+
+<h5 id="for-calling-these-2-functions-we-will-write-a-code--update-function">5) For calling these 2 functions we will write a code @ Update function:</h5>
+
+<pre><code>KeyboardState newstat = Keyboard.GetState();
+if (newstat.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Escape))
+{
+   FullScreen();
+}
+else if (newstat.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Space))
+{
+   Restore();
+}  
+</code></pre>
+
+<p>If we click on Escape the game will run on Full Screen.If we press Space it will restore the Windowed Mode. </p>
+
+<p>Lets run the updated part and see what happens:</p>
+
+<h5 id="windowed-mode">Windowed Mode:</h5>
+
+<p><img src="http://www.c-sharpcorner.com/UploadFile/iersoy/windows-controls-and-wpf-usercontrols-inside-an-xna-game-project/Images/1.gif" alt="" /></p>
+
+<h5 id="full-screen">FULL SCREEN:</h5>
+
+<p><img src="http://www.c-sharpcorner.com/UploadFile/iersoy/windows-controls-and-wpf-usercontrols-inside-an-xna-game-project/Images/2.gif" alt="" /></p>
+
+<p>Thats it! We have successfully Run our project in Full Screen.As you can see its very simple isnt it?</p>
+
+<p>参考：<a href="http://www.c-sharpcorner.com/uploadfile/iersoy/windows-controls-and-wpf-usercontrols-inside-an-xna-game-project/">http://www.c-sharpcorner.com/uploadfile/iersoy/windows-controls-and-wpf-usercontrols-inside-an-xna-game-project/</a></p>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	
+	<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style_32x32">
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_tqq"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a href="http://www.jiathis.com/share?uid=1838235" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config = {data_track_clickback:'true'};
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1371541356556113" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1838235"></script>
+<!-- UY END -->
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2014 - Nicholas -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+<!-- Baidu Button BEGIN -->
+   <script type="text/javascript" id="bdshare_js" data="type=slide&amp;img=1&amp;pos=right&amp;uid=0" src="http://bdimg.share.baidu.com/static/js/bds_s_v2.js?cdnversion=389859"></script>
+   <script type="text/javascript">
+        var bds_config={"bdTop":300};
+        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+   </script>
+        <!-- Baidu Button END -->
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+			
+
+
+<!-- 
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+ -->
+
+
+
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,655 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>微个日光日</title>
+	<meta name="author" content="Nicholas">
+
+	
+	<meta name="description" content="Sep 13th, 2013 other log4net教程（.net的记录工具） 介绍(Introduce) .Net平台上的工具有很多，其中log4net就是其中一个很强大的工具。它的优点是简单。强大和易扩展性。 基础知识(The Basics) log4net有三个部分组成：配置（ &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="微个日光日" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://xiebaochun.github.io/blog/page/4/">
+	<link href="/public/favicon.png" rel="shortcut icon">
+	<link href="/public/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/public/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'> -->
+	<script src="/public/javascripts/jquery-1.7.2.min.js"></script>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!-- <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css"> -->
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+
+
+<body>
+
+    
+<link href="/public/stylesheets/topheader.css" media="screen, projection" rel="stylesheet" type="text/css">
+<div id="topheader">
+       <div class="info_wrap wrap">
+           <div class="info_show">
+                <i class="fl s_line"></i>
+                <ul class="my_btn fl">
+                    <li class="uname">
+                        <p>欢迎光临小站！</p>
+                    </li>
+                    <li class="fl s_line"></li>
+                </ul>
+                <ul class="friends">
+                    <li class="">
+                        <a href="#s1">友联</a>
+                         <ul class="submenu">
+                            <li><a href="http://ued.taobao.org/blog/" target="_blank">淘宝UED</a></li>
+                            <li><a href="http://www.blueidea.com/" target="_blank">蓝色理想</a></li>
+                            <li><a href="http://ux.etao.com/" target="_blank">一淘UED</a></li>
+                            <li><a href="http://cdc.tencent.com/" target="_blank">腾讯CDC</a></li>
+                            <li><a href="http://ecd.tencent.com/" target="_blank">腾讯ECD</a></li>
+                            <li><a href="http://www.ucdchina.com/" target="_blank">UCDChina</a></li>
+                            <li><a href="http://www.chinavisual.com/" target="_blank">视觉中国</a></li>
+                            <li><a href="http://www.uirss.com/" target="_blank">UIRSS</a></li>
+                        </ul>  
+                    </li>
+                     
+                </ul>
+                
+           </div>
+
+       </div>
+       <div class="logo_info_wrap">
+            <div class="logo_show wrap">
+                <div class="logo_wrap fl">
+                    <a href="http://www.juerry.com" class="logo" title="首页">首页</a>
+                </div>
+            </div>
+       </div>
+       <div id="navigation" class="wrap clearfix">
+            <div class="nav_item_wrap">
+                <ul class="nav_list clearfix">
+                    <li class="nav_item">
+                        <a id="nav_home" href="http://xiebaochun.github.io/index.html">首页</a>
+                    </li>
+                    <li class="nav_item category_shopping">
+                        <a href="">HTML前端</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >CSS3</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >游戏</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >应用</a>
+                    </li>
+                    <li class="nav_item category_second category_second_last">
+                        <a href="">插件</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="" >自习室</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="http://xiebaochun.github.io/mylab/index.html" >实验室</a>
+                    </li> 
+                    <li class="nav_item nav_item_tuan nav_item_fix posi_rale">
+                        <a id="textile" href="http://xiebaochun.github.io/textile.html">设计室</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </li>
+                    <!--<li class="nav_item nav_item_shop nav_item_fix posi_rale">
+                        <a href="" target="_blank"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    </li>-->
+                    <li class="nav_item last ">
+                        <a class="c" id="nav_resume" href="http://xiebaochun.github.io/public/index.html">博客</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+	<div style="min-width:100px;"class="container wrap">
+         
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><!--the weather pugin-->
+       <!-- <script defer src="http://julying.com/lab/weather/v3/jquery.weather.build.min.js?parentbox=body&moveArea=all&zIndex=2&move=1&drag=1&autoDrop=1&styleSize=big&style=_random&area=client&city=%E5%8C%97%E4%BA%AC"></script> -->
+<div class="profilepic">
+	<!-- <img style="width: 160px;" src="https://avatars1.githubusercontent.com/u/2996519?s=460"/> -->
+	<script src="/public/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			// $('.profilepic').append("<img src='http://mt1.baidu.com/timg?wh_rate=0&wapiknow&quality=100&size=w250&sec=0&di=309920a4e4cd155969da5e7aa66485d3&src=http%3A%2F%2Fimg.iknow.bdimg.com%2Fjctuijian%2F0626%2F6.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+</div>
+<!-- <hgroup>
+  <h1><a href="/public/">微个日光日</a></h1>
+  
+    <h2>one blog for share.</h2>
+  
+</hgroup>
+ -->
+<nav id="main-nav"><ul class="main-navigation">
+  <!-- <li><a href="http://xiebaochun.github.io">Home</a></li>
+  <li><a href="/public/blog/archives">Archives</a></li> -->
+  <!-- <li><a href="http://www.juerry.com/index.html">my lab</a></li> -->
+</ul>
+
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/xiebaochun" title="Twitter">Twitter</a>
+		
+		
+		<a class="github" href="https://github.com/xiebaochun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+<section>
+  <!-- <h1>Categories</h1> -->
+  <h1>分类</h1>
+    <ul id="category-list"><li><a href='/blog/categories/ios/'>ios (2)</a></li><li><a href='/blog/categories/other/'>other (13)</a></li><li><a href='/blog/categories/three-dot-js/'>three.js (1)</a></li><li><a href='/blog/categories/web/'>web (26)</a></li></ul>
+    <script type="text/javascript"> 
+           $("#category-list li").each(function()
+           {
+                $(this).children().attr("href","/public"+$(this).children().attr("href"));
+              
+           });
+    </script>
+</section>
+
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner">
+<div itemscope itemtype="http://schema.org/Blog">
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-13T14:00:00+08:00" data-updated="true" itemprop="datePublished">Sep 13<span>th</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/public/blog/categories/other/'>other</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/public/blog/2013/09/13/log4net-tutorial/" itemprop="url">log4net教程（.net的记录工具）</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h2 id="introduce">介绍(Introduce)</h2>
+
+<p>.Net平台上的工具有很多，其中log4net就是其中一个很强大的工具。它的优点是简单。强大和易扩展性。</p>
+
+<h2 id="the-basics">基础知识(The Basics)</h2>
+
+<p>log4net有三个部分组成：配置（configuration），设置（setup),还有调用（call)。配置一app.config或者web.config文件里完成（将会在下面进行详细介绍）。如果你想使用独立的配置文件来增加灵活性，请参考“Getting Away from app.config”章节。然后就是你需要选择存储配置信息的位置，并配置需要调用的几行代码来初始化一个记录器的链接。最后，就是简单的调用这个记录器链接的方法。这些都是很容易完成并理解的。
+
+		
+		<a href="/public/blog/2013/09/13/log4net-tutorial/" class="more-link">继续阅读&rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-12T17:13:00+08:00" data-updated="true" itemprop="datePublished">Sep 12<span>th</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/public/blog/categories/other/'>other</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/public/blog/2013/09/12/how-to-speakup/" itemprop="url">健胃益脾的妙方（中药世家）</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p><img src="http://www.telun.cn/qz_img/con72.jpg" alt="" /></p>
+
+<p>【红参薯蓣肚】
+配方： 红参1支（20～30克），淮山药300克，火腿瘦肉100克，猪肚1只，黄酒适量。
+制法： 红参切薄片，淮山药切片，火腿切薄片，均加黄酒适量浸润。猪肚洗净后用刀切开一小口，将红参、淮山药、火腿塞入肚内，用线扎好，放入砂锅，加水浸没，中火烧开，加黄酒1匙，改文火煨4小时，至肚烂为度。然后剖开肚，将红参、淮山药、火腿倒出，晒干或烘干，研末装瓶盖紧。
+功效： 补脾养胃。
+用法： 每日2次，每次3克，饭后用开水吞服，或用肚汤送服3个月为1个疗程。
+
+		
+		<a href="/public/blog/2013/09/12/how-to-speakup/" class="more-link">继续阅读&rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-12T17:05:00+08:00" data-updated="true" itemprop="datePublished">Sep 12<span>th</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/public/blog/categories/other/'>other</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/public/blog/2013/09/12/xna-for-wp-hanbingduizhantianshi/" itemprop="url">Xna for Wp寒冰对战天使游戏</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>最近迷上玩LOL了，特别喜欢寒冰这个英雄，突发奇想不如使用XNA框架在WP7上写个寒冰对战天使骑士的游戏（理论上wp8上也能运行）。下面简单介绍一下开发的过程吧。
+     首先构思了一下游戏的整体逻辑：大概是这样，打开游戏应用，屏幕上方不断地有很多天使骑士从天空中飞过，寒冰的弓箭在屏幕的左下方，玩家可以控制弓箭的方向，按下射击按钮，射击天上飞的着的敌人。先预览一下游戏吧，如下：
+<img src="http://www.devdiv.com/data/attachment/blog/201301/17/180627ejhseshh05hnpz0j.jpg" alt="" />
+
+		
+		<a href="/public/blog/2013/09/12/xna-for-wp-hanbingduizhantianshi/" class="more-link">继续阅读&rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-12T16:45:00+08:00" data-updated="true" itemprop="datePublished">Sep 12<span>th</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/public/blog/categories/web/'>web</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/public/blog/2013/09/12/mindgame/" itemprop="url">easel.js游戏（背景切换）</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>这是一个背景切换的例子：
+
+		
+		<a href="/public/blog/2013/09/12/mindgame/" class="more-link">继续阅读&rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-12T16:20:00+08:00" data-updated="true" itemprop="datePublished">Sep 12<span>th</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/public/blog/categories/web/'>web</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/public/blog/2013/09/12/inheritance-and-the-prototype-chain-of-javascript/" itemprop="url">Javascript:继承和原型链</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h3 id="javascript">JavaScript：继承和原型链（译）</h3>
+
+<p>原文：<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Inheritance_and_the_prototype_chain?redirectlocale=en-US&amp;redirectslug=JavaScript%2FGuide%2FInheritance_and_the_prototype_chain">Inheritance and the prototype chain</a></p>
+
+<p>译者：<a href="https://github.com/youngsterxyf">youngsterxyf</a></p>
+
+<p>对于具备基于类的编程语言（如Java或C++）经验的程序员来说，JavaScript有点混乱，因为它是一种动态语言，并且不提供<code>class</code>的实现（虽然关键字<code>class</code>是保留的，不可用作变量名）。</p>
+
+<p>说到继承，JavaScript只有一种结构：对象。每个对象都有一个内部链接指向另一个对象，这个对象称为原型 (prototype)。那个原型对象也有自己的原型，如此直到某个对象以<code>null</code>作为其原型。<code>null</code>，根据定义，没有原型，作为这种<strong>原型链</strong>的最后一环而存在。
+
+		
+		<a href="/public/blog/2013/09/12/inheritance-and-the-prototype-chain-of-javascript/" class="more-link">继续阅读&rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-11T17:27:00+08:00" data-updated="true" itemprop="datePublished">Sep 11<span>th</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/public/blog/categories/web/'>web</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/public/blog/2013/09/11/web-design-the-job/" itemprop="url">网页设计-关于工作</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h3 id="section">在机构里的工作</h3>
+
+<p>我是在一个小代理商里开始从事web设计的。在1997年的时候，web刚开始起步，我们利用这个新鲜媒体来出售客户端。像我一样，很多的设计师自然而然地开始为代理商工作。这些代理商给我们这些设计师们提供了很好的发展平台，并给予很高的薪酬。你
+
+		
+		<a href="/public/blog/2013/09/11/web-design-the-job/" class="more-link">继续阅读&rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-10T17:20:00+08:00" data-updated="true" itemprop="datePublished">Sep 10<span>th</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/public/blog/categories/web/'>web</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/public/blog/2013/09/10/the-html5/" itemprop="url">一个HTML5+Easel.js游戏的例子</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>这是一个使用easeljs框架写的一个html5 RPG游戏,游戏很简单，主要是提供一个游戏的模板。下面是全部代码：
+
+		
+		<a href="/public/blog/2013/09/10/the-html5/" class="more-link">继续阅读&rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-09T16:10:00+08:00" data-updated="true" itemprop="datePublished">Sep 9<span>th</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/public/blog/categories/web/'>web</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/public/blog/2013/09/09/design-for-the-web-getting-started/" itemprop="url">网页设计——简介</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>网页设计不同于其他任何类型的媒介设计。它所需要的必备技能，有时会让你感到吃惊。而需要丰富的实战经验，这是毫无疑问的。网页设计吸引着各个领域的设计师们，从工程师设计到建筑设计，从产品设计到平面设计。本章将会简要介绍一下当前设计行业的概况，还有网页设计在设计领域中扮演的角色。
+
+		
+		<a href="/public/blog/2013/09/09/design-for-the-web-getting-started/" class="more-link">继续阅读&rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-05T17:38:00+08:00" data-updated="true" itemprop="datePublished">Sep 5<span>th</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/public/blog/categories/web/'>web</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/public/blog/2013/09/05/something-in-octopress-blog/" itemprop="url">关于octopress建立博客的若干问题</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h4 id="octopressruby">最近在搞octopress的博客真是是快要崩溃了，对于不懂ruby的我来说确实遇到了很多的问题</h4>
+
+
+		
+		<a href="/public/blog/2013/09/05/something-in-octopress-blog/" class="more-link">继续阅读&rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-05T17:38:00+08:00" data-updated="true" itemprop="datePublished">Sep 5<span>th</span>, 2013</time></div>
+		<div class="tags">
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/public/blog/2013/09/05/it-is-so-cool/" itemprop="url">关于octopress建立博客的若干问题</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h4 id="octopressruby">最近在搞octopress的博客真是是快要崩溃了，对于不懂ruby的我来说确实遇到了很多的问题</h4>
+
+<h2 id="master-source">第一：就是master 和source代表什么意思</h2>
+<p>master 和source其实是github仓库的分支，master是github默认的一个主分支，而source是自己添加的一个分支（其目的是用进行博客的备份的)</p>
+
+<h2 id="rake-generaterake-deploy">第二：rake generate和rake deploy</h2>
+<p>rake generate是将source/post中的markdown文件与某些关联文件（i.gyml）解析成标准的html格式的文件.rake deploy是将接卸生成的网页文件部署到你的github中仓库中master分支上。</p>
+
+<h2 id="merge-conflic">第三：merge conflic的问题</h2>
+<p>有时候在rake deploy或者git push的时候会出现推送优先级的问题，就是在上执行了git add .但是有没有push成功，上一次的推送任务还会存在service中，那么这次你又执行了push那么就发生了冲突，解决这个冲突，可以使用git pull将上一次的推送和这次的推送任务打包一起push上去，这么在执行rake deploy或者git push就不会有冲突了。</p>
+
+<h2 id="section">第四：解决中文问题</h2>
+<p>在默认情况下，如果你在markdown文件中编辑中文文档，那么rake generate的时候会出错，因为win7的编码格式是GBK,要想解决这个问题，首先在win7的系统变量添加LANG=zh_CN.UTF-8和AL_ll=zh_CN.UTF-8这两个键值对，然后在ruby安装目录下找到什么相关文件进行修改，具体的网上很多。然后就可以generate成功了。</p>
+
+		
+		
+	</div>
+
+</article>
+
+</div>
+<nav id="pagenavi">
+    
+        <a href="/public/blog/page/3/" class="prev">Prev</a>
+    
+    
+        <a href="/public/blog/page/5/" class="next">Next</a>
+    
+    <div class="center"><a href="/public/blog/archives">Blog Archives</a></div>
+</nav></div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2014 - Nicholas -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+<!-- Baidu Button BEGIN -->
+   <script type="text/javascript" id="bdshare_js" data="type=slide&amp;img=1&amp;pos=right&amp;uid=0" src="http://bdimg.share.baidu.com/static/js/bds_s_v2.js?cdnversion=389859"></script>
+   <script type="text/javascript">
+        var bds_config={"bdTop":300};
+        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+   </script>
+        <!-- Baidu Button END -->
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+			
+
+
+<!-- 
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+ -->
+
+
+
+		</div>
+	</div>
+</body>
+</html>

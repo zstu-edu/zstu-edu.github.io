@@ -1,0 +1,518 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Cocos2D-X教程1：制作一个打地鼠游戏（Cocos2D-X Tutorial:Making a Universal App:Part 1） - 微个日光日</title>
+	<meta name="author" content="Nicholas">
+
+	
+	<meta name="description" content="Cocos2D-X教程1：制作一个打地鼠游戏（Cocos2D-X Tutorial:Making a Universal App:Part 1） 击打这个地鼠！ 原文地址：http://www.raywenderlich.com/48180/cocos2d-x-tutorial-making-a &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="微个日光日" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://xiebaochun.github.io/blog/2013/10/16/cocos2d-x-tutorial-making-a-universal-app-part-1/">
+	<link href="/public/favicon.png" rel="shortcut icon">
+	<link href="/public/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/public/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'> -->
+	<script src="/public/javascripts/jquery-1.7.2.min.js"></script>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!-- <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css"> -->
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+
+
+<body>
+
+    
+<link href="/public/stylesheets/topheader.css" media="screen, projection" rel="stylesheet" type="text/css">
+<div id="topheader">
+       <div class="info_wrap wrap">
+           <div class="info_show">
+                <i class="fl s_line"></i>
+                <ul class="my_btn fl">
+                    <li class="uname">
+                        <p>欢迎光临小站！</p>
+                    </li>
+                    <li class="fl s_line"></li>
+                </ul>
+                <ul class="friends">
+                    <li class="">
+                        <a href="#s1">友联</a>
+                         <ul class="submenu">
+                            <li><a href="http://ued.taobao.org/blog/" target="_blank">淘宝UED</a></li>
+                            <li><a href="http://www.blueidea.com/" target="_blank">蓝色理想</a></li>
+                            <li><a href="http://ux.etao.com/" target="_blank">一淘UED</a></li>
+                            <li><a href="http://cdc.tencent.com/" target="_blank">腾讯CDC</a></li>
+                            <li><a href="http://ecd.tencent.com/" target="_blank">腾讯ECD</a></li>
+                            <li><a href="http://www.ucdchina.com/" target="_blank">UCDChina</a></li>
+                            <li><a href="http://www.chinavisual.com/" target="_blank">视觉中国</a></li>
+                            <li><a href="http://www.uirss.com/" target="_blank">UIRSS</a></li>
+                        </ul>  
+                    </li>
+                     
+                </ul>
+                
+           </div>
+
+       </div>
+       <div class="logo_info_wrap">
+            <div class="logo_show wrap">
+                <div class="logo_wrap fl">
+                    <a href="http://www.juerry.com" class="logo" title="首页">首页</a>
+                </div>
+            </div>
+       </div>
+       <div id="navigation" class="wrap clearfix">
+            <div class="nav_item_wrap">
+                <ul class="nav_list clearfix">
+                    <li class="nav_item">
+                        <a id="nav_home" href="http://xiebaochun.github.io/index.html">首页</a>
+                    </li>
+                    <li class="nav_item category_shopping">
+                        <a href="">HTML前端</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >CSS3</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >游戏</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >应用</a>
+                    </li>
+                    <li class="nav_item category_second category_second_last">
+                        <a href="">插件</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="" >自习室</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="http://xiebaochun.github.io/mylab/index.html" >实验室</a>
+                    </li> 
+                    <li class="nav_item nav_item_tuan nav_item_fix posi_rale">
+                        <a id="textile" href="http://xiebaochun.github.io/textile.html">设计室</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </li>
+                    <!--<li class="nav_item nav_item_shop nav_item_fix posi_rale">
+                        <a href="" target="_blank"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    </li>-->
+                    <li class="nav_item last ">
+                        <a class="c" id="nav_resume" href="http://xiebaochun.github.io/public/index.html">博客</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+	<div style="min-width:100px;"class="container wrap">
+         
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><!--the weather pugin-->
+       <!-- <script defer src="http://julying.com/lab/weather/v3/jquery.weather.build.min.js?parentbox=body&moveArea=all&zIndex=2&move=1&drag=1&autoDrop=1&styleSize=big&style=_random&area=client&city=%E5%8C%97%E4%BA%AC"></script> -->
+<div class="profilepic">
+	<!-- <img style="width: 160px;" src="https://avatars1.githubusercontent.com/u/2996519?s=460"/> -->
+	<script src="/public/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			// $('.profilepic').append("<img src='http://mt1.baidu.com/timg?wh_rate=0&wapiknow&quality=100&size=w250&sec=0&di=309920a4e4cd155969da5e7aa66485d3&src=http%3A%2F%2Fimg.iknow.bdimg.com%2Fjctuijian%2F0626%2F6.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+</div>
+<!-- <hgroup>
+  <h1><a href="/public/">微个日光日</a></h1>
+  
+    <h2>one blog for share.</h2>
+  
+</hgroup>
+ -->
+<nav id="main-nav"><ul class="main-navigation">
+  <!-- <li><a href="http://xiebaochun.github.io">Home</a></li>
+  <li><a href="/public/blog/archives">Archives</a></li> -->
+  <!-- <li><a href="http://www.juerry.com/index.html">my lab</a></li> -->
+</ul>
+
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/xiebaochun" title="Twitter">Twitter</a>
+		
+		
+		<a class="github" href="https://github.com/xiebaochun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+<section>
+  <!-- <h1>Categories</h1> -->
+  <h1>分类</h1>
+    <ul id="category-list"><li><a href='/blog/categories/ios/'>ios (2)</a></li><li><a href='/blog/categories/other/'>other (13)</a></li><li><a href='/blog/categories/three-dot-js/'>three.js (1)</a></li><li><a href='/blog/categories/web/'>web (26)</a></li></ul>
+    <script type="text/javascript"> 
+           $("#category-list li").each(function()
+           {
+                $(this).children().attr("href","/public"+$(this).children().attr("href"));
+              
+           });
+    </script>
+</section>
+
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Cocos2D-X教程1：制作一个打地鼠游戏（Cocos2D-X Tutorial:Making a Universal App:Part 1）</h1>
+	<div class="entry-content" itemprop="articleBody"><p><img src="http://cdn2.raywenderlich.com/wp-content/uploads/2011/01/WhackAMole1.jpg" alt="" /></p>
+
+<p>击打这个地鼠！</p>
+
+<p>原文地址：<a href="http://www.raywenderlich.com/48180/cocos2d-x-tutorial-making-a-universal-app-part-1">http://www.raywenderlich.com/48180/cocos2d-x-tutorial-making-a-universal-app-part-1</a></p>
+
+<p>本教程介绍的是如何使用Cocos2D-iPhone创建一个打地鼠游戏，但是为什么要费这么大力气创建一个Cocos2D-X版本的呢？我认为有以下几个原因：
+<!--more--></p>
+
+<p>1.你可以通过本教程重新熟悉一下如何使用Cocos2D-X框架创建一个完整的游戏。</p>
+
+<p>2.这是一个很好的机会去学习如何制作一个支持多分辨率和纵宽比的游戏。</p>
+
+<p>3.Cocos2D-X是一个非常火的游戏引擎（特别是在中国），它是为多平台游戏而设计的（不像Cocos2D-iPhone或者Android,它是iOS特有的）。所以在本教程介绍Cocos2D-X是很有必要的。</p>
+
+<p>本教程是以其他Cocos2D-X教程为基础的：</p>
+
+<p><a href="http://www.raywenderlich.com/11283/cocos2d-x-for-ios-and-android-getting-started">Cocos2D-X for iOS and Android:Getting Started</a></p>
+
+<p><a href="http://www.raywenderlich.com/33752/cocos2d-x-tutorial-for-ios-and-android-space-game">Cocos2d-X for ios and Android: Space Game</a></p>
+
+<p><a href="http://www.raywenderlich.com/39113/cocos2d-x-tile-map-tutorial-part-1">Cocos2D-X Tile Map Tutoral:Part1</a></p>
+
+<p><a href="http://www.raywenderlich.com/40544/cocos2d-x-tile-map-tutorial-part-2">Cocos2D-X Tile Map Tutoral:Part2</a></p>
+
+<p>如果你还没看过这些Cocos2D-X教程（或者相关知识），我建议你先学习一下。</p>
+
+<p>本系列教程分为两个部分。第一部分，我们将会创建游戏的基本内容-让小地鼠从地洞里弹出来。为了能让游戏在iPhone,iPad,和视网膜分辨率下达到很好的显示的效果，还有高效率，你将会花很多时间去思考如何管理素材和坐标。</p>
+
+<h3 id="section">规划素材配置：概要</h3>
+
+<p>为了能让游戏在iPhone,iPad和Android设备上工作正常，你首先要需要花一些时间来思考如何处理这些素材。</p>
+
+<p>为了理解如何设置素材的合理尺寸，你首先需要学习一下两点知识：</p>
+
+<ul>
+  <li>
+    <p>视网膜分辨率和Cocos2D-X</p>
+  </li>
+  <li>
+    <p>iPhone,iPad和Android纵横比</p>
+  </li>
+</ul>
+
+<p>现在开始吧！</p>
+
+<h3 id="cocos2d-x">视网膜分辨率和Cocos2D-X</h3>
+
+<p>好消息，Cocos2D-X的最新版本2.14完美解决了多分辨支持的问题，所以你可以较之前更容易制作了。</p>
+
+<p>1.自从Cocos2D-X的2.04版本默认支持视网膜分辨率，你只要在你的app delegate里重新初始化你的资源就行了。</p>
+
+<p>2.添加高分辨率的sprites到你的app，但是不要使用@2x或者-hd拓展名，你只要将所有高分辨率资源放在名为hd的文件夹中。当加载你的sprites时，根据屏幕的像素，Cocos2D-X将会从这个文件夹里加载hd图片到视网膜分辨。</p>
+
+<p>3.现在在Cocos2D-X里你可以使用点代替像素布局你的sprites（精灵）。</p>
+
+<p>当实际运用时，最简单的做法就是让你的美工制作所需的最高分辨率图片（比如视网膜分辨率的2X尺寸），并且你可以很容易将这些图片缩小到适合iPhone大小的尺寸。</p>
+
+<p>你也许好奇为什么要弄成两个不同尺寸的图片-为什么不只加载大图并且通过代码来调整它的大小？要知道，对app来说将纹理图片加载到内存中是消耗内存的一种做法，所以如果你准备将app运行在不需要高分辨率的图片设备上时，加载设备对应的小图片可以节省很多内存空间。</p>
+
+<p>但是不用担心-你不需要在photoshop上反复地缩小这些图片。TexturePacker提供了一个很棒的功能，它可以轻松地将这些图片进行缩放并提供所有分辨率的图片，并且在本教程中会使用到这个功能。</p>
+
+<h3 id="iphoneipadandroid">iPhone,iPad和Android纵横比</h3>
+
+<p>现在处理视网膜屏幕很简单，但是对于iPad和Android呢？</p>
+
+<p>在本教程，如果你知道怎么样处理iOS设备，你只要把重点放在在iOS设备上，你也可以处理Android设备上的情况。</p>
+
+<p>iPhone的分辨率有480<em>320,960</em>640和1136<em>640，即纵横比是1.5或者1.75。但是iPad的分辨率有768</em>1024和1536*2048，即纵横比为1.33。</p>
+
+<p>这就是说，如果你有一张刚好可以填满iPad屏幕的图片，又想将其用于iPhone设备上，但不能吻合地平铺于iPhone屏幕上。也许你会讲这张图片缩放为适合iPhone宽度的大小（即乘0.9375）：将会得到720*960的尺寸，并且额外多出来的部分不被裁减掉！</p>
+
+<p><img src="http://cdn5.raywenderlich.com/wp-content/uploads/2011/01/Aspect-Ratio-Diff.jpg" alt="" /></p>
+
+<p>这样会变得很麻烦，因为不仅背景图片的有问题，而且由于纵横比的关系让在设备上使用相同的坐标变得很困难。</p>
+
+<p>这里有处理这个问题的几个策略，这是一些开发者经常用到的：</p>
+
+<ul>
+  <li>
+    <p>如上图所示，在屏幕的中央放置iPhone视网膜屏幕尺寸（640*960）大小的“可玩区域”。这样在“可玩区域”周围会留下额外的空间-你可以用一张背景图片将其覆盖掉并让玩家不容易察觉到。这样你就可以轻松地在设备之间转换坐标了，并且可重复使用素材（高分辨率的资源用于iPad和视网膜屏，普通分辨率资源用于普通的iPhone或者普通的iPad上）。这也是本教程使用的方法。</p>
+  </li>
+  <li>
+    <p>你可以在iPad的两侧各留42像素的空隙，使剩下的区域的从纵横比就和iPhone一样，这样里面的主区域分辨率就是684<em>1024.如果让你内容适应于684</em>1024大小的盒子里，那么你可以将这些图片缩小，并适用于所有的设备。</p>
+  </li>
+  <li>
+    <p>你可以为iPhone,iPad和视网膜屏幕准备不同的图片和不同的坐标系。这样可以保持最大的灵活性，但是会增加资源大小并且在不同的设备上从新布局对象的位置。</p>
+  </li>
+</ul>
+
+<h3 id="section-1">规划素材：总结</h3>
+
+<p>基于上面的讨论，现在开始规划一下本教程。</p>
+
+<ul>
+  <li>
+    <p>这些素材被限制在了一个960*640规格的可玩区域，在带有视网膜屏幕的iPhone上使用全屏设置，并置于iPad的屏幕中央。</p>
+  </li>
+  <li>
+    <p>通过TexturePacker将这些素材缩小一半，用于普通iPhone设备。</p>
+  </li>
+  <li>
+    <p>将大尺寸的素材放置于名为hd的文件夹，小尺寸的放于名为sd的文件夹。</p>
+  </li>
+  <li>
+    <p>背景需要特别处理，因为它总是要铺满整个屏幕。背景图片将会做成1024*768的规格（iPad的规格）以至于能铺满整个屏幕。同样的背景图片也会用于iPhone设备应为图片完全可以铺满屏幕。一些背景会溢出屏幕，但但是这并不会对这种特殊背景造成影响。</p>
+  </li>
+  <li>
+    <p>iPad版本的代码将会使用hd文件夹的图片，将坐标转到可玩区域内，并使用合适的纵横比，等。</p>
+  </li>
+</ul>
+
+<p>请<a href="http://d1xzuxjlafny7l.cloudfront.net/downloads/WhackAMoleArt.zip">下载</a>本教程的素材图片，素材有<a href="http://www.vmwstudios.com/">lovely lady</a>制作。解压文件并看看是如何配置的：</p>
+
+<ul>
+  <li>
+    <p>在foreground文件夹中，前景图片是1024*768尺寸（iPad的规格）。但是实际上被分为了两部分：下面和上面各一部分，他被分为两部分，这样你可将地鼠置于中间，这样地鼠就好像是从地里出来的那样。</p>
+  </li>
+  <li>
+    <p>在background文件夹中，背景的纵横比是1.33（iPad的纵横比），但是其实际规格是512<em>384。这是因为背景上仅仅显示3个地鼠洞，所以没有必要费这么大力气加载1024</em>1024规格的纹理图片。加载一个小的纹理图片并将其放大。</p>
+  </li>
+  <li>
+    <p>在sprites文件夹，所有的精灵的大小刚刚好适用于960*640规格的可玩区域。注意，这里有一个地鼠还有对应的两个动画（一个微笑表情和一个被打动作）。</p>
+  </li>
+</ul>
+
+<h3 id="section-2">开始</h3>
+
+<p>打开Xcode,选择FIle\New\Project…并使用iOS\cocos2d-x\cocos2d模板创建一个工程，然后点击Next按钮。将工程名命名为WhackAMole,将Device familiy设置为Universal,并保存工程。</p>
+
+<p><img src="http://cdn1.raywenderlich.com/wp-content/uploads/2013/08/figure1.jpg" alt="" /></p>
+
+<p>使用使用Finder将刚刚下载并解压后的文件添加到WhackAMole工程目录中。它应该和Classes文件夹位于同一级目录中。</p>
+
+<p><img src="http://cdn2.raywenderlich.com/wp-content/uploads/2013/08/figure2.jpg" alt="" /></p>
+
+<p>确保安装了TexturePacker,并在你的机器上能正常运行。如果你没有准备好，或者不知道如何做，请查看<a href="http://www.raywenderlich.com/2361/texture-packer-tutorial-how-to-create-and-optimize-sprite-sheets-in-cocos2d-with-pixel-formats">此教程</a>。</p>
+
+<p>现在你将要使用TexturePacker来创建工程所需的精灵表单。你讲通过TexturePacker的命令行工具和Xcode集成环境来完成此任务，所以不需要使用TexturePacker可视化工具。</p>
+
+<p>现在选择Resources文件夹，按下Command+K,选择OSX\Other\Shell Script。并点击Next.将文件命名为PackerTextures.sh,并点击Create。</p>
+
+<p>然后将下面的代码将PackerTexture,sh的内容覆盖掉：</p>
+
+<pre><code>#!/bin/sh
+TP="/usr/local/bin/TexturePacker"
+if [ "${ACTION}" = "clean" ]
+then
+echo "cleaning..."
+rm Resources/hd/background*
+rm Resources/hd/foreground*
+rm Resources/hd/sprites*
+rm Resources/sd/background*
+rm Resources/sd/foreground*
+rm Resources/sd/sprites*
+else
+echo "building..."
+
+${TP} --smart-update \
+--format cocos2d \
+--data Resources/hd/background.plist \
+--sheet Resources/hd/background.pvr.ccz \
+--dither-fs \
+--opt RGB565 \
+Art/background/*.png
+${TP} --smart-update \
+--format cocos2d \
+--data Resources/sd/background.plist \
+--sheet Resources/sd/background.pvr.ccz \
+--dither-fs \
+--scale 0.5 \
+--opt RGB565 \
+Art/background/*.png
+${TP} --smart-update \
+--format cocos2d \
+--data Resources/hd/foreground.plist \
+--sheet Resources/hd/foreground.pvr.ccz \
+--dither-fs-alpha \
+--opt RGBA4444 \
+Art/foreground/*.png
+${TP} --smart-update \
+--format cocos2d \
+--data Resources/sd/foreground.plist \
+--sheet Resources/sd/foreground.pvr.ccz \
+--dither-fs-alpha \
+--scale 0.5 \
+--opt RGBA4444 \
+Art/foreground/*.png
+${TP} --smart-update \
+--format cocos2d \
+--data Resources/hd/sprites.plist \
+--sheet Resources/hd/sprites.pvr.ccz \
+--dither-fs-alpha \
+--opt RGBA4444 \
+Art/sprites/*.png
+${TP} --smart-update \
+--format cocos2d \
+--data Resources/sd/sprites.plist \
+--sheet Resources/sd/sprites.pvr.ccz \
+--dither-fs-alpha \
+--scale 0.5 \
+--opt RGBA4444 \
+Art/sprites/*.png
+fi
+exit 0
+</code></pre>
+
+<p>然后将PackTevture移动到文件路径：</p>
+
+<p><img src="http://cdn4.raywenderlich.com/wp-content/uploads/2013/08/figure3.jpg" alt="" /></p>
+
+<p>不要忘了将PackTexture.sh的引用移动到工程中：</p>
+
+<p><img src="http://cdn5.raywenderlich.com/wp-content/uploads/2013/08/figure4.jpg" alt="" /></p>
+
+<p>TexturePacker脚本将为背景图片，前景图片和精灵创建了精灵表单。并为他们准备了高质量和普通质量的图片。</p>
+
+<p>既然每章图片的存放格式都是pvr.ccz,所以跟有效地利用了内存和硬盘空间。</p>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	
+	<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style_32x32">
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_tqq"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a href="http://www.jiathis.com/share?uid=1838235" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config = {data_track_clickback:'true'};
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1371541356556113" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1838235"></script>
+<!-- UY END -->
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2014 - Nicholas -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+<!-- Baidu Button BEGIN -->
+   <script type="text/javascript" id="bdshare_js" data="type=slide&amp;img=1&amp;pos=right&amp;uid=0" src="http://bdimg.share.baidu.com/static/js/bds_s_v2.js?cdnversion=389859"></script>
+   <script type="text/javascript">
+        var bds_config={"bdTop":300};
+        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+   </script>
+        <!-- Baidu Button END -->
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+			
+
+
+<!-- 
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+ -->
+
+
+
+		</div>
+	</div>
+</body>
+</html>

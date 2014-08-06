@@ -1,0 +1,561 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>函数声明和函数表达式（function declarations vs function expressions） - 微个日光日</title>
+	<meta name="author" content="Nicholas">
+
+	
+	<meta name="description" content="函数声明和函数表达式（function Declarations vs Function Expressions） 原文地址：http://javascriptweblog.wordpress.com/2010/07/06/function-declarations-vs-function- &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="微个日光日" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://xiebaochun.github.io/blog/2013/10/09/function-declarations-vs-function-expressions/">
+	<link href="/public/favicon.png" rel="shortcut icon">
+	<link href="/public/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/public/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'> -->
+	<script src="/public/javascripts/jquery-1.7.2.min.js"></script>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!-- <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css"> -->
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+
+
+<body>
+
+    
+<link href="/public/stylesheets/topheader.css" media="screen, projection" rel="stylesheet" type="text/css">
+<div id="topheader">
+       <div class="info_wrap wrap">
+           <div class="info_show">
+                <i class="fl s_line"></i>
+                <ul class="my_btn fl">
+                    <li class="uname">
+                        <p>欢迎光临小站！</p>
+                    </li>
+                    <li class="fl s_line"></li>
+                </ul>
+                <ul class="friends">
+                    <li class="">
+                        <a href="#s1">友联</a>
+                         <ul class="submenu">
+                            <li><a href="http://ued.taobao.org/blog/" target="_blank">淘宝UED</a></li>
+                            <li><a href="http://www.blueidea.com/" target="_blank">蓝色理想</a></li>
+                            <li><a href="http://ux.etao.com/" target="_blank">一淘UED</a></li>
+                            <li><a href="http://cdc.tencent.com/" target="_blank">腾讯CDC</a></li>
+                            <li><a href="http://ecd.tencent.com/" target="_blank">腾讯ECD</a></li>
+                            <li><a href="http://www.ucdchina.com/" target="_blank">UCDChina</a></li>
+                            <li><a href="http://www.chinavisual.com/" target="_blank">视觉中国</a></li>
+                            <li><a href="http://www.uirss.com/" target="_blank">UIRSS</a></li>
+                        </ul>  
+                    </li>
+                     
+                </ul>
+                
+           </div>
+
+       </div>
+       <div class="logo_info_wrap">
+            <div class="logo_show wrap">
+                <div class="logo_wrap fl">
+                    <a href="http://www.juerry.com" class="logo" title="首页">首页</a>
+                </div>
+            </div>
+       </div>
+       <div id="navigation" class="wrap clearfix">
+            <div class="nav_item_wrap">
+                <ul class="nav_list clearfix">
+                    <li class="nav_item">
+                        <a id="nav_home" href="http://xiebaochun.github.io/index.html">首页</a>
+                    </li>
+                    <li class="nav_item category_shopping">
+                        <a href="">HTML前端</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >CSS3</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >游戏</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >应用</a>
+                    </li>
+                    <li class="nav_item category_second category_second_last">
+                        <a href="">插件</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="" >自习室</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="http://xiebaochun.github.io/mylab/index.html" >实验室</a>
+                    </li> 
+                    <li class="nav_item nav_item_tuan nav_item_fix posi_rale">
+                        <a id="textile" href="http://xiebaochun.github.io/textile.html">设计室</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </li>
+                    <!--<li class="nav_item nav_item_shop nav_item_fix posi_rale">
+                        <a href="" target="_blank"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    </li>-->
+                    <li class="nav_item last ">
+                        <a class="c" id="nav_resume" href="http://xiebaochun.github.io/public/index.html">博客</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+	<div style="min-width:100px;"class="container wrap">
+         
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><!--the weather pugin-->
+       <!-- <script defer src="http://julying.com/lab/weather/v3/jquery.weather.build.min.js?parentbox=body&moveArea=all&zIndex=2&move=1&drag=1&autoDrop=1&styleSize=big&style=_random&area=client&city=%E5%8C%97%E4%BA%AC"></script> -->
+<div class="profilepic">
+	<!-- <img style="width: 160px;" src="https://avatars1.githubusercontent.com/u/2996519?s=460"/> -->
+	<script src="/public/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			// $('.profilepic').append("<img src='http://mt1.baidu.com/timg?wh_rate=0&wapiknow&quality=100&size=w250&sec=0&di=309920a4e4cd155969da5e7aa66485d3&src=http%3A%2F%2Fimg.iknow.bdimg.com%2Fjctuijian%2F0626%2F6.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+</div>
+<!-- <hgroup>
+  <h1><a href="/public/">微个日光日</a></h1>
+  
+    <h2>one blog for share.</h2>
+  
+</hgroup>
+ -->
+<nav id="main-nav"><ul class="main-navigation">
+  <!-- <li><a href="http://xiebaochun.github.io">Home</a></li>
+  <li><a href="/public/blog/archives">Archives</a></li> -->
+  <!-- <li><a href="http://www.juerry.com/index.html">my lab</a></li> -->
+</ul>
+
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/xiebaochun" title="Twitter">Twitter</a>
+		
+		
+		<a class="github" href="https://github.com/xiebaochun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+<section>
+  <!-- <h1>Categories</h1> -->
+  <h1>分类</h1>
+    <ul id="category-list"><li><a href='/blog/categories/ios/'>ios (2)</a></li><li><a href='/blog/categories/other/'>other (13)</a></li><li><a href='/blog/categories/three-dot-js/'>three.js (1)</a></li><li><a href='/blog/categories/web/'>web (26)</a></li></ul>
+    <script type="text/javascript"> 
+           $("#category-list li").each(function()
+           {
+                $(this).children().attr("href","/public"+$(this).children().attr("href"));
+              
+           });
+    </script>
+</section>
+
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">函数声明和函数表达式（function Declarations vs Function Expressions）</h1>
+	<div class="entry-content" itemprop="articleBody"><p>原文地址：<a href="http://javascriptweblog.wordpress.com/2010/07/06/function-declarations-vs-function-expressions/">http://javascriptweblog.wordpress.com/2010/07/06/function-declarations-vs-function-expressions/</a></p>
+
+<p>在开始之前先提出一下几个问题。在下面的几种情况下弹出内容分别是什么？
+<!--more-->
+情况1:</p>
+
+<pre><code>function foo(){
+function bar() {
+return 3;
+}
+return bar();
+function bar() {
+return 8;
+}
+}
+alert(foo());
+</code></pre>
+
+<p>情况2：
+    function foo(){
+    var bar = function() {
+    return 3;
+    };
+    return bar();
+    var bar = function() {
+    return 8;
+    };
+    }
+    alert(foo());</p>
+
+<p>情况3：</p>
+
+<pre><code>alert(foo());
+function foo(){
+var bar = function() {
+return 3;
+};
+return bar();
+var bar = function() {
+return 8;
+};
+}
+</code></pre>
+
+<p>情况4：</p>
+
+<pre><code>function foo(){
+return bar();
+var bar = function() {
+return 3;
+};
+var bar = function() {
+return 8;
+};
+}
+alert(foo());
+</code></pre>
+
+<p>如果你给出的答案不是8,3,3和[报出错误：bar is not a function],请继续往下读（确实要往下读=-=）</p>
+
+<h4 id="section">什么是函数声明？</h4>
+
+<p>函数声明是定义了一个命名了的函数变量，并不需要声明变量。函数声明出现正独立的结构中并且不能嵌套在非函数代码块中。对比一下变量的声明就比较好理解了。就像变量什么声明那样要以“var”开头，函数声明则以”function“开头。</p>
+
+<p>例如：</p>
+
+<pre><code>function bar() {
+return 3;
+}
+</code></pre>
+
+<p>ECMA5(13.0)定义的语法规则为：</p>
+
+<pre><code>function Identifier ( FormalParameterListopt ) { FunctionBody }
+</code></pre>
+
+<p>函数的名字在它的做作用域和其父作用域中都是可见的（这样非常好，否则它将不可读）</p>
+
+<pre><code>function bar() {
+return 3;
+}
+ 
+bar() //3
+bar  //function
+</code></pre>
+
+<h4 id="section-1">什么是函数表达式？</h4>
+
+<p>一个函数表达式定义了一个大量表达式语义的一个部分（通常是一个变量委派）。通过函数表达式可以定义带名称的函数也可以是一个匿名函数。函数表达式不一定需要以”function”开始（因此下面的用圆括号包围的是self invoking例子）</p>
+
+<p>例如：</p>
+
+<pre><code>//anonymous function expression
+var a = function() {
+return 3;
+}
+ 
+//named function expression
+var a = function bar() {
+return 3;
+}
+ 
+//self invoking function expression
+(function sayHello() {
+alert("hello!");
+})();
+</code></pre>
+
+<p>ECMA 5（13.0）定义的语法规则为：</p>
+
+<pre><code>function Identifieropt ( FormalParameterListopt ) { FunctionBody }
+</code></pre>
+
+<p>（虽然这会让你感觉不完全，因为它遗漏了必要的条件（就是生命了一个表达式并没有以“function”开头）
+函数名（任何）在其作用域之外是不可见的（和函数声明是相反的）、</p>
+
+<h4 id="statement">什么是函数Statement？</h4>
+
+<p>又是可以把它看做是函数声明的别名。但是kangax指出，在mozilla中一个函数statement是一个函数声明的拓展，允许函数声明语法在声明允许的任何地方使用。当然现在还没有任何标准，所以不推荐用于产品的开发。</p>
+
+<h4 id="section-2">关于问题的解答</h4>
+
+<p>问题1使用函数声明，意味着他取得了hoisted…</p>
+
+<h4 id="hoisted">等等，什么是hoisted？</h4>
+
+<p>引用Ben cherry的文章里的一句话“函数声明和函数变量总是被编译器移动到javascript作用域的最上面”。</p>
+
+<p>函数声明会覆盖前面的函数声明，所以当编译器处理完情况1中的代码后，执行的效果是这样的：</p>
+
+<pre><code>//**Simulated processing sequence for Question 1**
+function foo(){
+//define bar once
+function bar() {
+return 3;
+}
+//redefine it
+function bar() {
+return 8;
+}
+//return its invocation
+return bar(); //8
+}
+alert(foo());
+</code></pre>
+
+<h4 id="section-3">但是我们总是受到这样的教训：返回一个不可获取的声明之后编写代码</h4>
+
+<p>javascript执行上下文（ECMA5将其分为LexicalEnvironment,VariableEnvironment,和ThisBinding)和处理（一些被激活的状态队列）。声明属于VariableEnvironment当执行域被键入时。它们是和statement区分开来的，并不遵循处理的规则。</p>
+
+<h4 id="section-4">函数表达式不能被挂起吗？</h4>
+
+<p>这个要根据表达式来做判断。让我们看看问题2的表达式：</p>
+
+<pre><code>var bar = function() {
+return 3;
+};
+</code></pre>
+
+<p>左边的（var bat）是一个变量声明。变量声明被挂起但是赋予它的表达式并没有。所以当bar被挂起，编译器最初将其设置为var bar=underfined.函数定义本身并没有被挂起。</p>
+
+<p>(ECMA 5 12.2 A变量和一个初始化器被赋值为它的AssignmentExpression,当VariableStatement被执行，并不是当变量被创建时）</p>
+
+<p>因此问题2中的代码执行的更加有顺序。</p>
+
+<pre><code>//**Simulated processing sequence for Question 2**
+function foo(){
+//a declaration for each function expression
+var bar = undefined;
+var bar = undefined;
+//first Function Expression is executed
+bar = function() {
+return 3;
+};
+// Function created by first Function Expression is invoked
+return bar();
+// second Function Expression unreachable
+}
+alert(foo()); //3
+</code></pre>
+
+<h4 id="ok-i-think-that-makes-sense-by-the-way-youre-wrong-about-question-3-i-ran-it-in-firebug-and-got-an-error">Ok I think that makes sense. By the way, you’re wrong about Question 3. I ran it in Firebug and got an error</h4>
+
+<p>Try saving it in an HTML file and running it over Firefox. Or run it in IE8, Chrome or Safari consoles. Apparently the Firebug console does not practice function hoisting when it runs in its “global” scope (which is actually not global but a special “Firebug” scope – try running “this == window” in the Firebug console).</p>
+
+<h4 id="question-3-is-based-on-similar-logic-to-question-1-this-time-it-is-the-foo-function-that-gets-hoisted">Question 3 is based on similar logic to Question 1. This time it is the foo function that gets hoisted.</h4>
+
+<p>Now Question 4 seems easy. No function hoisting here…</p>
+
+<p>Almost. If there were no hoisting at all, the TypeError would be “bar not defined” and not “bar not a function”. There’s no function hoisting, however there is variable hoisting. Thus bar gets declared up front but its value is not defined. Everything else runs to order.</p>
+
+<pre><code>//**Simulated processing sequence for Question 4**
+function foo(){
+//a declaration for each function expression
+var bar = undefined;
+var bar = undefined;
+return bar(); //TypeError: "bar not defined"
+//neither Function Expression is reached
+}
+alert(foo());
+</code></pre>
+
+<h4 id="what-else-should-i-watch-out-for">What else should I watch out for?</h4>
+
+<p>Function Declarations are officially prohibited within non-function blocks (such as if) . However all browsers allow them and interpret them in different ways.</p>
+
+<p>For example the following code snippet in Firefox 3.6 throws an error because it interprets the Function Declaration as a Function Statement (see above) so x is not defined. However in IE8, Chrome 5 and Safari 5 the function x is returned (as expected with standard Function Declarations).</p>
+
+<pre><code>function foo() {
+if(false) {
+function x() {};
+}
+return x;
+}
+alert(foo());
+</code></pre>
+
+<h4 id="i-can-see-how-using-function-declarations-can-cause-confusion-but-are-there-any-benefits">I can see how using Function Declarations can cause confusion but are there any benefits?</h4>
+
+<p>Well you could argue that Function Declarations are forgiving – if you try to use a function before it is declared, hoisting fixes the order and the function gets called without mishap. But that kind of forgiveness does not encourage tight coding and in the long run is probably more likely to promote surprises than prevent them. After all, programmers arrange their statements in a particular sequence for a reason.</p>
+
+<h4 id="and-there-are-other-reasons-to-favour-function-expressions">And there are other reasons to favour Function Expressions?</h4>
+
+<p>How did you guess?</p>
+
+<p>a) Function Declarations feel like they were intended to mimic Java style method declarations but Java methods are very different animals. In JavaScript functions are living objects with values. Java methods are just metadata storage. Both the following snippets define functions but only the Function Expression suggests that we are creating an object.</p>
+
+<p>//Function Declaration
+function add(a,b) {return a + b};
+//Function Expression
+var add = function(a,b) {return a + b}; </p>
+
+<p>b) Function Expressions are more versatile. A Function Declaration can only exist as a “statement” in isolation. All it can do is create an object variable parented by its current scope. In contrast a Function Expression (by definition) is part of a larger construct. If you want to create an anonymous function or assign a function to a prototype or as a property of some other object you need a Function Expression. Whenever you create a new function using a high order application such as curry or compose you are using a Function Expression. Function Expressions and Functional Programming are inseparable.</p>
+
+<pre><code>//Function Expression
+var sayHello = alert.curry("hello!");
+</code></pre>
+
+<h4 id="do-function-expressions-have-any-drawbacks">Do Function Expressions have any drawbacks?</h4>
+
+<p>Typically functions created by Function Expressions are unnamed. For instance the following function is anonymous, today is just a reference to an unnamed function:</p>
+
+<pre><code>var today = function() {return new Date()}
+</code></pre>
+
+<p>Does this really matter? Mostly it doesn’t, but as Nick Fitzgerald has pointed out debugging with anonymous functions can be frustrating. He suggests using Named Function Expressions (NFEs) as a workaround:</p>
+
+<pre><code>var today = function today() {return new Date()}
+</code></pre>
+
+<p>However as Asen Bozhilov points out (and Kangax documents) NFEs do not work correctly in IE &lt; 9</p>
+
+<h4 id="conclusions">Conclusions?</h4>
+
+<p>Badly placed Function Declarations are misleading and there are few (if any) situations where you can’t use a Function Expression assigned to a variable instead. However if you must use Function Declarations, it will minimize confusion if you place them at the top of the scope to which they belong. I would never place a Function Declarations in an if statement.</p>
+
+<p>Having said all this you may well find yourself in situations where it makes sense to use a Function Declaration. That’s fine. Slavish adherance to rules is dangerous and often results in tortuous code. Much more important is that you understand the concepts so that you can make your own informed decisions. I hope this article helps in that regard.</p>
+
+<p>Comments are very welcome. Please let me know if you feel anything I’ve said is incorrect or if you have something to add.</p>
+
+<p>See also <a href="http://es5.github.io/">ECMA-262 5th Edition</a> sections 10.5, 12.2, 13.0, 13.2</p>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	
+	<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style_32x32">
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_tqq"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a href="http://www.jiathis.com/share?uid=1838235" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config = {data_track_clickback:'true'};
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1371541356556113" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1838235"></script>
+<!-- UY END -->
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2014 - Nicholas -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+<!-- Baidu Button BEGIN -->
+   <script type="text/javascript" id="bdshare_js" data="type=slide&amp;img=1&amp;pos=right&amp;uid=0" src="http://bdimg.share.baidu.com/static/js/bds_s_v2.js?cdnversion=389859"></script>
+   <script type="text/javascript">
+        var bds_config={"bdTop":300};
+        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+   </script>
+        <!-- Baidu Button END -->
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+			
+
+
+<!-- 
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+ -->
+
+
+
+		</div>
+	</div>
+</body>
+</html>

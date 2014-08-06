@@ -1,0 +1,668 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>微个日光日</title>
+	<meta name="author" content="Nicholas">
+
+	
+	<meta name="description" content="Oct 16th, 2013 ios JSB内存管理（Memory Management of JSB） 原文地址：http://www.cocos2d-x.org/wiki/Memory_Management_of_JSB 注：因译者水平有限，如有错误，请批评指正。 JSB的内存管理 &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="微个日光日" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://xiebaochun.github.io/blog/page/2/">
+	<link href="/public/favicon.png" rel="shortcut icon">
+	<link href="/public/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/public/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'> -->
+	<script src="/public/javascripts/jquery-1.7.2.min.js"></script>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!-- <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css"> -->
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+
+
+<body>
+
+    
+<link href="/public/stylesheets/topheader.css" media="screen, projection" rel="stylesheet" type="text/css">
+<div id="topheader">
+       <div class="info_wrap wrap">
+           <div class="info_show">
+                <i class="fl s_line"></i>
+                <ul class="my_btn fl">
+                    <li class="uname">
+                        <p>欢迎光临小站！</p>
+                    </li>
+                    <li class="fl s_line"></li>
+                </ul>
+                <ul class="friends">
+                    <li class="">
+                        <a href="#s1">友联</a>
+                         <ul class="submenu">
+                            <li><a href="http://ued.taobao.org/blog/" target="_blank">淘宝UED</a></li>
+                            <li><a href="http://www.blueidea.com/" target="_blank">蓝色理想</a></li>
+                            <li><a href="http://ux.etao.com/" target="_blank">一淘UED</a></li>
+                            <li><a href="http://cdc.tencent.com/" target="_blank">腾讯CDC</a></li>
+                            <li><a href="http://ecd.tencent.com/" target="_blank">腾讯ECD</a></li>
+                            <li><a href="http://www.ucdchina.com/" target="_blank">UCDChina</a></li>
+                            <li><a href="http://www.chinavisual.com/" target="_blank">视觉中国</a></li>
+                            <li><a href="http://www.uirss.com/" target="_blank">UIRSS</a></li>
+                        </ul>  
+                    </li>
+                     
+                </ul>
+                
+           </div>
+
+       </div>
+       <div class="logo_info_wrap">
+            <div class="logo_show wrap">
+                <div class="logo_wrap fl">
+                    <a href="http://www.juerry.com" class="logo" title="首页">首页</a>
+                </div>
+            </div>
+       </div>
+       <div id="navigation" class="wrap clearfix">
+            <div class="nav_item_wrap">
+                <ul class="nav_list clearfix">
+                    <li class="nav_item">
+                        <a id="nav_home" href="http://xiebaochun.github.io/index.html">首页</a>
+                    </li>
+                    <li class="nav_item category_shopping">
+                        <a href="">HTML前端</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >CSS3</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >游戏</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >应用</a>
+                    </li>
+                    <li class="nav_item category_second category_second_last">
+                        <a href="">插件</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="" >自习室</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="http://xiebaochun.github.io/mylab/index.html" >实验室</a>
+                    </li> 
+                    <li class="nav_item nav_item_tuan nav_item_fix posi_rale">
+                        <a id="textile" href="http://xiebaochun.github.io/textile.html">设计室</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </li>
+                    <!--<li class="nav_item nav_item_shop nav_item_fix posi_rale">
+                        <a href="" target="_blank"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    </li>-->
+                    <li class="nav_item last ">
+                        <a class="c" id="nav_resume" href="http://xiebaochun.github.io/public/index.html">博客</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+	<div style="min-width:100px;"class="container wrap">
+         
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><!--the weather pugin-->
+       <!-- <script defer src="http://julying.com/lab/weather/v3/jquery.weather.build.min.js?parentbox=body&moveArea=all&zIndex=2&move=1&drag=1&autoDrop=1&styleSize=big&style=_random&area=client&city=%E5%8C%97%E4%BA%AC"></script> -->
+<div class="profilepic">
+	<!-- <img style="width: 160px;" src="https://avatars1.githubusercontent.com/u/2996519?s=460"/> -->
+	<script src="/public/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			// $('.profilepic').append("<img src='http://mt1.baidu.com/timg?wh_rate=0&wapiknow&quality=100&size=w250&sec=0&di=309920a4e4cd155969da5e7aa66485d3&src=http%3A%2F%2Fimg.iknow.bdimg.com%2Fjctuijian%2F0626%2F6.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+</div>
+<!-- <hgroup>
+  <h1><a href="/public/">微个日光日</a></h1>
+  
+    <h2>one blog for share.</h2>
+  
+</hgroup>
+ -->
+<nav id="main-nav"><ul class="main-navigation">
+  <!-- <li><a href="http://xiebaochun.github.io">Home</a></li>
+  <li><a href="/public/blog/archives">Archives</a></li> -->
+  <!-- <li><a href="http://www.juerry.com/index.html">my lab</a></li> -->
+</ul>
+
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/xiebaochun" title="Twitter">Twitter</a>
+		
+		
+		<a class="github" href="https://github.com/xiebaochun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+<section>
+  <!-- <h1>Categories</h1> -->
+  <h1>分类</h1>
+    <ul id="category-list"><li><a href='/blog/categories/ios/'>ios (2)</a></li><li><a href='/blog/categories/other/'>other (13)</a></li><li><a href='/blog/categories/three-dot-js/'>three.js (1)</a></li><li><a href='/blog/categories/web/'>web (26)</a></li></ul>
+    <script type="text/javascript"> 
+           $("#category-list li").each(function()
+           {
+                $(this).children().attr("href","/public"+$(this).children().attr("href"));
+              
+           });
+    </script>
+</section>
+
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner">
+<div itemscope itemtype="http://schema.org/Blog">
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-16T15:23:00+08:00" data-updated="true" itemprop="datePublished">Oct 16<span>th</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/public/blog/categories/ios/'>ios</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/public/blog/2013/10/16/memory-management-of-jsb/" itemprop="url">JSB内存管理（Memory Management of JSB）</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>原文地址：<a href="http://www.cocos2d-x.org/wiki/Memory_Management_of_JSB">http://www.cocos2d-x.org/wiki/Memory_Management_of_JSB</a></p>
+
+<p>注：因译者水平有限，如有错误，请批评指正。</p>
+
+<h2 id="jsb">JSB的内存管理</h2>
+
+<p>基于Cocos2d-x 2.15,但同样适用于Cocos2d-x 3.0。</p>
+
+<h3 id="jsb-1">JSB对象的生命周期</h3>
+
+<p>总所周知，javascript有自己的内存管理机制，即垃圾回收。Cocos2d-x模拟垃圾回收系统来管理Cocos对象。但这里有一个问题，就是将Cocos2d-x对象绑定到javascript对象时由谁负责内存管理。
+
+		
+		<a href="/public/blog/2013/10/16/memory-management-of-jsb/" class="more-link">继续阅读&rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-16T09:00:00+08:00" data-updated="true" itemprop="datePublished">Oct 16<span>th</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/public/blog/categories/ios/'>ios</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/public/blog/2013/10/16/cocos2d-x-tutorial-making-a-universal-app-part-1/" itemprop="url">Cocos2D-X教程1：制作一个打地鼠游戏（Cocos2D-X Tutorial:Making a Universal App:Part 1）</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p><img src="http://cdn2.raywenderlich.com/wp-content/uploads/2011/01/WhackAMole1.jpg" alt="" /></p>
+
+<p>击打这个地鼠！</p>
+
+<p>原文地址：<a href="http://www.raywenderlich.com/48180/cocos2d-x-tutorial-making-a-universal-app-part-1">http://www.raywenderlich.com/48180/cocos2d-x-tutorial-making-a-universal-app-part-1</a></p>
+
+<p>本教程介绍的是如何使用Cocos2D-iPhone创建一个打地鼠游戏，但是为什么要费这么大力气创建一个Cocos2D-X版本的呢？我认为有以下几个原因：
+
+		
+		<a href="/public/blog/2013/10/16/cocos2d-x-tutorial-making-a-universal-app-part-1/" class="more-link">继续阅读&rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-15T16:41:00+08:00" data-updated="true" itemprop="datePublished">Oct 15<span>th</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/public/blog/categories/web/'>web</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/public/blog/2013/10/15/win-3-lifetime-licenses-at-simplemaps/" itemprop="url">在SimpleMaps上赢取3个终身证书（win 3 Lifetime Licenses at Simplemaps）</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p><img src="http://www.script-tutorials.com/demos/ga/simplemaps/simplemaps.png" alt="" /></p>
+
+<p>SimpleMaps.com将对任何独立的HTML5 maps提供三个终身证书(价格：$79到￥199）。如果你在工程里要使用到地图，那么这将是你的福音。你可以通过编辑一个简单的文件来自定义地图。不需要任何HTML5,Flash，或者JavaScript的知识。一步一步参考文档让安装更加容易。而且它将使用与移动设备：HTML5地图在iphone,android,ipads和其他平板设备上都可以正常显示。此地图会自动检测移动设备并将导航调整为最佳布局。
+
+		
+		<a href="/public/blog/2013/10/15/win-3-lifetime-licenses-at-simplemaps/" class="more-link">继续阅读&rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-15T10:30:00+08:00" data-updated="true" itemprop="datePublished">Oct 15<span>th</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/public/blog/categories/web/'>web</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/public/blog/2013/10/15/coding-conventions-in-web-development/" itemprop="url">(Web开发的编程习惯）coding Conventions in Web Development</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p><img src="http://www.script-tutorials.com/demos/362/thumb.png" alt="" /></p>
+
+<p>今天我要讨论的是一些编程习惯。每个人编程时间长了都会遇到编写代码风格的统一问题。我觉得每个人都会遇到这样的问题，就是不同的工程可以使用不同的规则和风格来编写，并且有时会很遇到很多麻烦，以至于你想要一些统一的编写规范。换句话说，编程习惯就是某种特定语言推荐的编程风格，方法和实践。这些习惯一般包括注释，文件结构管理，缩进，声明，空格，命名习惯，编程习惯和原则等。我们建议你遵循这些规则，他将会帮助你提高代码的可读性和易维护性。
+
+		
+		<a href="/public/blog/2013/10/15/coding-conventions-in-web-development/" class="more-link">继续阅读&rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-09T13:54:00+08:00" data-updated="true" itemprop="datePublished">Oct 9<span>th</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/public/blog/categories/web/'>web</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/public/blog/2013/10/09/function-declarations-vs-function-expressions/" itemprop="url">函数声明和函数表达式（function Declarations vs Function Expressions）</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>原文地址：<a href="http://javascriptweblog.wordpress.com/2010/07/06/function-declarations-vs-function-expressions/">http://javascriptweblog.wordpress.com/2010/07/06/function-declarations-vs-function-expressions/</a></p>
+
+<p>在开始之前先提出一下几个问题。在下面的几种情况下弹出内容分别是什么？
+
+		
+		<a href="/public/blog/2013/10/09/function-declarations-vs-function-expressions/" class="more-link">继续阅读&rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-08T16:19:00+08:00" data-updated="true" itemprop="datePublished">Oct 8<span>th</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/public/blog/categories/web/'>web</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/public/blog/2013/10/08/infographic-anatomy-of-a-perfect-page/" itemprop="url">完美页面解析（Infographic:Anatomy of a Perfect Page）</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>人们总对海报的主题收藏很感兴趣。尤其是与他们有关的活动信息。今天，我收集了一些关于web页面的一些布局结构信息。这些海报给出了很多页面设计的一些意见和建议。这些信息相信对网页设计和开发这都有很多用处。</p>
+
+<p>海报是传递信息给读者的最好的方法之一，他可以将一些新闻或者其他的一些有用的信息放在一个地方。现在许多人没有足够的时间来阅读多页面的文本。海报让信息更容易被传播和理解。接下来将分享一下有关web的一些海报。
+
+		
+		<a href="/public/blog/2013/10/08/infographic-anatomy-of-a-perfect-page/" class="more-link">继续阅读&rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-27T14:41:00+08:00" data-updated="true" itemprop="datePublished">Sep 27<span>th</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/public/blog/categories/web/'>web</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/public/blog/2013/09/27/php-ajax-calender/" itemprop="url">使用PHP和AJAX制作日历</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>在很多网站，日历是一个必要的组成部分。通常这些日历是jquery的一个插件，但是也可以用php来实现。今天我将使用ajax技术展示一个月份的日历，可以通过左右箭头切换月份。由于是ajax,这个日历还有其他的优点，它是一个响应式的移动日历。在开始编写代码之前，我建议你先看看我们的demo.</p>
+
+<p><img src="http://www.script-tutorials.com/demos/361/php_ajax_calendar.png" alt="" /></p>
+
+<p><a href="http://www.script-tutorials.com/demos/361/">在线演示</a>
+<a href="http://www.script-tutorials.com/demos/361/source.zip">下载源文件</a></p>
+
+<hr />
+<p>文件结构：</p>
+
+<p>在开始之前，让我们先为我们的文件定义一个清晰的文件夹结构：</p>
+
+<ul>
+  <li>css-存放所有的css文件</li>
+  <li>images-存放所有可能用到的图片</li>
+  <li>templates-存放所有的模板文件
+
+		
+		<a href="/public/blog/2013/09/27/php-ajax-calender/" class="more-link">继续阅读&rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-24T13:55:00+08:00" data-updated="true" itemprop="datePublished">Sep 24<span>th</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/public/blog/categories/web/'>web</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/public/blog/2013/09/24/jquery-tutorials-sumary/" itemprop="url">jQuery 入门总结</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>今天放假，没地方可去，给新手推荐点 jQuery 教程吧。</p>
+
+<h4 id="jquery-jquery-jquery">1、《15天学会jQuery》这本书间的很基础，很适合于新手，大致从基础讲了一些 什么是jQuery 以及jQuery的使用和常用函数。</h4>
+<p>麻雀虽小五脏俱全。
+
+		
+		<a href="/public/blog/2013/09/24/jquery-tutorials-sumary/" class="more-link">继续阅读&rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-23T13:54:00+08:00" data-updated="true" itemprop="datePublished">Sep 23<span>rd</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/public/blog/categories/web/'>web</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/public/blog/2013/09/23/google-web-toolkit-for-beginer/" itemprop="url">面向 Java 开发人员的 Ajax: Google Web Toolkit 入门</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>简介： Ajax 被用于创建更加动态和交互性更好的 Web 应用程序。Google Web Toolkit (简称GWT) 是 Google 推出的 Ajax 应用开发包，GWT 支持开发者使用Java 语言开发 Ajax 应用。本文中作者将介绍如何使用 GWT 开发 Ajax 应用的基本方法和步骤。
+
+		
+		<a href="/public/blog/2013/09/23/google-web-toolkit-for-beginer/" class="more-link">继续阅读&rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-23T09:25:00+08:00" data-updated="true" itemprop="datePublished">Sep 23<span>rd</span>, 2013</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/public/blog/categories/web/'>web</a>
+
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/public/blog/2013/09/23/use-css-to-paint-qq/" itemprop="url">使用css3绘制QQ企鹅LOGO</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p><img src="http://www.alloyteam.com/wp-content/uploads/2012/10/result.png" alt="" /></p>
+
+<p><a href="http://download.alloyteam.com/demo/css3-tencent-qq-logo-basic/">CSS3绘制腾讯QQ的企鹅Logo效果</a></p>
+
+<p>今天和大家分享一下使用CSS3绘制腾讯QQ的企鹅Logo的过程。
+
+		
+		<a href="/public/blog/2013/09/23/use-css-to-paint-qq/" class="more-link">继续阅读&rarr;</a>
+	</div>
+
+</article>
+
+</div>
+<nav id="pagenavi">
+    
+        <a href="/public/" class="prev">Prev</a>
+    
+    
+        <a href="/public/blog/page/3/" class="next">Next</a>
+    
+    <div class="center"><a href="/public/blog/archives">Blog Archives</a></div>
+</nav></div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2014 - Nicholas -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+<!-- Baidu Button BEGIN -->
+   <script type="text/javascript" id="bdshare_js" data="type=slide&amp;img=1&amp;pos=right&amp;uid=0" src="http://bdimg.share.baidu.com/static/js/bds_s_v2.js?cdnversion=389859"></script>
+   <script type="text/javascript">
+        var bds_config={"bdTop":300};
+        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+   </script>
+        <!-- Baidu Button END -->
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+			
+
+
+<!-- 
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+ -->
+
+
+
+		</div>
+	</div>
+</body>
+</html>

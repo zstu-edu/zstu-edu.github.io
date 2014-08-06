@@ -1,0 +1,392 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>log4net教程（.net的记录工具） - 微个日光日</title>
+	<meta name="author" content="Nicholas">
+
+	
+	<meta name="description" content="log4net教程（.net的记录工具） 介绍(Introduce) .Net平台上的工具有很多，其中log4net就是其中一个很强大的工具。它的优点是简单。强大和易扩展性。 基础知识(The Basics) log4net有三个部分组成：配置（configuration），设置（setup), &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="微个日光日" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://xiebaochun.github.io/blog/2013/09/13/log4net-tutorial/">
+	<link href="/public/favicon.png" rel="shortcut icon">
+	<link href="/public/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/public/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'> -->
+	<script src="/public/javascripts/jquery-1.7.2.min.js"></script>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!-- <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css"> -->
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+
+
+<body>
+
+    
+<link href="/public/stylesheets/topheader.css" media="screen, projection" rel="stylesheet" type="text/css">
+<div id="topheader">
+       <div class="info_wrap wrap">
+           <div class="info_show">
+                <i class="fl s_line"></i>
+                <ul class="my_btn fl">
+                    <li class="uname">
+                        <p>欢迎光临小站！</p>
+                    </li>
+                    <li class="fl s_line"></li>
+                </ul>
+                <ul class="friends">
+                    <li class="">
+                        <a href="#s1">友联</a>
+                         <ul class="submenu">
+                            <li><a href="http://ued.taobao.org/blog/" target="_blank">淘宝UED</a></li>
+                            <li><a href="http://www.blueidea.com/" target="_blank">蓝色理想</a></li>
+                            <li><a href="http://ux.etao.com/" target="_blank">一淘UED</a></li>
+                            <li><a href="http://cdc.tencent.com/" target="_blank">腾讯CDC</a></li>
+                            <li><a href="http://ecd.tencent.com/" target="_blank">腾讯ECD</a></li>
+                            <li><a href="http://www.ucdchina.com/" target="_blank">UCDChina</a></li>
+                            <li><a href="http://www.chinavisual.com/" target="_blank">视觉中国</a></li>
+                            <li><a href="http://www.uirss.com/" target="_blank">UIRSS</a></li>
+                        </ul>  
+                    </li>
+                     
+                </ul>
+                
+           </div>
+
+       </div>
+       <div class="logo_info_wrap">
+            <div class="logo_show wrap">
+                <div class="logo_wrap fl">
+                    <a href="http://www.juerry.com" class="logo" title="首页">首页</a>
+                </div>
+            </div>
+       </div>
+       <div id="navigation" class="wrap clearfix">
+            <div class="nav_item_wrap">
+                <ul class="nav_list clearfix">
+                    <li class="nav_item">
+                        <a id="nav_home" href="http://xiebaochun.github.io/index.html">首页</a>
+                    </li>
+                    <li class="nav_item category_shopping">
+                        <a href="">HTML前端</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >CSS3</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >游戏</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >应用</a>
+                    </li>
+                    <li class="nav_item category_second category_second_last">
+                        <a href="">插件</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="" >自习室</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="http://xiebaochun.github.io/mylab/index.html" >实验室</a>
+                    </li> 
+                    <li class="nav_item nav_item_tuan nav_item_fix posi_rale">
+                        <a id="textile" href="http://xiebaochun.github.io/textile.html">设计室</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </li>
+                    <!--<li class="nav_item nav_item_shop nav_item_fix posi_rale">
+                        <a href="" target="_blank"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    </li>-->
+                    <li class="nav_item last ">
+                        <a class="c" id="nav_resume" href="http://xiebaochun.github.io/public/index.html">博客</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+	<div style="min-width:100px;"class="container wrap">
+         
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><!--the weather pugin-->
+       <!-- <script defer src="http://julying.com/lab/weather/v3/jquery.weather.build.min.js?parentbox=body&moveArea=all&zIndex=2&move=1&drag=1&autoDrop=1&styleSize=big&style=_random&area=client&city=%E5%8C%97%E4%BA%AC"></script> -->
+<div class="profilepic">
+	<!-- <img style="width: 160px;" src="https://avatars1.githubusercontent.com/u/2996519?s=460"/> -->
+	<script src="/public/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			// $('.profilepic').append("<img src='http://mt1.baidu.com/timg?wh_rate=0&wapiknow&quality=100&size=w250&sec=0&di=309920a4e4cd155969da5e7aa66485d3&src=http%3A%2F%2Fimg.iknow.bdimg.com%2Fjctuijian%2F0626%2F6.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+</div>
+<!-- <hgroup>
+  <h1><a href="/public/">微个日光日</a></h1>
+  
+    <h2>one blog for share.</h2>
+  
+</hgroup>
+ -->
+<nav id="main-nav"><ul class="main-navigation">
+  <!-- <li><a href="http://xiebaochun.github.io">Home</a></li>
+  <li><a href="/public/blog/archives">Archives</a></li> -->
+  <!-- <li><a href="http://www.juerry.com/index.html">my lab</a></li> -->
+</ul>
+
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/xiebaochun" title="Twitter">Twitter</a>
+		
+		
+		<a class="github" href="https://github.com/xiebaochun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+<section>
+  <!-- <h1>Categories</h1> -->
+  <h1>分类</h1>
+    <ul id="category-list"><li><a href='/blog/categories/ios/'>ios (2)</a></li><li><a href='/blog/categories/other/'>other (13)</a></li><li><a href='/blog/categories/three-dot-js/'>three.js (1)</a></li><li><a href='/blog/categories/web/'>web (26)</a></li></ul>
+    <script type="text/javascript"> 
+           $("#category-list li").each(function()
+           {
+                $(this).children().attr("href","/public"+$(this).children().attr("href"));
+              
+           });
+    </script>
+</section>
+
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">log4net教程（.net的记录工具）</h1>
+	<div class="entry-content" itemprop="articleBody"><h2 id="introduce">介绍(Introduce)</h2>
+
+<p>.Net平台上的工具有很多，其中log4net就是其中一个很强大的工具。它的优点是简单。强大和易扩展性。</p>
+
+<h2 id="the-basics">基础知识(The Basics)</h2>
+
+<p>log4net有三个部分组成：配置（configuration），设置（setup),还有调用（call)。配置一app.config或者web.config文件里完成（将会在下面进行详细介绍）。如果你想使用独立的配置文件来增加灵活性，请参考“Getting Away from app.config”章节。然后就是你需要选择存储配置信息的位置，并配置需要调用的几行代码来初始化一个记录器的链接。最后，就是简单的调用这个记录器链接的方法。这些都是很容易完成并理解的。
+<!--more-->
+## 记录权限（logging levels) ##</p>
+
+<p>这里有几个记录权限，这五个权限都可以在你的代码里调用。它们是：</p>
+
+<ol>
+  <li>OFF 不记录任何信息 (不能被调用)</li>
+  <li>FATAL</li>
+  <li>ERROR</li>
+  <li>WARN</li>
+  <li>INFO</li>
+  <li>DEBUG</li>
+  <li>ALL 记录所有的信息 (不能被调用)</li>
+</ol>
+
+<p>在你的代码或者在config文件中，这些levels都可以多次使用。这些各自代表的levels并没有设定规则（除了第一个和最后一个）。</p>
+
+<h2 id="the-configuration">配置（The Configuration)</h2>
+
+<p>设置一个log4net的一般方法是:在桌面应用中使用app.config文件，在web应用中使用web.config文件。为了使log4net能够正确的工作，在config文件里需要配置一些信息。这部分信息会告知log4net如何配置自己。不需要重新编译就可以改变设置的，这正是config文件最重要的地方。</p>
+
+<h3 id="root">根（Root）</h3>
+
+<p>你需要一个root的部分来提供你的top-levels的引用。这些记录器的信息都是继承你的根记录器（root)。root部分提供的唯一一个不同的记录是minimum level。既然所有的配置都继承自root，那么就没有appender会记录下面的特别指明要记录的信息。这是一个在你的应用中控制记录level的简单高效的方法。这里有一个默认等级为INFO（意味着DEBUG的信息将会被忽略） 的例子还有一个在root下的指向两个appender的无效引用。</p>
+
+<pre><code>&lt;root&gt;
+  &lt;level value="INFO"/&gt;
+  &lt;appender-ref ref="FileAppender"/&gt;
+  &lt;appender-ref ref="ConsoleAppender" /&gt;
+&lt;/root&gt;
+</code></pre>
+
+<h3 id="addition-loggers">添加记录器(Addition Loggers)</h3>
+
+<p>有时候你会想要你的程序中的某些特别部分的信息。log4net允许你在root记录器之外再指定一些记录引用。例如，这里我在config文件里放置了一个额外的记录器来记录来记录发生在OtherClass类的对象的控制信息：</p>
+
+<pre><code>&lt;logger name="Log4NetTest.OtherClass"&gt;
+  &lt;level value="DEBUG"/&gt;
+  &lt;appender-ref ref="ConsoleAppender"/&gt;
+&lt;/logger&gt;
+</code></pre>
+
+<p>注意：记录器的名字是类和类所在的命名空间的全称。如果你想模拟一个整体命名空间，它将会列出你想要模拟的所有的命名空间。我再次建议尽量在多个记录器里重读使用appwenders。这样虽然可以完成任务，在莫可能会得到意想不到的结果。</p>
+
+<h3 id="configsection">ConfigSection</h3>
+
+<p>在config文件里要设置的信息会比log4net的配置信息还要多。你需要指明log4net配置信息所要保存的地方。这里是一个简单的例子，主要是用来指明在XML里的”log4net“标签配置信息的存储位置：</p>
+
+<pre><code>&lt;configSection&gt;
+ &lt;section name="log4net" type="log4net.Config.Log4netConfigurationSectionHandler,log4net"/&gt;
+&lt;/configSection&gt;
+</code></pre>
+
+<h3 id="appendergeneral">Appender(General)</h3>
+
+<p>一个appender其实是一个记录的名字信息。它指明了这些信息会被记录在什么地方，是怎样被记录的，还有这些信息是在什么情况之下被记录的。下面是一个appender的一个例子：</p>
+
+<pre><code>&lt;appender name="ConsoleAppender" type="log4net.Appender.ConsoleAppender"&gt;
+</code></pre>
+
+<h3 id="layout">Layout(局部）</h3>
+
+<p>在每个appender里面还必须要有一个layout（布局）部分。这也许和该所属的appender有不同的地方，但是基本上是一样的。你需要指明这些数据是以什么类型被写入的。这里有很多种选择，但是我们建议你使用模板提供的类型。他将会允许你指定你希望如何将这些数据写到数据文件夹中。如果你指定模板布局类型，你将会需要一个子标签来指定一个变换模型。这是一个数据写入的模板，我将会给你一个比较详细的选择变换模板的描述，但是现在，这里有一个指定的布局标签模型布局：</p>
+
+<pre><code>&lt;layout type="log4net.Layout.PatternLayout"&gt;
+  &lt;conversionPattern value="%date [%thread] %-5level %logger [%ndc] 
+- %message%newline"/&gt;
+&lt;/layout&gt;
+</code></pre>
+
+<h3 id="conversion-patterns">Conversion Patterns</h3>
+
+<p>如我之前提到的，用于末班布局的转换模板词条是告诉appenderr如何存储信息的。有很多不同的关键字可以用于这些模板中，和字符短语。这里我列举了一个我认为比较重要和比较有用的关键字。在log4net文档里可以找到所有的关键字。</p>
+
+<p>%date-使用本地时间的信息输出数据。可以使用大括号或者像%date{MMMM dd,yyyy HH:mm:ss,fff}这种布局模型来格式化这个数据（这种布局模型将会输出“January 01,2011 14:15:43,767”这种格式）。但是log4net已经提供了一个格式化方式（ABSOLUTE,DATE,or ISO8601)，所以我比较建议使用这种格式化方式。
+%utcdate-这和%date是一样的修饰符，但是它输出的事世界时间。这种修饰符和date/time的工作原理是一样的。
+%exception-如果有异常被传进来，当异常发生后它将会被输入并写下一行信息。如果没有异常被传入，这个词条将会被忽略并且不会写下任何信息。通常会把它写在记录的最后面，并且通常会在在异常发生之前将信息写入记录中。
+%level-这是你为事件（DEBUG,INFO,WARN,等）指定的等级。
+%message-这是你传入到记录事件里的信息。
+%newline-这是一个新记录词条，根据你的程序所运行的平台，它会被翻译成对应的合适的新词条格式。这是输入一个新词条的推荐方法，并且它没有执行问题，相对于在特定平台上的操作。
+%timestamp-这是程序开始执行到此刻的总毫秒数。
+%thread-它将返回创建词条所在线程的名字（或者是线程的ID，如果线程没有名字的话）。</p>
+
+<p>原文地址：<a href="http://www.codeproject.com/Articles/140911/log4net-Tutorial#">http://www.codeproject.com/Articles/140911/log4net-Tutorial#</a></p>
+
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	
+	<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style_32x32">
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_tqq"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a href="http://www.jiathis.com/share?uid=1838235" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config = {data_track_clickback:'true'};
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1371541356556113" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1838235"></script>
+<!-- UY END -->
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2014 - Nicholas -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+<!-- Baidu Button BEGIN -->
+   <script type="text/javascript" id="bdshare_js" data="type=slide&amp;img=1&amp;pos=right&amp;uid=0" src="http://bdimg.share.baidu.com/static/js/bds_s_v2.js?cdnversion=389859"></script>
+   <script type="text/javascript">
+        var bds_config={"bdTop":300};
+        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+   </script>
+        <!-- Baidu Button END -->
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+			
+
+
+<!-- 
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+ -->
+
+
+
+		</div>
+	</div>
+</body>
+</html>

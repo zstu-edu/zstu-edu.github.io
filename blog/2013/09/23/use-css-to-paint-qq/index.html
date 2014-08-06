@@ -1,0 +1,434 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>使用css3绘制QQ企鹅LOGO - 微个日光日</title>
+	<meta name="author" content="Nicholas">
+
+	
+	<meta name="description" content="使用css3绘制QQ企鹅LOGO CSS3绘制腾讯QQ的企鹅Logo效果 今天和大家分享一下使用CSS3绘制腾讯QQ的企鹅Logo的过程。 ## 一、如何使用CSS3来绘制图形？ ## 网络上经常能够看到一些用CSS3绘制的精致图形，它们通常由矩形，圆形，椭圆，三角形,梯形等组合而成。 &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="微个日光日" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://xiebaochun.github.io/blog/2013/09/23/use-css-to-paint-qq/">
+	<link href="/public/favicon.png" rel="shortcut icon">
+	<link href="/public/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/public/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'> -->
+	<script src="/public/javascripts/jquery-1.7.2.min.js"></script>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<!-- <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css"> -->
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+
+
+<body>
+
+    
+<link href="/public/stylesheets/topheader.css" media="screen, projection" rel="stylesheet" type="text/css">
+<div id="topheader">
+       <div class="info_wrap wrap">
+           <div class="info_show">
+                <i class="fl s_line"></i>
+                <ul class="my_btn fl">
+                    <li class="uname">
+                        <p>欢迎光临小站！</p>
+                    </li>
+                    <li class="fl s_line"></li>
+                </ul>
+                <ul class="friends">
+                    <li class="">
+                        <a href="#s1">友联</a>
+                         <ul class="submenu">
+                            <li><a href="http://ued.taobao.org/blog/" target="_blank">淘宝UED</a></li>
+                            <li><a href="http://www.blueidea.com/" target="_blank">蓝色理想</a></li>
+                            <li><a href="http://ux.etao.com/" target="_blank">一淘UED</a></li>
+                            <li><a href="http://cdc.tencent.com/" target="_blank">腾讯CDC</a></li>
+                            <li><a href="http://ecd.tencent.com/" target="_blank">腾讯ECD</a></li>
+                            <li><a href="http://www.ucdchina.com/" target="_blank">UCDChina</a></li>
+                            <li><a href="http://www.chinavisual.com/" target="_blank">视觉中国</a></li>
+                            <li><a href="http://www.uirss.com/" target="_blank">UIRSS</a></li>
+                        </ul>  
+                    </li>
+                     
+                </ul>
+                
+           </div>
+
+       </div>
+       <div class="logo_info_wrap">
+            <div class="logo_show wrap">
+                <div class="logo_wrap fl">
+                    <a href="http://www.juerry.com" class="logo" title="首页">首页</a>
+                </div>
+            </div>
+       </div>
+       <div id="navigation" class="wrap clearfix">
+            <div class="nav_item_wrap">
+                <ul class="nav_list clearfix">
+                    <li class="nav_item">
+                        <a id="nav_home" href="http://xiebaochun.github.io/index.html">首页</a>
+                    </li>
+                    <li class="nav_item category_shopping">
+                        <a href="">HTML前端</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >CSS3</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >游戏</a>
+                    </li>
+                    <li class="nav_item category_second">
+                        <a href="" >应用</a>
+                    </li>
+                    <li class="nav_item category_second category_second_last">
+                        <a href="">插件</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="" >自习室</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="http://xiebaochun.github.io/mylab/index.html" >实验室</a>
+                    </li> 
+                    <li class="nav_item nav_item_tuan nav_item_fix posi_rale">
+                        <a id="textile" href="http://xiebaochun.github.io/textile.html">设计室</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </li>
+                    <!--<li class="nav_item nav_item_shop nav_item_fix posi_rale">
+                        <a href="" target="_blank"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    </li>-->
+                    <li class="nav_item last ">
+                        <a class="c" id="nav_resume" href="http://xiebaochun.github.io/public/index.html">博客</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+	<div style="min-width:100px;"class="container wrap">
+         
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><!--the weather pugin-->
+       <!-- <script defer src="http://julying.com/lab/weather/v3/jquery.weather.build.min.js?parentbox=body&moveArea=all&zIndex=2&move=1&drag=1&autoDrop=1&styleSize=big&style=_random&area=client&city=%E5%8C%97%E4%BA%AC"></script> -->
+<div class="profilepic">
+	<!-- <img style="width: 160px;" src="https://avatars1.githubusercontent.com/u/2996519?s=460"/> -->
+	<script src="/public/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			// $('.profilepic').append("<img src='http://mt1.baidu.com/timg?wh_rate=0&wapiknow&quality=100&size=w250&sec=0&di=309920a4e4cd155969da5e7aa66485d3&src=http%3A%2F%2Fimg.iknow.bdimg.com%2Fjctuijian%2F0626%2F6.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+</div>
+<!-- <hgroup>
+  <h1><a href="/public/">微个日光日</a></h1>
+  
+    <h2>one blog for share.</h2>
+  
+</hgroup>
+ -->
+<nav id="main-nav"><ul class="main-navigation">
+  <!-- <li><a href="http://xiebaochun.github.io">Home</a></li>
+  <li><a href="/public/blog/archives">Archives</a></li> -->
+  <!-- <li><a href="http://www.juerry.com/index.html">my lab</a></li> -->
+</ul>
+
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/xiebaochun" title="Twitter">Twitter</a>
+		
+		
+		<a class="github" href="https://github.com/xiebaochun" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+<section>
+  <!-- <h1>Categories</h1> -->
+  <h1>分类</h1>
+    <ul id="category-list"><li><a href='/blog/categories/ios/'>ios (2)</a></li><li><a href='/blog/categories/other/'>other (13)</a></li><li><a href='/blog/categories/three-dot-js/'>three.js (1)</a></li><li><a href='/blog/categories/web/'>web (26)</a></li></ul>
+    <script type="text/javascript"> 
+           $("#category-list li").each(function()
+           {
+                $(this).children().attr("href","/public"+$(this).children().attr("href"));
+              
+           });
+    </script>
+</section>
+
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">使用css3绘制QQ企鹅LOGO</h1>
+	<div class="entry-content" itemprop="articleBody"><p><img src="http://www.alloyteam.com/wp-content/uploads/2012/10/result.png" alt="" /></p>
+
+<p><a href="http://download.alloyteam.com/demo/css3-tencent-qq-logo-basic/">CSS3绘制腾讯QQ的企鹅Logo效果</a></p>
+
+<p>今天和大家分享一下使用CSS3绘制腾讯QQ的企鹅Logo的过程。
+<!--more-->
+## 一、如何使用CSS3来绘制图形？  ##</p>
+
+<p>网络上经常能够看到一些用CSS3绘制的精致图形，它们通常由矩形，圆形，椭圆，三角形,梯形等组合而成。要想绘制我们自己的图形，就要先了解下基本图形的绘制方法了。
+一个display：block的元素设定宽高之后表现为矩形。通过设定border-radius可以得到圆角矩形，圆形和椭圆形。</p>
+
+<p><img src="http://www.alloyteam.com/wp-content/uploads/2012/10/border-radius.png" alt="" /></p>
+
+<p>在使用border-radius时，有几点可能需要注意一下：</p>
+
+<ul>
+  <li>
+    <p>border-radius，可以分别对4个角进行设定。 例如上图：border-top-left-radius: apx bpx;</p>
+  </li>
+  <li>
+    <p>border-xxx-xxx-radius的两个值分别代表着椭圆长轴和短轴长度的一半，通常简写的时候例如border-top-left-radius: 10px;(border-top-left-radius:10px 10px;) 表明长轴和短轴的长度均为20px，也就是半径为10px的圆形（圆角部分）。</p>
+  </li>
+  <li>
+    <p>当使用百分比数值时，a 相对于width， b相对于height</p>
+  </li>
+</ul>
+
+<p>如果a == width/2, b == height/2，结果就是一个椭圆，与此同时a==b，那么就可以得到一个半径为a的圆形了。
+在看三角形之前，首先看看三角形的“绘制者”border，下面的例子：</p>
+
+<p><img src="http://www.alloyteam.com/wp-content/uploads/2012/10/border.png" alt="" /></p>
+
+<pre><code>Css
+.test{
+border: 20px solid;
+border-top-color:#ff0000;
+border-right-color:#00ff00;
+border-bottom-color:#0000ff;
+border-left-color:#FFFF00;
+width:100px;
+height: 100px;
+background: #272822;
+}
+</code></pre>
+
+<p>将每个boder的颜色值设为不一样，就可以清楚的看到每个border的负责区域，有三角形的雏形了。其实，绘制三角形的原理很简单，如下图</p>
+
+<p><img src="http://www.alloyteam.com/wp-content/uploads/2012/10/triangle.png" alt="" /></p>
+
+<p>我们可以这样去理解一个border所代表的区域，那就是“三角形x2 + 矩形”，以border-bottom为例，
+矩形 = width x ( border-bottom-width )
+相邻的border交叉的区域构成一个矩形，每个border各负责一半，一个直角三角形。只要将其中的一个border的颜色值设为transparent或者背景色，从视觉上就可以得到一个直角三角形了。</p>
+
+<ul>
+  <li>三角形1 = border-left-width x border-bottom-width</li>
+  <li>三角形2 = border-right-width x border-bottom-width</li>
+</ul>
+
+<table>
+  <tbody>
+    <tr>
+      <td>当width = 0 （height = 0, border-left</td>
+      <td> </td>
+      <td>border-right）时，我们通过调整border的宽度可以将这两个直角三角形拼接成任意形状的三角形，或者调整width(height)等获得一个梯形，当然梯形也可以通过拼图得到，这样不是更简单吗？。Transform中旋转将为我们提供更多的灵活变化。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="section">二、绘制我们的企鹅</h2>
+
+<p>结束了对于基本图形部分的一些讨论，开始着手于QQ 企鹅的绘制。
+第一步当然是基本框架的绘制了。
+通过对手里的Logo图像的观察，按照层次划分来组合最终的效果。选择使用绝对位置position:absolute;来布局各个元素。主要划分为头部，身体，围脖，双手，双脚。
+框架的结果图：</p>
+
+<p><img src="http://www.alloyteam.com/wp-content/uploads/2012/10/simple.png" alt="" /></p>
+
+<p>介绍下这个过程中几个比较典型的图形绘制方法：</p>
+
+<h4 id="section-1">1、企鹅的眼睛：</h4>
+<p>椭圆，直接设置border-radius:50% 50%; 即可[因为宽高分别为44px和66px，所以也可以这样设定：border-radius: 22px / 33px]</p>
+
+<h4 id="section-2">2、围脖的尾部：</h4>
+<p>一个圆角各异的矩形，所以这里需要对几个角分别设定border-radius，微调的结果为</p>
+
+<pre><code>Css
+border-bottom-left-radius: 50% 43%;
+border-bottom-right-radius: 15px;
+border-top-left-radius: 20% 57%;
+</code></pre>
+
+<h4 id="section-3">3、企鹅的胳膊：</h4>
+
+<p>手的绘制较为麻烦一点，可以分为上下两个部分，将绘制的结果拼接到一起。那么对于不需要的部分怎么办呢？我们可以将上(下)部分放到一个div(container)中，利用overflow:hidden的属性来截取所要的部分。绘制复杂图形的时候常用的方法就是切割和拼接，将图形切割成一个个简单的小块，通过层叠和旋转变化进行组合。
+使用transform:rotate(deg)的时候，优先设定transform-origin属性，会比较方便。设定的点作为中心点，整个图形绕着这个点进行角度变化。例如：transform-origin:bottom left， 使用左下角作为原点。也可以使用具体的像素值和百分比。
+在基本的框架线条中比非常多的使用了border-radius用于构造各种曲线条，小企鹅是圆圆胖胖的，:)
+接下来就是对只有基本线条的小企鹅进行着色了。着色的过程可以帮助我们调整z-index，也就是各个模块的重叠层次，遮盖了一些无用的线条和框角。</p>
+
+<p><img src="http://www.alloyteam.com/wp-content/uploads/2012/10/basic.png" alt="" /></p>
+
+<p>填充颜色之后的企鹅看起来好多了，可是总感觉有点不对劲。嘴巴的形状不够性感，围脖竟然没折，小企鹅的脚趾去哪了，穿鞋了吗？
+剩余的工作就是对这些细节上的问题进行修复，这里主要使用两种图形：</p>
+
+<h4 id="section-4">1、绘制一个斜边三角形，修复嘴唇的层次感：</h4>
+
+<p><img src="http://www.alloyteam.com/wp-content/uploads/2012/10/fix1.png" alt="" /></p>
+
+<p>绘制这样一个斜边三角形，步骤分解如图所示：</p>
+
+<p><img src="http://www.alloyteam.com/wp-content/uploads/2012/10/fix1-step.png" alt="" /></p>
+
+<p>先是绘制一个普通三角形，通过逆时针旋转得到一个修复三角形，那么相对称的修复三角形可以通过使用rotateY，绕着Y轴旋转180度，来得到。</p>
+
+<h4 id="section-5">2、绘制一个“小尾巴”</h4>
+
+<p><img src="http://www.alloyteam.com/wp-content/uploads/2012/10/fix2.png" alt="" /></p>
+
+<pre><code>Css
+border-right: 6px solid black;
+width: 100px;
+height: 70px;
+border-bottom-right-radius: 70px 70px;
+</code></pre>
+
+<p>当对一个角应用圆角样式，如果这个角相邻的两个border一个有定义而一个无定义，那么绘制的结果就是由粗到细的“小尾巴了”。[在整个绘制过程中，同一个图形它的绘制方法有很多种，例如一个矩形可以用 width x height构成，也可以由border x height(width)构成，甚至可以由border组合(width = height = 0)构成，根据情况选择吧。]</p>
+
+<p>将这些修复应用到小企鹅上，得到最终的效果图：</p>
+
+<p><img src="http://www.alloyteam.com/wp-content/uploads/2012/10/result.png" alt="" /></p>
+
+<p><a href="http://download.alloyteam.com/demo/css3-tencent-qq-logo-basic/">请点击查看实例DEMO</a>，今天的分享就这么多了，之后会添加一些颜色效果和CSS动画效果，让我们的小企鹅变得迷人，敬请期待！</p>
+
+<p>原文：<a href="http://www.alloyteam.com/2012/10/css3-draw-qq-logo/">http://www.alloyteam.com/2012/10/css3-draw-qq-logo/</a></p>
+
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	
+	<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style_32x32">
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_tqq"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a href="http://www.jiathis.com/share?uid=1838235" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config = {data_track_clickback:'true'};
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1371541356556113" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1838235"></script>
+<!-- UY END -->
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2014 - Nicholas -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+<!-- Baidu Button BEGIN -->
+   <script type="text/javascript" id="bdshare_js" data="type=slide&amp;img=1&amp;pos=right&amp;uid=0" src="http://bdimg.share.baidu.com/static/js/bds_s_v2.js?cdnversion=389859"></script>
+   <script type="text/javascript">
+        var bds_config={"bdTop":300};
+        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+   </script>
+        <!-- Baidu Button END -->
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+			
+
+
+<!-- 
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+ -->
+
+
+
+		</div>
+	</div>
+</body>
+</html>
