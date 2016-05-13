@@ -1,11 +1,227 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>File test.md in source</title>
-  <link rel="stylesheet" href="test/style.css">
+  <title>File test2.md in source</title>
+  <link rel="stylesheet" href="./css/common.css">
 </head>
 <body>
-<h2 id="this-is-the-title">This is the title</h2>
-<p><code>code</code></p>
+<hr>
+
+<p>title: Xcode中断点的威力
+author: BeyondVincent
+layout: post</p>
+
+<p>simplecatch-sidebarlayout:</p>
+
+<ul>
+<li>
+duoshuo_thread_id:</li>
+<li>1248139211572248689
+ludou_ratings_score:</li>
+<li>1
+categories:</li>
+<li>iOS翻译
+tags:</li>
+</ul>
+
+<h2>
+<a id="user-content-----xcode" class="anchor" href="#----xcode" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>  - Xcode</h2>
+
+<p>注：本文由破船译自：<strong><a href="http://www.albertopasca.it/whiletrue/2013/06/xcode-power-of-breakpoints/">albertopasca</a></strong><br>
+本文由<strong>HoNooD</strong>在<strong><a href="http://iosfeed.com/view/76">iosfeed</a></strong>站点上做了推荐。</p>
+
+<p>这里先推荐两篇Xcode相关的文章：<br>
+<strong><a href="http://beyondvincent.com/2013/05/31/xcode-code-snippets/">Xcode Code Snippets</a></strong><br>
+<strong> <a href="http://beyondvincent.com/2013/05/16/ios%E4%B8%AD%E8%B0%83%E8%AF%95-%E5%9F%BA%E6%9C%AC%E6%8A%80%E5%B7%A7/">iOS调试 — 基本技巧</a></strong></p>
+
+<p>本文目录：</p>
+
+<p><strong>1、添加一个特殊的断点</strong><br>
+<strong>    异常断点(Exception breakpoint)</strong><br>
+<strong>    符号断点(Symbolic breakpoint)</strong><br>
+<strong>2、打印到控制台</strong><br>
+<strong>    使用NSLog打印字符串</strong><br>
+<strong>    使用NSLog打印对象(po)</strong><br>
+<strong>    带条件的打印</strong><br>
+<strong>    在循环里面打印一些东西</strong><br>
+<strong>3、运行时设置断点</strong><br>
+<strong>4、调试中播放声音</strong><br>
+<strong>5、LLDB中有用的一些命令</strong><br>
+<strong>    打印帮助</strong><br>
+<strong>    打印调用栈</strong><br>
+<strong>    打印最基本的内容 (p)</strong><br>
+<strong>    打印对象(po)</strong><br>
+<strong>    打印表达式(expr)</strong><br>
+<strong>    打印线程中的一些东西</strong></p>
+
+<p> </p>
+
+<p>正文</p>
+
+<p>下面是非常有用的一些Xcode调试技术(使用断点和LLDB调试器)</p>
+
+<p>1、添加一个特殊的断点</p>
+
+<ul>
+<li>  异常断点(Exception breakpoint)</li>
+</ul>
+
+<p>如果添加了异常断点，当程序每次发生了异常，都会被中断。<strong>一般用来捕获未知异常</strong>。如下示例：</p>
+
+<pre>*** Terminating app due to uncaught exception ’NSRangeException’, reason:
+’-[__NSCFArray objectAtIndex:]: index (10) beyond bounds (3)</pre>
+
+<p><a href="http://beyondvincent.com/wp-content/uploads/2013/07/xcode-debug-01.png"><img alt="xcode-debug-01" src="https://camo.githubusercontent.com/1f3c68c0d966d3836e4f62c3f1f51c8691099109/687474703a2f2f6265796f6e6476696e63656e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031332f30372f78636f64652d64656275672d30312e706e67" width="1049" height="654" data-canonical-src="http://beyondvincent.com/wp-content/uploads/2013/07/xcode-debug-01.png" style="max-width:100%;"></a></p>
+
+<ul>
+<li>  符号断点(Symbolic breakpoint)</li>
+</ul>
+
+<p>符号断点可以中断某个函数的调用。</p>
+
+<pre>- [UIViewController viewDidLoad]
+- [__NSCFArray objectAtIndex:]</pre>
+
+<p><a href="http://beyondvincent.com/wp-content/uploads/2013/07/xcode-debug-02.png"><img alt="xcode-debug-02" src="https://camo.githubusercontent.com/078c377bcb8dfcb34be50a13eb933aa4afcdc063/687474703a2f2f6265796f6e6476696e63656e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031332f30372f78636f64652d64656275672d30322e706e67" width="1049" height="654" data-canonical-src="http://beyondvincent.com/wp-content/uploads/2013/07/xcode-debug-02.png" style="max-width:100%;"></a></p>
+
+<p> </p>
+
+<p>2、打印到控制台</p>
+
+<ul>
+<li>  使用NSLog打印字符串</li>
+</ul>
+
+<p>使用断点来替换NSLog代码(或者在运行时添加一个NSLog)——与代码写NSLog的效果相同。</p>
+
+<p><a href="http://beyondvincent.com/wp-content/uploads/2013/07/xcode-debug-04.png"><img alt="xcode-debug-04" src="https://camo.githubusercontent.com/885fd69da05dbea9a2bff97f03262b71fb095ca6/687474703a2f2f6265796f6e6476696e63656e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031332f30372f78636f64652d64656275672d30342e706e67" width="1030" height="654" data-canonical-src="http://beyondvincent.com/wp-content/uploads/2013/07/xcode-debug-04.png" style="max-width:100%;"></a></p>
+
+<p><a href="https://camo.githubusercontent.com/885fd69da05dbea9a2bff97f03262b71fb095ca6/687474703a2f2f6265796f6e6476696e63656e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031332f30372f78636f64652d64656275672d30342e706e67" target="_blank"><img src="https://camo.githubusercontent.com/885fd69da05dbea9a2bff97f03262b71fb095ca6/687474703a2f2f6265796f6e6476696e63656e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031332f30372f78636f64652d64656275672d30342e706e67" alt="Atl xcode-debug-04" data-canonical-src="http://beyondvincent.com/wp-content/uploads/2013/07/xcode-debug-04.png" style="max-width:100%;"></a></p>
+
+<p> </p>
+
+<ul>
+<li>  使用NSLog打印对象(po)</li>
+</ul>
+
+<pre>NSLog(@"obj: %@", obj);</pre>
+
+<p><a href="http://beyondvincent.com/wp-content/uploads/2013/07/xcode-debug-05.png"><img alt="xcode-debug-05" src="https://camo.githubusercontent.com/e5c7d5280d616eeb4665424b2364f6b3171a396d/687474703a2f2f6265796f6e6476696e63656e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031332f30372f78636f64652d64656275672d30352e706e67" width="1030" height="654" data-canonical-src="http://beyondvincent.com/wp-content/uploads/2013/07/xcode-debug-05.png" style="max-width:100%;"></a></p>
+
+<ul>
+<li>  带条件的打印</li>
+</ul>
+
+<p>例如：当aNumber大于10才打印出“str”的内容。</p>
+
+<pre>expr (void)NSLog(@"Ok, print a log: %@", str)</pre>
+
+<p><a href="http://beyondvincent.com/wp-content/uploads/2013/07/xcode-debug-07.png"><img alt="xcode-debug-07" src="https://camo.githubusercontent.com/b0d5af1f8eae2786ca35a9ca0d209638a4b8ad04/687474703a2f2f6265796f6e6476696e63656e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031332f30372f78636f64652d64656275672d30372e706e67" width="1030" height="681" data-canonical-src="http://beyondvincent.com/wp-content/uploads/2013/07/xcode-debug-07.png" style="max-width:100%;"></a></p>
+
+<p> </p>
+
+<ul>
+<li>  在循环里面打印一些东西</li>
+</ul>
+
+<p>例如，在循环中希望i大于5才开始打印。</p>
+
+<pre>for ( int i=0; i&lt;10; i++ )
+{
+[self self]; // something
+}</pre>
+
+<p>使用“ignore”值，并利用下面的代码进行打印：</p>
+
+<pre>expr (void)NSLog(@"Ok, print a log: %@", str)</pre>
+
+<p><a href="https://camo.githubusercontent.com/58fd1a0f5710b61187111557f0809f3bea33df58/687474703a2f2f6265796f6e6476696e63656e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031332f30372f78636f64652d64656275672d30382e706e67" target="_blank"><img alt="xcode-debug-08" src="https://camo.githubusercontent.com/58fd1a0f5710b61187111557f0809f3bea33df58/687474703a2f2f6265796f6e6476696e63656e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031332f30372f78636f64652d64656275672d30382e706e67" width="1030" height="681" data-canonical-src="http://beyondvincent.com/wp-content/uploads/2013/07/xcode-debug-08.png" style="max-width:100%;"></a></p>
+
+<p>3、运行时设置断点</p>
+
+<p>在运行的时候，根据条件设置断点有时候非常有用。</p>
+
+<pre>breakpoint set -f APViewController.m -l 33</pre>
+
+<p><a href="http://beyondvincent.com/wp-content/uploads/2013/07/xcode-debug-09.png"><img alt="xcode-debug-09" src="https://camo.githubusercontent.com/9366aebf94d740b6f6d6ad907bc0f1d15a9ade0d/687474703a2f2f6265796f6e6476696e63656e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031332f30372f78636f64652d64656275672d30392e706e67" width="1030" height="681" data-canonical-src="http://beyondvincent.com/wp-content/uploads/2013/07/xcode-debug-09.png" style="max-width:100%;"></a></p>
+
+<p>4、调试中播放声音</p>
+
+<p><a href="http://beyondvincent.com/wp-content/uploads/2013/07/Schermata-06-2456470-alle-15.43.13.png"><img alt="Schermata-06-2456470-alle-15.43.13" src="https://camo.githubusercontent.com/7e1c7a9ccbaebb5645af35bb4fc3406be282a712/687474703a2f2f6265796f6e6476696e63656e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031332f30372f53636865726d6174612d30362d323435363437302d616c6c652d31352e34332e31332e706e67" width="475" height="304" data-canonical-src="http://beyondvincent.com/wp-content/uploads/2013/07/Schermata-06-2456470-alle-15.43.13.png" style="max-width:100%;"></a></p>
+
+<p>5、LLDB中有用的一些命令</p>
+
+<p>当Xcode停留在某个断点时，我们可以通过控制台(console)与<strong>lldb</strong>进行交互。</p>
+
+<ul>
+<li>  打印帮助</li>
+</ul>
+
+<pre>(lldb) help</pre>
+
+<ul>
+<li>  打印调用栈(bt)</li>
+</ul>
+
+<pre>(lldb) bt
+* thread #1: tid = 0x1c03, 0x00003146 Debug`-[APViewController callMe:andANumber:](self=0x07187e50, _cmd=0x000038b9, str=0x0715aa40, aNum=38) + 230 at APViewController.m:33, stop reason = breakpoint 3.1
+frame #0: 0x00003146 Debug`-[APViewController callMe:andANumber:](self=0x07187e50, _cmd=0x000038b9, str=0x0715aa40, aNum=38) + 230 at APViewController.m:33
+frame #1: 0x0000304a Debug`-[APViewController viewDidLoad](self=0x07187e50, _cmd=0x005c5a77) + 122 at APViewController.m:16
+frame #2: 0x000f41c7 UIKit`-[UIViewController loadViewIfRequired] + 536
+frame #3: 0x000f4232 UIKit`-[UIViewController view] + 33
+frame #4: 0x000433d5 UIKit`-[UIWindow addRootViewControllerViewIfPossible] + 66
+frame #5: 0x0004376f UIKit`-[UIWindow _setHidden:forced:] + 368
+frame #6: 0x00043905 UIKit`-[UIWindow _orderFrontWithoutMakingKey] + 49
+frame #7: 0x0004c917 UIKit`-[UIWindow makeKeyAndVisible] + 65
+frame #8: 0x00002e1b Debug`-[APAppDelegate application:didFinishLaunchingWithOptions:](self=0x07560750, _cmd=0x005a9c21, application=0x0716a640, launchOptions=0x00000000) + 571 at APAppDelegate.m:28
+frame #9: 0x00010157 UIKit`-[UIApplication _handleDelegateCallbacksWithOptions:isSuspended:restoreState:] + 266
+frame #10: 0x00010747 UIKit`-[UIApplication _callInitializationDelegatesForURL:payload:suspended:] + 1248
+frame #11: 0x0001194b UIKit`-[UIApplication _runWithURL:payload:launchOrientation:statusBarStyle:statusBarHidden:] + 805
+frame #12: 0x00022cb5 UIKit`-[UIApplication handleEvent:withNewEvent:] + 1022
+frame #13: 0x00023beb UIKit`-[UIApplication sendEvent:] + 85
+frame #14: 0x00015698 UIKit`_UIApplicationHandleEvent + 9874
+frame #15: 0x01becdf9 GraphicsServices`_PurpleEventCallback + 339
+frame #16: 0x01becad0 GraphicsServices`PurpleEventCallback + 46
+frame #17: 0x01c06bf5 CoreFoundation`__CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE1_PERFORM_FUNCTION__ + 53
+frame #18: 0x01c06962 CoreFoundation`__CFRunLoopDoSource1 + 146
+frame #19: 0x01c37bb6 CoreFoundation`__CFRunLoopRun + 2118
+frame #20: 0x01c36f44 CoreFoundation`CFRunLoopRunSpecific + 276
+frame #21: 0x01c36e1b CoreFoundation`CFRunLoopRunInMode + 123
+frame #22: 0x0001117a UIKit`-[UIApplication _run] + 774
+frame #23: 0x00012ffc UIKit`UIApplicationMain + 1211
+frame #24: 0x00002b22 Debug`main(argc=1, argv=0xbffff3a4) + 130 at main.m:16
+frame #25: 0x00002a55 Debug`start + 53
+(lldb)</pre>
+
+<ul>
+<li>  打印最基本的内容 (p)</li>
+</ul>
+
+<pre>(lldb) print anInt</pre>
+
+<ul>
+<li>  打印对象(po)</li>
+</ul>
+
+<pre>(lldb) po anObj
+(lldb) po 0x0715aa40</pre>
+
+<ul>
+<li>  打印表达式(expr)</li>
+</ul>
+
+<pre>(lldb) expr 5+2
+(lldb) expr aString = @"aNewValue"</pre>
+
+<ul>
+<li>  打印线程中的一些东西</li>
+</ul>
+
+<pre>(lldb) help frame</pre>
+
+<div>
+  本文由<strong><a href="http://beyondvincent.com/">破船</a></strong>翻译●转载请注明出处●2013-07-01
+</div>
+
 </body>
 <html>
