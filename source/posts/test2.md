@@ -56,7 +56,6 @@ tags:
 <pre class="wp-code-highlight prettyprint linenums:1">*** Terminating app due to uncaught exception ’NSRangeException’, reason:
 ’-[__NSCFArray objectAtIndex:]: index (10) beyond bounds (3)</pre>
 
-[<img class="alignnone size-full wp-image-1497" alt="xcode-debug-01" src="http://beyondvincent.com/wp-content/uploads/2013/07/xcode-debug-01.png" width="1049" height="654" />][1]
 
 *   符号断点(Symbolic breakpoint)
 
@@ -65,7 +64,6 @@ tags:
 <pre class="wp-code-highlight prettyprint linenums:1">- [UIViewController viewDidLoad]
 - [__NSCFArray objectAtIndex:]</pre>
 
-[<img class="alignnone size-full wp-image-1498" alt="xcode-debug-02" src="http://beyondvincent.com/wp-content/uploads/2013/07/xcode-debug-02.png" width="1049" height="654" />][2]
 
 &nbsp;
 
@@ -75,9 +73,6 @@ tags:
 
 使用断点来替换NSLog代码(或者在运行时添加一个NSLog)——与代码写NSLog的效果相同。
 
-[<img class="alignnone size-full wp-image-1499" alt="xcode-debug-04" src="http://beyondvincent.com/wp-content/uploads/2013/07/xcode-debug-04.png" width="1030" height="654" />][3]
-
-![Atl xcode-debug-04](http://beyondvincent.com/wp-content/uploads/2013/07/xcode-debug-04.png)
 
 &nbsp;
 
@@ -85,7 +80,6 @@ tags:
 
 <pre class="wp-code-highlight prettyprint linenums:1">NSLog(@"obj: %@", obj);</pre>
 
-[<img class="alignnone size-full wp-image-1500" alt="xcode-debug-05" src="http://beyondvincent.com/wp-content/uploads/2013/07/xcode-debug-05.png" width="1030" height="654" />][4]
 
 *   带条件的打印
 
@@ -93,7 +87,6 @@ tags:
 
 <pre class="wp-code-highlight prettyprint linenums:1">expr (void)NSLog(@"Ok, print a log: %@", str)</pre>
 
-[<img class="alignnone size-full wp-image-1501" alt="xcode-debug-07" src="http://beyondvincent.com/wp-content/uploads/2013/07/xcode-debug-07.png" width="1030" height="681" />][5]
 
 &nbsp;
 
@@ -110,7 +103,6 @@ tags:
 
 <pre class="wp-code-highlight prettyprint linenums:1">expr (void)NSLog(@"Ok, print a log: %@", str)</pre>
 
-<img class="alignnone size-full wp-image-1502" alt="xcode-debug-08" src="http://beyondvincent.com/wp-content/uploads/2013/07/xcode-debug-08.png" width="1030" height="681" />
 
 3、运行时设置断点
 
@@ -118,11 +110,8 @@ tags:
 
 <pre class="wp-code-highlight prettyprint linenums:1">breakpoint set -f APViewController.m -l 33</pre>
 
-[<img class="alignnone size-full wp-image-1503" alt="xcode-debug-09" src="http://beyondvincent.com/wp-content/uploads/2013/07/xcode-debug-09.png" width="1030" height="681" />][6]
-
 4、调试中播放声音
 
-[<img class="alignnone size-full wp-image-1504" alt="Schermata-06-2456470-alle-15.43.13" src="http://beyondvincent.com/wp-content/uploads/2013/07/Schermata-06-2456470-alle-15.43.13.png" width="475" height="304" />][7]
 
 5、LLDB中有用的一些命令
 
