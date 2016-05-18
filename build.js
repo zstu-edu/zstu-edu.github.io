@@ -60,6 +60,8 @@ function buildByRemarkable(){
 
 	var postList = [];
 
+	var categories = [];
+
 	render('./source/posts');
 	console.log(postList);
 
