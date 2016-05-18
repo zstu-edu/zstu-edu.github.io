@@ -1,21 +1,17 @@
 ---
-title: 'Windows Store App开发[007]视图模型与数据绑定'
-author: BeyondVincent
-layout: post
-
-duoshuo_thread_id:
-  - 1248139211572248630
-simplecatch-sidebarlayout:
-  - 
-categories:
-  - Step by Step
-  - Windows商店应用开发
+{
+    "title":"test1",
+    "author":"this is the author",
+    "categories":["ios","life"],
+    "tags":["Xode"]
+}
 ---
+
+
 在程序中使用视图模型（ViewModel），可以带来很多好处，在开发中值得采纳，视图模型的使用对Metro App开发非常有帮助，通过学习MVC和MVVC你可以了解到试图模型。在这里我将介绍如何定义和使用试图模型，其中包括数据的绑定等内容。
 
 &#160;&#160;&#160; 本次程序我以DevDiv论坛的板块为参考数据，写一个视图模型，有一个主画面，画面的左边有一个列表，列表中的数据来自试图模型中板块项列表，同时右边会显示选中板块的介绍。下面是程序的运行图，我们可以先来看看最终效果：
-
-[<img title="1" style="border-left-width: 0px; border-right-width: 0px; border-bottom-width: 0px; display: inline; border-top-width: 0px" border="0" alt="1" src="http://beyondvincent.com/wp-content/uploads/2013/06/1_thumb2.png" width="682" height="435" />][1] 
+ 
 
 &#160;&#160;&#160; 本次学习内容主要包括一下几部分：
 

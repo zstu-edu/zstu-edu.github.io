@@ -1,4 +1,4 @@
----
+
 title: Xcode中断点的威力
 author: BeyondVincent
 layout: post
@@ -13,6 +13,15 @@ categories:
   - iOS翻译
 tags:
   - Xcode
+
+
+---
+{
+    "title":"Xcode中断点的威力",
+    "author":"this is the author",
+    "categories":["ios","life"],
+    "tags":["Xode"]
+}
 ---
 注：本文由破船译自：<span style="text-decoration: underline;"><strong><span style="color: #339966; text-decoration: underline;"><a href="http://www.albertopasca.it/whiletrue/2013/06/xcode-power-of-breakpoints/" target="_blank"><span style="color: #339966; text-decoration: underline;">albertopasca</span></a></span></strong></span>  
 本文由**<span style="color: #339966;">HoNooD</span>**在**<span style="text-decoration: underline;"><span style="color: #339966; text-decoration: underline;"><a href="http://iosfeed.com/view/76" target="_blank"><span style="color: #339966; text-decoration: underline;">iosfeed</span></a></span></span>**站点上做了推荐。

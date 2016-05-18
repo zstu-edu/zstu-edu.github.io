@@ -57,7 +57,13 @@ function buildByRemarkable(){
 	    return ''; // use external default escaping 
 	  }
 	});
+
+	var postList = [];
+
 	render('./source/posts');
+	console.log(postList);
+
+	buildIndex(postList);
 	function render(dir){
 		var files = fs.readdirSync(dir);
 		for(file in files){
@@ -67,20 +73,49 @@ function buildByRemarkable(){
 
 				var txt = fs.readFileSync(__dirname + '/source/posts/' + file_name);		
 
-				var html = layout(md.render(txt.toString()));
+				var text = txt.toString();
+
+				var info = text.split('---')[1];
+				if(info){
+					//console.log('>>>>>>>>' + typeof JSON.parse(info));
+					postList.push({link:'./'+file_name.substr(0,file_name.length -3)+'.html',info:JSON.parse(info)});
+				}
+
+				//info = JSON.parse(info);
+				var title = info?JSON.parse(info).title:'';
+				var html = layout(md.render(txt.toString().replace(info,'')),title);
+
 				fs.writeFileSync(
 					'./build/'+file_name.substr(0,file_name.length -3)+'.html',html);
 				console.log('file html write success!');
 			}			
 		}
 	}
-	function layout(mdHtml) {
+	function layout(mdHtml,title) {
 		var headerHtml = fs.readFileSync(__dirname + '/source/layout/header.html');
 		var asideHtml = fs.readFileSync(__dirname + '/source/layout/aside.html');
 		var footerHtml = fs.readFileSync(__dirname + '/source/layout/footer.html');
 		var layoutHtml = fs.readFileSync(__dirname +'/source/layout/layout.html');
 		layoutHtml = layoutHtml.toString();
+		if(title) layoutHtml = layoutHtml.replace('{$title}',title);
 		return html = layoutHtml.replace('{$header}',headerHtml.toString()).replace('{$aside}',asideHtml.toString()).replace('{$footer}',footerHtml.toString()).replace('{$markdown}',mdHtml);
+	}
+
+	function buildIndex(postList){
+		var postListHtml = '';
+
+		
+		for(var index = 0;index<postList.length;index++){
+			postListHtml += '<li><a href="./'+postList[index].link+'">'+postList[index].info.title+'</a></li>';
+		}
+
+		postListHtml = '<h2>Articles</h2><ul class="post-list">' + postListHtml + '</ul>';
+
+		var html = layout(postListHtml,'index');
+
+		fs.writeFileSync(
+			'./build/index.html',html);
+		console.log('file index html write success!');
 	}
 }
 

@@ -35,9 +35,15 @@ aside>ul>li{
 	text-align: center;
 	cursor:pointer;
 }
-aside>ul>li:hover{
+aside>ul>li:hover a{
 	color:#666;
 	background-color: #fcfcfc;
+	text-decoration:none;
+}
+aside>ul>li>a{
+	display: block;
+	
+	color:#999;
 }
 article{
 	display: inline-block;
@@ -51,6 +57,16 @@ article{
 	padding-left: 30px;
 	line-height: 60px;
 	color:#999;
+}
+
+.post-list > li{
+	padding:10px 0  3px 5px;																													;
+	list-style: none;
+	border-bottom: 1px solid #eee;
+}
+.post-list > li > a{
+	color:#999;
+	text-decoration: none;
 }
 
 footer{

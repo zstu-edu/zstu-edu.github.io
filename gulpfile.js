@@ -1,12 +1,8 @@
 var gulp = require('gulp');
 
-var watch = require('gulp-watch');
+// var watch = require('gulp-watch');
 
-var filter = require('gulp-filter');
-
-var build = require('./build');
-
-
+// var filter = require('gulp-filter');
 
 
 gulp.task('watch',function(){
@@ -25,9 +21,11 @@ gulp.task('watch',function(){
 });
 
 gulp.task('build',function(){
+	var build = require('./build');
 	console.log('changed');
 	build();
 });
+gulp.run(['build']);
 
 
 
