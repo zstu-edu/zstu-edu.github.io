@@ -103,7 +103,6 @@ function buildByRemarkable(){
 
 	function buildIndex(postList){
 		var postListHtml = '';
-
 		
 		for(var index = 0;index<postList.length;index++){
 			postListHtml += '<li><a href="./'+postList[index].link+'">'+postList[index].info.title+'</a></li>';

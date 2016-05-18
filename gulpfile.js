@@ -25,6 +25,7 @@ gulp.task('build',function(){
 	console.log('changed');
 	build();
 });
+
 gulp.run(['build']);
 
 
