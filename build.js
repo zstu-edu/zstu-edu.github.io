@@ -77,7 +77,7 @@ function buildByRemarkable(){
 
 				var text = txt.toString();
 
-				var info = text.split('---')[1];
+				var info = text.split('===')[1];
 				if(info){
 					//console.log('>>>>>>>>' + typeof JSON.parse(info));
 					postList.push({link:'./'+file_name.substr(0,file_name.length -3)+'.html',info:JSON.parse(info)});
@@ -85,7 +85,7 @@ function buildByRemarkable(){
 
 				//info = JSON.parse(info);
 				var title = info?JSON.parse(info).title:'';
-				var html = layout(md.render(txt.toString().replace(info,'')),title);
+				var html = layout(md.render(txt.toString().replace(info,'').replace(/======/,'')),title);
 
 				fs.writeFileSync(
 					'./build/'+file_name.substr(0,file_name.length -3)+'.html',html);
@@ -107,7 +107,7 @@ function buildByRemarkable(){
 		var postListHtml = '';
 		
 		for(var index = 0;index<postList.length;index++){
-			postListHtml += '<li><a href="./'+postList[index].link+'">'+postList[index].info.title+'</a></li>';
+			postListHtml += '<li><a href="./'+postList[index].link+'">'+(postList[index].info.title||'No title')+'</a></li>';
 		}
 
 		postListHtml = '<h2>Articles</h2><ul class="post-list">' + postListHtml + '</ul>';

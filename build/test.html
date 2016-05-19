@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>test1-sunshine of micro</title>
+	<title>Something about viewport on mobile browsers-sunshine of micro</title>
 	<link rel="icon" href="/favicon.ico" type="/image/x-icon" />
 	<link rel="shortcut icon" href="/favicon.ico" type="/image/x-icon" />
 	<meta name="keywords" content="xiebaochun,sunshine of micro,front-end,zstu,edu,zhejiang hangzhou" />
@@ -31,300 +31,28 @@
 	</ul>
 </aside><article>
 		<div class="markdown-body">
-			<hr>
-<p>在程序中使用视图模型（ViewModel），可以带来很多好处，在开发中值得采纳，视图模型的使用对Metro App开发非常有帮助，通过学习MVC和MVVC你可以了解到试图模型。在这里我将介绍如何定义和使用试图模型，其中包括数据的绑定等内容。</p>
-<p>    本次程序我以DevDiv论坛的板块为参考数据，写一个视图模型，有一个主画面，画面的左边有一个列表，列表中的数据来自试图模型中板块项列表，同时右边会显示选中板块的介绍。下面是程序的运行图，我们可以先来看看最终效果：</p>
-<p>    本次学习内容主要包括一下几部分：</p>
-<p>1、视图模型（ViewModel）的创建</p>
-<p>2、添加页面</p>
-<p>3、编写页面相关代码</p>
-<p>4、添加资源字典</p>
-<p>5、编写XAML</p>
-<p>6、程序运行效果图与Demo程序</p>
-<p> </p>
-<p>1、视图模型（ViewModel）的创建</p>
-<p>   对于创建具有可持续性和和可维护性的应用程序，试图模型是必须具有的一个基础部分，它可以让我将应用程序数据与呈现数据给用户的方法相分离。如果不使用视图模型的话，你会发现你的程序越来越难以维护和开发。</p>
-<p>   在本小节，我首先使用Blank App模版创建了一个名为DevDiv_DataBinding的工程。并在其中创建一个Data目录，然后再Data目录下创建两个新的类文件。分别是ForumItem.cs和ViewModel.cs文件。</p>
-<p>ForumItem类的代码如下</p>
-<pre class="wp-code-highlight prettyprint linenums:1">using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
-<p>namespace DevDiv_DataBinding.Data
-{
-class ForumItem : INotifyPropertyChanged
-{
-private string name, link, info;// 论坛板块的名称,链接和描述信息
-private int topicCount; // 主题数
-public string Name
-{
-get { return name; }
-set { name = value; NotifyPropertyChanged(&quot;Name&quot;); }
-}
-public string Link
-{
-get { return link; }
-set { link = value; NotifyPropertyChanged(&quot;Link&quot;); }
-}
-public string Info
-{
-get { return info; }
-set { info = value; NotifyPropertyChanged(&quot;info&quot;); }
-}
-public int TopicCount
-{
-get { return topicCount; }
-set { topicCount = value; NotifyPropertyChanged(&quot;TopicCount&quot;); }
-}
-public event PropertyChangedEventHandler PropertyChanged;
-private void NotifyPropertyChanged(string propName)
-{
-if (PropertyChanged != null)
-{
-PropertyChanged(this, new PropertyChangedEventArgs(propName));
-}
-}
-}
-}</pre></p>
-<p>ForumItem类是论坛中每个板块的信息：板块名称、链接、描述信息和主题数。</p>
-<p>该类中最重要的部分是实现了INotifyPropertyChanged接口，即让该类的属性可观测，Metro UI控件一个很好的特性是它们支持数据绑定，这意味着当他们所显示的可观测数据发生变化时控件将会自动更新。所以在这里让ForumItem支持可观测，那么方便UI上自动的进行更新。</p>
-<p>ViewModel类的代码如下：</p>
-<pre class="wp-code-highlight prettyprint linenums:1">using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
-using System.Collections.ObjectModel;
-<p>namespace DevDiv_DataBinding.Data
-{
-class ViewModel : INotifyPropertyChanged
-{
-private ObservableCollection&lt;forumitem&gt; forumItemList;
-private int selectedItemIndex;
-private string itemDetail;
-public ViewModel()
-{
-forumItemList = new ObservableCollection&lt;forumitem&gt;();
-selectedItemIndex = -1;
-}</p>
-<pre><code>    public int SelectedItemIndex
-    {
-        get { return selectedItemIndex; }
-        set
-        {
-            selectedItemIndex = value; NotifyPropertyChanged(&amp;quot;SelectedItemIndex&amp;quot;);
-        }
-    }
-
-    public string ItemDetail
-    {
-        get { return itemDetail; }
-        set
-        {
-            itemDetail = value; NotifyPropertyChanged(&amp;quot;ItemDetail&amp;quot;);
-        }
-    }
-
-    public ObservableCollection&amp;lt;forumitem&amp;gt; ForumItemList
-    {
-        get
-        {
-            return forumItemList;
-        }
-    }
-
-    public event PropertyChangedEventHandler PropertyChanged;
-    private void NotifyPropertyChanged(string propName)
-    {
-        if (PropertyChanged != null)
-        {
-            PropertyChanged(this, new PropertyChangedEventArgs(propName));
-        }
-    }
-}
+			<h1>something about viewport on mobile browsers</h1>
+<h2>Introduction</h2>
+<p>Mobile browsers render pages in a virtual &quot;window&quot;(the viewport),usually wider than the mobile screen,so they don't need to aqueeze every page layout into a tiny window.User can pan and zoom see diffrent areas of the page.</p>
+<h2>Viewport basics</h2>
+<p>A typical mobile-optimized site contains something like the following:</p>
+<pre><code>&lt;meta <span class="hljs-built_in">name</span> = <span class="hljs-string">"viewport"</span> content=<span class="hljs-string">"width=device-width,initial-scale=1"</span>&gt;
 </code></pre>
-<p>}</pre></p>
-<p>ViewModel中最重要的是forumItemList对象集合（ObservableCollection）。ObservableCollection类实现了一个集合的基本特性，并在向列表中的项有被添加、删除或替换时发送事件通知。注意ObservableCollection类本身并不会发送一个事件通知，当它包含的某个对象的数据值被修改时，只有通过创建一个可观测的forumItemList 对象的可观测集合，才能确保对ForumItem所做的任何改变都将导致UI控件的更新。</p>
-<p>ViewModel也实现了INotifyPropertyChanged接口，因为在这里有用到了可观测对象itemDetail。</p>
-<p>好吧，上面就是一个简单的视图模型，下面我会介绍视图模型如何跟UI进行交互以实现数据改变后UI能够自动更新。</p>
-<p>2、添加页面</p>
-<p>    我在工程中添加了Pages目录，并添加了一个空白页ListPage.xaml。在这里我并没有使用工程默认创建的MainPage.xaml。</p>
-<p>    为了让程序启动的时候默认加载ListPage界面，需要更新App.xaml.cs，如下语句，修改为Pages.ListPage</p>
-<pre class="wp-code-highlight prettyprint linenums:1">var rootFrame = new Frame();
-if (!rootFrame.Navigate(typeof(Pages.ListPage)))
-{
-    throw new Exception(&quot;Failed to create initial page&quot;);
-}</pre>
-<p>这样我们的页面就添加好了。</p>
-<p>下面我们就来对该页面ListPage.xaml.cs进行编写</p>
-<p>3、编写页面相关代码</p>
-<p>这里我直接贴出ListPage.xaml.cs文件的代码，以方便你直接阅读</p>
-<pre class="wp-code-highlight prettyprint linenums:1">using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using DevDiv_DataBinding.Data;
-<p>// The Blank Page item template is documented at &lt;a href=&quot;&quot; target=&quot;&quot; _blank?? ?LinkId='234238&quot;&quot;' fwlink go.microsoft.com http:&gt;http://go.microsoft.com/fwlink/?LinkId=234238&lt;/a&gt;</p>
-<p>namespace DevDiv_DataBinding.Pages
-{
-/// &lt;summary&gt;
-/// An empty page that can be used on its own or navigated to within a Frame.
-/// &lt;/summary&gt;
-public sealed partial class ListPage : Page
-{
-ViewModel viewModel;</p>
-<pre><code>    public ListPage()
-    {
-
-        viewModel = new ViewModel();
-        viewModel.SelectedItemIndex = -1;
-        viewModel.ForumItemList.Add(new ForumItem { Name = &amp;quot;Android开发论坛&amp;quot;, TopicCount = 4, Link = &amp;quot;http://www.devdiv.com/forum-110-1.html&amp;quot;,
-                                                    Info = &amp;quot;Android开发论坛、Android开发者论坛、环境搭建、应用开发、驱动开发、系统移植、文档&amp;quot;});
-        viewModel.ForumItemList.Add(new ForumItem { Name = &amp;quot;Android开发资料&amp;quot;, TopicCount = 8, Link = &amp;quot;http://www.devdiv.com/forum-102-1.html&amp;quot; });
-        viewModel.ForumItemList.Add(new ForumItem { Name = &amp;quot;iOS开发论坛/iPhone开发论坛&amp;quot;, TopicCount = 8, Link = &amp;quot;http://www.devdiv.com/forum-102-1.html&amp;quot; });
-        viewModel.ForumItemList.Add(new ForumItem { Name = &amp;quot;iOS开发资料/iPhone开发资料&amp;quot;, TopicCount = 8, Link = &amp;quot;http://www.devdiv.com/forum-102-1.html&amp;quot; });
-        viewModel.ForumItemList.Add(new ForumItem { Name = &amp;quot;微软/诺基亚 Windows Phone开发论坛 &amp;quot;, TopicCount = 8, Link = &amp;quot;http://www.devdiv.com/forum-102-1.html&amp;quot; });
-        viewModel.ForumItemList.Add(new ForumItem { Name = &amp;quot;Windows Phone开发资料&amp;quot;, TopicCount = 8, Link = &amp;quot;http://www.devdiv.com/forum-102-1.html&amp;quot; });
-        viewModel.ForumItemList.Add(new ForumItem { Name = &amp;quot;Windows 8 开发论坛 &amp;quot;, TopicCount = 8, Link = &amp;quot;http://www.devdiv.com/forum-102-1.html&amp;quot;,
-                                                    Info = &amp;quot;Windows 8 代码、教程、入门、文档、视频&amp;quot;});
-        viewModel.ForumItemList.Add(new ForumItem { Name = &amp;quot;Symbian开发论坛&amp;quot;, TopicCount = 8, Link = &amp;quot;http://www.devdiv.com/forum-102-1.html&amp;quot; });
-        viewModel.ForumItemList.Add(new ForumItem { Name = &amp;quot;Symbian开发论坛&amp;quot;, TopicCount = 8, Link = &amp;quot;http://www.devdiv.com/forum-102-1.html&amp;quot; });
-        viewModel.ForumItemList.Add(new ForumItem { Name = &amp;quot;Symbian开发论坛&amp;quot;, TopicCount = 8, Link = &amp;quot;http://www.devdiv.com/forum-102-1.html&amp;quot; });
-        viewModel.ForumItemList.Add(new ForumItem { Name = &amp;quot;Symbian开发论坛&amp;quot;, TopicCount = 8, Link = &amp;quot;http://www.devdiv.com/forum-102-1.html&amp;quot; });
-        viewModel.ForumItemList.Add(new ForumItem { Name = &amp;quot;Symbian开发论坛&amp;quot;, TopicCount = 8, Link = &amp;quot;http://www.devdiv.com/forum-102-1.html&amp;quot; });
-        viewModel.ForumItemList.Add(new ForumItem { Name = &amp;quot;Symbian开发论坛&amp;quot;, TopicCount = 8, Link = &amp;quot;http://www.devdiv.com/forum-102-1.html&amp;quot; });
-
-        this.InitializeComponent();
-
-        this.DataContext = viewModel;
-    }
-
-    /// &amp;lt;summary&amp;gt;
-    /// Invoked when this page is about to be displayed in a Frame.
-    /// &amp;lt;/summary&amp;gt;
-    /// &amp;lt;param name=&quot;e&quot; /&amp;gt;Event data that describes how this page was reached.  The Parameter
-    /// property is typically used to configure the page.&amp;lt;/param&amp;gt;
-    protected override void OnNavigatedTo(NavigationEventArgs e)
-    {
-    }
-
-    private void ListSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        viewModel.ItemDetail = ((ForumItem)e.AddedItems[0]).Info;
-        if (viewModel.ItemDetail == null || viewModel.ItemDetail.Length == 0)
-        {
-            viewModel.ItemDetail = ((ForumItem)e.AddedItems[0]).Name;
-        }
-    }
-}
+<p>The width property control the size of the viewport.It can be set to a specific number of pixels like width=600 or to the special value device-width value which is the width of the screen in CSS pixels at a scale of 100%.(There are corresponding height and device-height values,which may be useful for pages width elements that change size or position based on the viewport height.)</p>
+<p>The initial-scale property controls the zoom level when the page is first loaded.The maximum-scale,minimum-scale,and user-scalable properties control how users are allowed to zoom the page in or out.</p>
+<h2>A pixel is not a pixel</h2>
+<p>The iPhone and many popular Android phones have 3- to 4-inch(7-10cm)screen with 320--480 pixel(~160 dpi).Firefox for Maemo runs on nokia n900,which has the same physical size but 480--800 pixels(~240 dpi).Because of this,the last version of Fennec displayed many pages about one third smaller(in actual,physic size) than iPhone or Android. This caused usability and readability problems on many touch-optimized web sites. Peter-Paul Koch wrote about this problem in <a href="http://www.quirksmode.org/blog/archives/2010/04/a_pixel_is_not.html">Apixel is not a pixel</a>.</p>
+<p>For web developers,this means that 320px be full width in portrait mode at scale=1, on all of the above-mentioned handheld devices,and they may size their layouts and images accordingly.But remember that not all mobile devices are the same width;you should also make sure that your pages work well in landscape mode,and on larger devices like the iPad and Android tablets.</p>
+<p>The default ratio depends on the display density.  On a display with density less than 200dpi, the ratio is 1.0.  On displays with density between 200 and 300dpi, the ratio is 1.5.  For displays with density over 300dpi, the ratio is the integer floor(density/150dpi).  Note that the default ratio is true only when the viewport scale equals 1. Otherwise, the relationship between CSS pixels and device pixels depends on the current zoom level.</p>
+<h2>Viewport width and screen width</h2>
+<p>For pages that set an initial or maximum scale, this means the width property actually translates into a minimum viewport width. For example, if your layout needs at least 500 pixels of width then you can use the following markup. When the screen is more than 500 pixels wide, the browser will expand the viewport (rather than zoom in) to fit the screen:</p>
+<pre><code>&lt;meta <span class="hljs-built_in">name</span>=<span class="hljs-string">"viewport"</span> content=<span class="hljs-string">"width=500, initial-scale=1"</span>&gt;
 </code></pre>
-<p>}</pre></p>
-<p>上面的代码看着让我有点头疼，在这里我创建了一个viewModel并对其进行了初始化。你需要重点关注的下面的代码：</p>
-<p>this.DataContext = viewModel;</p>
-<p>DataContext 属性指定绑定到一个UI控件及其所有子控件的数据的来源。也就是说这里控件需要用到的数据来源是viewModel。使用this关键字来为整个布局设置DataContext。</p>
-<p>代码最后定义了一个方法ListSelectionChanged，该方法处理当ListView中选择项改变后会触发的事件。在xaml文件中有使用到。</p>
-<p> </p>
-<p>4、添加资源字典</p>
-<p>     为了方便样式的统一，在这里我自定义了ListView使用到的一些样式，这样做的好处是UI控件的字体，颜色等属性我只需要在一个地方修改就可以应用到所有使用到的地方，非常的方便。为此我在工程中创建了Resources目录，并用Resource Dictionary（资源字典）项模板创建了一个新的ForumResourceDictionary.xaml文件。</p>
-<p>该文件的代码如下：</p>
-<pre class="wp-code-highlight prettyprint linenums:1">&lt;?XML:NAMESPACE PREFIX = &quot;[default] http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot; NS = &quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot; /&gt;&lt;?XML:NAMESPACE PREFIX = &quot;[default] http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot; NS = &quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot; /&gt;&lt;?XML:NAMESPACE PREFIX = &quot;[default] http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot; NS = &quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot; /&gt;&lt;?XML:NAMESPACE PREFIX = &quot;[default] http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot; NS = &quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot; /&gt;&lt;?XML:NAMESPACE PREFIX = &quot;[default] http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot; NS = &quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot; /&gt;&lt;?XML:NAMESPACE PREFIX = &quot;[default] http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot; NS = &quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot; /&gt;&lt;resourcedictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:local="using:DevDiv_DataBinding.Resources" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;
-    &lt;resourcedictionary.mergeddictionaries&gt;
-        &lt;resourcedictionary source="/Common/StandardStyles.xaml"&gt;&lt;/resourcedictionary&gt;
-    &lt;/resourcedictionary.mergeddictionaries&gt;
-<pre><code>&amp;lt;solidcolorbrush x:key=&quot;AppBackgroundColor&quot; color=&quot;#3E790A&quot;&amp;gt;&amp;lt;/solidcolorbrush&amp;gt;
-&amp;lt;style x:key=&quot;ForumListItem&quot; targettype=&quot;TextBlock&quot; basedon=&quot;{StaticResource BasicTextStyle}&quot;&amp;gt;
-    &amp;lt;setter property=&quot;FontSize&quot; value=&quot;38&quot;/&amp;gt;
-    &amp;lt;setter property=&quot;FontWeight&quot; value=&quot;Light&quot;/&amp;gt;
-    &amp;lt;setter property=&quot;Margin&quot; value=&quot;10, 0&quot;/&amp;gt;
-    &amp;lt;setter property=&quot;VerticalAlignment&quot; value=&quot;Center&quot;/&amp;gt;
-&amp;lt;/style&amp;gt;
-
-&amp;lt;datatemplate x:key=&quot;ForumListItemTemplate&quot;&amp;gt;
-    &amp;lt;stackpanel orientation=&quot;Horizontal&quot;&amp;gt;
-        &amp;lt;textblock text=&quot;{Binding Name}&quot;&amp;gt;&amp;lt;/textblock&amp;gt;
-    &amp;lt;/stackpanel&amp;gt;
-&amp;lt;/datatemplate&amp;gt;
+<p>Mobile browsers handle orientation changes slightly differently. For example, Mobile Safari often just zooms the page when changing from portrait to landscape, instead of laying out the page as it would if originally loaded in landscape. If web developers want their scale settings to remain consistent when switching orientations on the iPhone, they must add a maximum-scale value to prevent this zooming, which has the sometimes-unwanted side effect of preventing users from zooming in:</p>
+<pre><code>&lt;meta <span class="hljs-built_in">name</span>=<span class="hljs-string">"viewport"</span> content=<span class="hljs-string">"initial-scale=1, maximum-scale=1"</span>&gt;
 </code></pre>
-<p>&lt;/resourcedictionary&gt;</pre></p>
-<p>看上面的代码，我定义了ForumListItem样式，以及一个数据模版ForumListItemTemplate。ForumListItem定义了item的一些字体、布局等属性。ForumListItemTemplate这定义了该item具有的控件内容以及绑定到的数据。通过在.cs文件中设置DataContext属性，使视图模型作为绑定的数据源，Binding 关键字则让指定细节（“显示这个特定属性的值”)。</p>
-<p>最后把该资源字典添加到App.xaml中即可，如下代码</p>
-<pre class="wp-code-highlight prettyprint linenums:1">&lt;resourcedictionary source="Resources/ForumResourceDictionary.xaml" /&gt;</pre>
-<p>5、编写XAML</p>
-<p>我把ListPage.xaml文件的编写放到最后，这并不影响程序的开发。</p>
-<p>同样我先把文件代码贴出来，然后对关键部分进行分析</p>
-<pre class="wp-code-highlight prettyprint linenums:1">&lt;?XML:NAMESPACE PREFIX = &quot;[default] http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot; NS = &quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot; /&gt;&lt;?XML:NAMESPACE PREFIX = &quot;[default] http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot; NS = &quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot; /&gt;&lt;?XML:NAMESPACE PREFIX = &quot;[default] http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot; NS = &quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot; /&gt;&lt;?XML:NAMESPACE PREFIX = &quot;[default] http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot; NS = &quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot; /&gt;&lt;page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:local="using:DevDiv_DataBinding.Pages" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" x:class="DevDiv_DataBinding.Pages.ListPage" istabstop="false" mc:ignorable="d"&gt;
-<pre><code>&amp;lt;grid background=&quot;{StaticResource AppBackgroundColor}&quot;&amp;gt;
-    &amp;lt;grid.rowdefinitions&amp;gt;
-        &amp;lt;rowdefinition&amp;gt;&amp;lt;/rowdefinition&amp;gt;
-        &amp;lt;rowdefinition&amp;gt;&amp;lt;/rowdefinition&amp;gt;
-    &amp;lt;/grid.rowdefinitions&amp;gt;
-    &amp;lt;grid.columndefinitions&amp;gt;
-        &amp;lt;columndefinition width=&quot;885*&quot;&amp;gt;&amp;lt;/columndefinition&amp;gt;
-        &amp;lt;columndefinition width=&quot;481*&quot;&amp;gt;&amp;lt;/columndefinition&amp;gt;
-    &amp;lt;/grid.columndefinitions&amp;gt;
-    &amp;lt;stackpanel grid.rowspan=&quot;2&quot;&amp;gt;
-        &amp;lt;textblock text=&quot;论坛首页-DevDiv.com&quot; margin=&quot;10&quot; foreground=&quot;Red&quot;&amp;gt;&amp;lt;/textblock&amp;gt;
-        &amp;lt;listview grid.rowspan=&quot;2&quot; x:name=&quot;ForumList&quot; itemssource=&quot;{Binding ForumItemList}&quot; itemtemplate=&quot;{StaticResource ForumListItemTemplate}&quot; selectionchanged=&quot;ListSelectionChanged&quot;&amp;gt;&amp;lt;/listview&amp;gt;
-    &amp;lt;/stackpanel&amp;gt;
-    &amp;lt;stackpanel orientation=&quot;Vertical&quot; grid.column=&quot;1&quot;&amp;gt;
-        &amp;lt;textblock text=&quot;板块详情&quot; margin=&quot;10&quot; foreground=&quot;Red&quot;&amp;gt;&amp;lt;/textblock&amp;gt;
-        &amp;lt;textblock text=&quot;{Binding ItemDetail}&quot; margin=&quot;10&quot; fontsize=&quot;30&quot;&amp;gt;&amp;lt;/textblock&amp;gt;
-    &amp;lt;/stackpanel&amp;gt;
-    &amp;lt;stackpanel orientation=&quot;Vertical&quot; background=&quot;White&quot; grid.column=&quot;1&quot; grid.row=&quot;1&quot;&amp;gt;
-&amp;lt;textblock height=&quot;80&quot;&amp;gt;&amp;lt;/textblock&amp;gt;
-        &amp;lt;img source=&quot;../Assets/icon.png&quot; horizontalalignment=&quot;Center&quot; /&amp;gt;
-        &amp;lt;textblock foreground=&quot;Red&quot; fontsize=&quot;18&quot; height=&quot;135&quot;&amp;gt;        
-            &amp;lt;run text=&quot;大家好！我是破船&quot;&amp;gt;&amp;lt;/run&amp;gt;
-                &amp;lt;run text=&quot;欢迎跟我一起学习&quot;&amp;gt;&amp;lt;/run&amp;gt;  
-            &amp;lt;linebreak&amp;gt;&amp;lt;/linebreak&amp;gt;
-                &amp;lt;run text=&quot;Window 8 Metro App开发&quot;&amp;gt;&amp;lt;/run&amp;gt;
-        &amp;lt;/textblock&amp;gt;
-    &amp;lt;/stackpanel&amp;gt;
-&amp;lt;/grid&amp;gt;
-</code></pre>
-<p>&lt;/page&gt;</pre></p>
-<p>首先，来看看VS设计器显示的内容是什么，如下图：</p>
-<p><a href="http://beyondvincent.com/wp-content/uploads/2013/06/22.png"><img title="2" style="border-left-width: 0px; border-right-width: 0px; border-bottom-width: 0px; display: inline; border-top-width: 0px" border="0" alt="2" src="http://beyondvincent.com/wp-content/uploads/2013/06/2_thumb3.png" width="682" height="403" /></a></p>
-<p>可以看到，Grid控件的Background 特性为我在资源字典中指定的颜色。</p>
-<p>我们来看上面的关键代码：</p>
-<pre class="wp-code-highlight prettyprint linenums:1">&lt;?XML:NAMESPACE PREFIX = &quot;[default] http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot; NS = &quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot; /&gt;&lt;?XML:NAMESPACE PREFIX = &quot;[default] http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot; NS = &quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot; /&gt;&lt;?XML:NAMESPACE PREFIX = &quot;[default] http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot; NS = &quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot; /&gt;&lt;listview grid.rowspan="2" x:name="ForumList" itemssource="{Binding ForumItemList}" itemtemplate="{StaticResource ForumListItemTemplate}" selectionchanged="ListSelectionChanged"&gt;&lt;/listview&gt;</pre>
-<p>该代码片段是使用了ListView ，并指定了它的数据源ItemsSource和数据模板ItemTemplate。</p>
-<p>Binding 关键字告诉ListView控件应该显示我在.cs代码文件中设置的DataContext对象的ForumItemList 属性的内容。而ItemTemplate则告诉ListView 控件应该如何显示ItemSource 中的每一数据项。StaticResource关键字和ForumListItemTemplate 值表示将使用我在资源字典中指定的数据模板。</p>
-<p>最后就是指定SelectionChanged事件的处理方法。</p>
-<p>再来看看下面的代码：该代码是显示在画面右上角的，其中第二个TextBlock 中将数据源绑定到视图模型的ItemDetail上。当用户改变选择项时，视图模型中的ItemDetail 内容也会改变，这样UI也会自动的更新ItemDetail 内容。</p>
-<pre class="wp-code-highlight prettyprint linenums:1">&lt;?XML:NAMESPACE PREFIX = &quot;[default] http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot; NS = &quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot; /&gt;&lt;?XML:NAMESPACE PREFIX = &quot;[default] http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot; NS = &quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot; /&gt;&lt;stackpanel orientation="Vertical" grid.column="1"&gt;
-    &lt;textblock text="板块详情" margin="10" foreground="Red"&gt;&lt;/textblock&gt;
-    &lt;textblock text="{Binding ItemDetail}" margin="10" fontsize="30"&gt;&lt;/textblock&gt;
-&lt;/stackpanel&gt;</pre>
-<p>至此，我们的代码关键部分就编写完毕了。在设计器中你是看不到ListView中的数据的，因为设计器不能显示动态生成的内容。下面就让我们运行起来看看吧。</p>
-<p>6、程序运行效果图与Demo程序</p>
-<p>未选中效果</p>
-<p> </p>
-<p><a href="http://beyondvincent.com/wp-content/uploads/2013/06/33.png"><img title="3" style="border-left-width: 0px; border-right-width: 0px; border-bottom-width: 0px; display: inline; border-top-width: 0px" border="0" alt="3" src="http://beyondvincent.com/wp-content/uploads/2013/06/3_thumb3.png" width="682" height="435" /></a></p>
-<p> </p>
-<p>选中效果</p>
-<p><a href="http://beyondvincent.com/wp-content/uploads/2013/06/42.png"><img title="4" style="border-left-width: 0px; border-right-width: 0px; border-bottom-width: 0px; display: inline; border-top-width: 0px" border="0" alt="4" src="http://beyondvincent.com/wp-content/uploads/2013/06/4_thumb2.png" width="682" height="435" /></a></p>
-<p> </p>
-<p>代码下载</p>
-<p><a href="https://github.com/BeyondVincent/WindowsStoreAppStepByStep/tree/master/DataBinding" target="_blank"><img src="http://beyondvincent.com/wp-content/uploads/2013/05/code_xaml.png" /></a></p>
-<div style="text-align: left">
-  <span style="color: #339966"></span>
-</div>
-<div style="text-align: left">
-  <span style="color: #339966">本文由<span style="text-decoration: underline"><a href="http://beyondvincent.com/"><span style="color: #339966; text-decoration: underline">破船</span></a></span>原创●转载请注明出处●<time data-updated="true" datetime="2013-05-18T17:37:00+08:00">2012-05-31</time></span>
-</div>
+<h2>Reference</h2>
+<p><a href="https://developer.mozilla.org/en-US/docs/Mozilla/Mobile/Viewport_meta_tag">Using the viewport meta tag to control layout on mobile browsers</a></p>
 	
 		</div>
 			
