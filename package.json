@@ -10,7 +10,8 @@
     "gulp-watch": "^4.3.5",
     "highlight.js": "^9.4.0",
     "markdown-to-html": "0.0.11",
-    "remarkable": "^1.6.2"
+    "remarkable": "^1.6.2",
+    "shelljs": "^0.7.0"
   },
   "devDependencies": {},
   "scripts": {
