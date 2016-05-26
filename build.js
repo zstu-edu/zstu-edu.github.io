@@ -68,10 +68,12 @@ function buildByRemarkable(){
 
 	var categories = [];
 
+	var categoriesPostList = {};
+
 	render('./source/posts');
-	console.log(postList);
 
 	buildIndex(postList);
+	buildCategoriesPostList(categoriesPostList);
 	//buildAside(categories);
 
 	function getCategories(files){
@@ -87,8 +89,11 @@ function buildByRemarkable(){
 				if(info){
 					var item = JSON.parse(info);	
 					var cates = item.categories.toString().split(',');
+
 					for(var i = 0; i < cates.length; i++){
 						categories.push(cates[i]);
+						categoriesPostList[cates[i]] = categoriesPostList[cates[i]]?categoriesPostList[cates[i]]:[];
+						categoriesPostList[cates[i]].push({link:'./'+file_name.substr(0,file_name.length -3)+'.html',info:JSON.parse(info)});
 					}
 				}
 			}			
@@ -145,7 +150,7 @@ function buildByRemarkable(){
 	function buildAside(categories){
 		var html = '';
 		for(var i = 0; i < categories.length;i++){
-			html += '<li>'+categories[i]+'</li>';
+			html += '<li><a href="categories-'+categories[i]+'.html">'+categories[i]+'</a></li>';
 		}
 		return html;
 	}
@@ -164,6 +169,28 @@ function buildByRemarkable(){
 		fs.writeFileSync(
 			'./build/index.html',html);
 		console.log('file index html write success!');
+	}
+
+	function buildCategoriesPostList(categoriesPostList){
+		//console.log(categoriesPostList);
+		for(var item in categoriesPostList){
+			//console.log('>>>>>>'+ typeof item);
+			var postListHtml = '';
+
+			var postList = categoriesPostList[item];
+			
+			for(var index = 0;index<postList.length;index++){
+				postListHtml += '<li><a href="./'+postList[index].link+'">'+(postList[index].info.title||'No title')+'</a></li>';
+			}
+
+			postListHtml = '<h2>Articles</h2><ul class="post-list">' + postListHtml + '</ul>';
+
+			var html = layout(postListHtml,(item ||'No title'));
+
+			fs.writeFileSync(
+				'./build/categories-'+item+'.html',html);
+			console.log('file categories html write success!');
+		}
 	}
 }
 
