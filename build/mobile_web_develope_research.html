@@ -14,6 +14,7 @@
 <body>
 <div class="wrap">
 	<header>
+	<div class="top-loader-bar" id="top-loader-bar"></div>
 	<div>
 		<a href="./index.html"><span class="title">THE SUNSHINE OF MICRO</span></a>
 	</div>
@@ -54,6 +55,19 @@
 	<span class="copy-right">© 2016 sunshine of micro, Inc.</span>
 </footer>	
 </div>
-
+<script type="text/javascript" src="./js/common.js"></script>
+<script>
+	console.log($('.top-loader-bar'));
+	//$('#top-loader-bar').dom.style.width  = '50%';
+	var step = 0;
+	var loader = setInterval(function(){
+		step ++;
+		$('#top-loader-bar').dom.style.width = step + '%';
+		if(step >= 100) {
+			clearInterval(loader);
+			$('#top-loader-bar').dom.style.width = 0;
+		}
+	},1);
+</script>
 </body>
 </html>

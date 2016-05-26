@@ -7,6 +7,15 @@ header{
 	background-color: #f3f3f3;
 	border-bottom: 1px solid #ddd;
 }
+.top-loader-bar{
+	position: fixed;
+	top:0;
+	left:0;
+	width: 0;
+	height: 2px;
+	background-color: #77b6ff;
+	box-shadow:0 0 10px rgba(119,182,255,0.7);
+}
 aside{
 	display: inline-block;
 	width:15%;
