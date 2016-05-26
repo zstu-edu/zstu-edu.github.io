@@ -18,10 +18,22 @@
 		<div class="markdown-body">
 			{$markdown}	
 		</div>
-			
 	</article>
 	{$footer}	
 </div>
-
+<script type="text/javascript" src="./js/common.js"></script>
+<script>
+	console.log($('.top-loader-bar'));
+	//$('#top-loader-bar').dom.style.width  = '50%';
+	var step = 0;
+	var loader = setInterval(function(){
+		step ++;
+		$('#top-loader-bar').dom.style.width = step + '%';
+		if(step >= 100) {
+			clearInterval(loader);
+			$('#top-loader-bar').dom.style.width = 0;
+		}
+	},1);
+</script>
 </body>
 </html>

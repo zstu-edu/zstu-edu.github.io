@@ -16,7 +16,7 @@ gulp.task('watch',function(){
     //     .pipe(watch('source/views/css/**/*.css'))
     //     .pipe(changeF)
     //     .pipe(gulp.dest('build'));
-    gulp.watch(['./build/css/**/*.css','./source/*/*.{html,md}'], ['build']);
+    gulp.watch(['./source/*/*.{html,md,css,js}'], ['build']);
   
 });
 
