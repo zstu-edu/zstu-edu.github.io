@@ -20,6 +20,10 @@ keywords:h5, monile web, skills, front end
 The mobile phone
 
 ## The meta in the head
+```
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<meta name="format-detection" content="telephone=no"/>
+```
 
 ## The unit used in the css
 
@@ -34,8 +38,9 @@ The mobile phone
 ## Conclusion
 
 ###taobao npm alias
-
+```
 alias cnpm="npm --registry=https://registry.npm.taobao.org --cache=$HOME/.npm/.cache/cnpm --disturl=https://npm.taobao.org/dist --userconfig=$HOME/.cnpmrc"
+```
 
 
 

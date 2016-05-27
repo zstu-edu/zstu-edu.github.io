@@ -124,7 +124,16 @@ function buildByRemarkable(){
 
 				//info = JSON.parse(info);
 				var title = info?JSON.parse(info).title:'';
-				var html = layout(md.render(txt.toString().replace(info,'').replace(/======/,'')),title);
+				var article =  md.render(txt.toString().replace(info,'').replace(/======/,'')) + '<script>\
+								var idcomments_acct = \'1d91760ed815800e7c6d113414d302cf\';\
+								var idcomments_post_id;\
+								var idcomments_post_url;\
+								</script>\
+								<span id="IDCommentsPostTitle" style="display:none"></span>\
+								<script type=\'text/javascript\' src=\'http://www.intensedebate.com/js/genericCommentWrapperV2.js\'></script>';
+
+
+				var html = layout(article, title);
 
 				fs.writeFileSync(
 					'./build/'+file_name.substr(0,file_name.length -3)+'.html',html);

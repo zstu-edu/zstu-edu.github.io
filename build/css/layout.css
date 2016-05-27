@@ -67,16 +67,19 @@ article{
 	color:#999;
 }
 
-.post-list > li{
-	padding:10px 0  3px 5px;																													;
+.post-list > li{																												;
 	list-style: none;
 	border-bottom: 1px solid #eee;
 }
 .post-list > li > a{
+	display: block;
+	padding:10px 0  3px 5px;	
 	color:#999;
 	text-decoration: none;
 }
-
+.post-list > li > a:hover{
+	color:#666;
+}
 footer{
 	height:50px;
 	background-color: #eeeeee;
