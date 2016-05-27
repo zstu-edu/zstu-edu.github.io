@@ -56,4 +56,69 @@ Test Data: An array of elements having N random integers.
 ### Conclusion
 This method of finding unique items within an array seems to be particularly useful for large arrays that are tending towards the real-life situations. When there are more items in an array that are similar, there is not much of a difference in performance and in fact, the classic algorithm scores better by a small margin. However, as the array gets more random, the runtime of the classic algorithm increases manifold.
 
-## 
+## Deep clone in Javascript
+The following function will deep copy arrays or objects. Better than JSON.parse / JSON.stringify, because it clones functions as well, and it doesn't require you to install a third party library (jQuery, lodash, etc).
+```
+function copy(o) {
+  var _out, v, _key;
+  _out = Array.isArray(o) ? [] : {};
+  for (_key in o) {
+    v = o[_key];
+    _out[_key] = (typeof v === "object") ? copy(v) : v;
+  }
+  return _out;
+}
+```
+A code example which clones object literals, any primitives, arrays and nodes.
+```
+function clone(item) {
+    if (!item) { return item; } // null, undefined values check
+
+    var types = [ Number, String, Boolean ], 
+        result;
+
+    // normalizing primitives if someone did new String('aaa'), or new Number('444');
+    types.forEach(function(type) {
+        if (item instanceof type) {
+            result = type( item );
+        }
+    });
+
+    if (typeof result == "undefined") {
+        if (Object.prototype.toString.call( item ) === "[object Array]") {
+            result = [];
+            item.forEach(function(child, index, array) { 
+                result[index] = clone( child );
+            });
+        } else if (typeof item == "object") {
+            // testing that this is DOM
+            if (item.nodeType && typeof item.cloneNode == "function") {
+                var result = item.cloneNode( true );    
+            } else if (!item.prototype) { // check that this is a literal
+                if (item instanceof Date) {
+                    result = new Date(item);
+                } else {
+                    // it is an object literal
+                    result = {};
+                    for (var i in item) {
+                        result[i] = clone( item[i] );
+                    }
+                }
+            } else {
+                // depending what you would like here,
+                // just keep the reference, or create new object
+                if (false && item.constructor) {
+                    // would not advice to do that, reason? Read below
+                    result = new item.constructor();
+                } else {
+                    result = item;
+                }
+            }
+        } else {
+            result = item;
+        }
+    }
+
+    return result;
+}
+```
