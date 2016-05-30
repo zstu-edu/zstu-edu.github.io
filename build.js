@@ -2,10 +2,14 @@ var fs = require('fs');
 var path = require('path');
 require(`shelljs/global`);
 //buildByRemarkable();
+var isDev = true;
 
 module.exports = build;
 
-function build(){
+function build(_isDev){
+	if(typeof _isDev != 'undefined'){
+		isDev = _isDev;
+	}
 	exec('cp -r ./source/css ./build');
 	exec('cp -r ./source/js ./build');
 	buildByRemarkable();
@@ -161,11 +165,20 @@ function buildByRemarkable(){
 
 		asideHtml = asideHtml.toString().replace('{$nav}',buildAside(categories));
 
+		var _blogDirectory = '';
+		if(!isDev){
+			_blogDirectory = '/blog';
+		}
+		//console.log('>>>>>>>>>>>'+_blogDirectory);
 		layoutHtml = layoutHtml.toString();
+		//console.log(layoutHtml);
 
 
 		if(title) layoutHtml = layoutHtml.replace('{$title}',title);
-		return html = layoutHtml.replace('{$header}',headerHtml.toString()).replace('{$aside}',asideHtml).replace('{$footer}',footerHtml.toString()).replace('{$markdown}',mdHtml);
+		//console.log(layoutHtml);
+		var html = layoutHtml.replace('{$header}',headerHtml.toString()).replace('{$aside}',asideHtml).replace('{$footer}',footerHtml.toString()).replace('{$markdown}',mdHtml);
+		html = html.replace(/{\$blogDirectory}/g,_blogDirectory);
+		return html;
 	}
 
 	function buildAside(categories){

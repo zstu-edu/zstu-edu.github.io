@@ -24,18 +24,18 @@ if(!fs.existsSync(dateDir)){
 	console.log('mkdir date dir success!');
 }
 
-var initPostText = '===\r\
-{\r\
-    "title":"'+postName+'",\r\
-    "author":"xiebaochun",\r\
-    "categories":[""],\r\
-    "tags":[""]\r\
-}\r\
-===\r\
-# '+postName+'\r\
+var initPostText = '===\n\
+{\n\
+    "title":"'+postName+'",\n\
+    "author":"xiebaochun",\n\
+    "categories":[""],\n\
+    "tags":[""]\n\
+}\n\
+===\n\
+# '+postName+'\n\
 ';
 
-fs.writeFileSync(dateDir+ '/' + postName+'.md',initPostText);
+fs.writeFileSync(dateDir+ '/' + postName.replace(/ /g,'_')+'.md',initPostText);
 console.log('init post seccess!');
 //var postName = 
 

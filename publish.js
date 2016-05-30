@@ -1,3 +1,6 @@
+var build = require('./build');
+build(false);
+
 require(`shelljs/global`);
 cd('build');
 exec('git add .');
