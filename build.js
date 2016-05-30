@@ -76,12 +76,12 @@ function buildByRemarkable(){
 	buildCategoriesPostList(categoriesPostList);
 	//buildAside(categories);
 
-	function getCategories(files){
+	function getCategories(files,dir){
 		for(file in files){
 			var file_name = files[file];
 			if(file_name.substr(file_name.length - 3) == '.md'){
 
-				var txt = fs.readFileSync(__dirname + '/source/posts/' + file_name);		
+				var txt = fs.readFileSync(__dirname +  dir.replace('.','')+ '/' + file_name);		
 
 				var text = txt.toString();
 
@@ -93,7 +93,7 @@ function buildByRemarkable(){
 					for(var i = 0; i < cates.length; i++){
 						categories.push(cates[i]);
 						categoriesPostList[cates[i]] = categoriesPostList[cates[i]]?categoriesPostList[cates[i]]:[];
-						categoriesPostList[cates[i]].push({link:'./'+file_name.substr(0,file_name.length -3)+'.html',info:JSON.parse(info)});
+						categoriesPostList[cates[i]].push({link:'./'+dir.replace('./source/','')+'/'+file_name.substr(0,file_name.length -3)+'.html',info:JSON.parse(info)});
 					}
 				}
 			}			
@@ -104,22 +104,31 @@ function buildByRemarkable(){
 	function render(dir){
 		var files = fs.readdirSync(dir);
 
-		getCategories(files);
+		getCategories(files,dir);
 
 		for(file in files){
+
 			var file_name = files[file];
+
+			if(fs.statSync(dir +'/'+ file_name).isDirectory()){
+				render(dir +'/'+ file_name);
+				// return false;
+			}
+
 			if(file_name.substr(file_name.length - 3) == '.md'){
 				console.log('File:' + file_name + 'found');
 
-				var txt = fs.readFileSync(__dirname + '/source/posts/' + file_name);		
-
-				var text = txt.toString();
+				var txt = fs.readFileSync(__dirname + dir.replace('.','') +'/'+ file_name);	
+				var text;	
+				if(typeof txt != 'string'){
+					text = txt.toString();
+				}
 
 				var info = text.split('===')[1];
 				if(info){
 					//console.log('>>>>>>>>' + typeof JSON.parse(info));
 					var item = JSON.parse(info);
-					postList.push({link:'./'+file_name.substr(0,file_name.length -3)+'.html',info:JSON.parse(info)});
+					postList.push({link:'./'+dir.replace('./source/','')+'/'+file_name.substr(0,file_name.length -3)+'.html',info:JSON.parse(info)});
 				}
 
 				//info = JSON.parse(info);
@@ -134,9 +143,12 @@ function buildByRemarkable(){
 
 
 				var html = layout(article, title);
-
+				var publishPostPath = './build/'+dir.replace('./source/','');
+				if(!fs.existsSync(publishPostPath)){
+					mkdirsSync(publishPostPath);
+				}
 				fs.writeFileSync(
-					'./build/'+file_name.substr(0,file_name.length -3)+'.html',html);
+					publishPostPath+'/'+file_name.substr(0,file_name.length -3)+'.html',html);
 				console.log('file html write success!');
 			}			
 		}
@@ -159,7 +171,7 @@ function buildByRemarkable(){
 	function buildAside(categories){
 		var html = '';
 		for(var i = 0; i < categories.length;i++){
-			html += '<li><a href="categories-'+categories[i]+'.html">'+categories[i]+'</a></li>';
+			html += '<li><a href="/categories-'+categories[i]+'.html">'+categories[i]+'</a></li>';
 		}
 		return html;
 	}
@@ -168,7 +180,7 @@ function buildByRemarkable(){
 		var postListHtml = '';
 		
 		for(var index = 0;index<postList.length;index++){
-			postListHtml += '<li><a href="./'+postList[index].link+'">'+(postList[index].info.title||'No title')+'</a></li>';
+			postListHtml += '<li><a href="'+postList[index].link+'">'+(postList[index].info.title||'No title')+'</a></li>';
 		}
 
 		postListHtml = '<h2>Articles</h2><ul class="post-list">' + postListHtml + '</ul>';
@@ -189,7 +201,7 @@ function buildByRemarkable(){
 			var postList = categoriesPostList[item];
 			
 			for(var index = 0;index<postList.length;index++){
-				postListHtml += '<li><a href="./'+postList[index].link+'">'+(postList[index].info.title||'No title')+'</a></li>';
+				postListHtml += '<li><a href="'+postList[index].link+'">'+(postList[index].info.title||'No title')+'</a></li>';
 			}
 
 			postListHtml = '<h2>Articles</h2><ul class="post-list">' + postListHtml + '</ul>';
@@ -216,6 +228,29 @@ function uniqueArray(array){
 		}
 	}
 	return result;
+}
+//创建多层文件夹 同步
+function mkdirsSync(dirpath, mode) { 
+    if (!fs.existsSync(dirpath)) {
+        var pathtmp;
+        dirpath.split('\/').forEach(function(dirname) {
+
+            if (pathtmp) {
+                pathtmp = path.join(pathtmp, dirname);
+            }
+            else {
+                pathtmp = dirname;
+            }
+            if (!fs.existsSync(pathtmp)) {
+                if (!fs.mkdirSync(pathtmp, mode)) {
+                    return false;
+                }
+            }
+            //console.log(pathtmp);
+        });
+        //console.log(dirpath.split('\/'));
+    }
+    return true; 
 }
 
 
