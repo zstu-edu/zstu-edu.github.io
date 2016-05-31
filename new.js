@@ -5,6 +5,7 @@ if(!argv[2]){
 	console.log('Please enter the post name');
 }
 var postName = argv[2];
+var cates = argv[3] || '';
 var date = new Date();
 var postRoot = __dirname+'/source/posts/';
 
@@ -28,7 +29,7 @@ var initPostText = '===\n\
 {\n\
     "title":"'+postName+'",\n\
     "author":"xiebaochun",\n\
-    "categories":[""],\n\
+    "categories":["'+cates+'"],\n\
     "tags":[""]\n\
 }\n\
 ===\n\
