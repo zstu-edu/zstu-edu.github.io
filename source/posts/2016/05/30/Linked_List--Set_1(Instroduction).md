@@ -19,19 +19,19 @@ Each node in a list consists of at least two parts:
 In javascript, we can represent a node using object.
 ```
 <!-- var Node = {
-	data = null,
-	next = null
+	data = null;
+	next = null;
 } -->
 function Node(data, next){
-	this.data = data || null,
-	this.next = next || null 
+	this.data = data || null;
+	this.next = next || null;
 }
 ```
 Let us create a simple linked list width 3 nodes.
 ```
 function Node(data, next){
-	this.data = data || null,
-	this.next = next || null 
+	this.data = data || null;
+	this.next = next || null;
 }
 var third = new Node(3, null);
 var seconed = new Node(2, third);
@@ -40,8 +40,8 @@ var head = new Node(1, seconed);
 Linked List Traversal
 ```
 function Node(data, next){
-	this.data = data || null,
-	this.next = next || null 
+	this.data = data || null;
+	this.next = next || null;
 }
 function printList(node){
 	while(node != null){
