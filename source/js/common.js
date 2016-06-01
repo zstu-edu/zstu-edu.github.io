@@ -11,7 +11,7 @@
 	var p = jQuery.prototype;
 	p.each = function( o, cb ) {
 		//console.log(typeof o);
-		if(o.constructor === Array){ 
+		if(Array.isArray(o)){ 
 			var length = o.length, i = 0;
 			for( ; i < length; i++){
 				cb.call( o[i], i, o[i] );

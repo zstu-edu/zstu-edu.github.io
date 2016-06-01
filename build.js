@@ -6,9 +6,14 @@ var isDev = true;
 
 module.exports = build;
 
+var _blogDirectory = '';
+
 function build(_isDev){
 	if(typeof _isDev != 'undefined'){
 		isDev = _isDev;
+	}
+	if(!isDev){
+		_blogDirectory = '/blog';
 	}
 	exec('cp -r ./source/css ./build');
 	exec('cp -r ./source/js ./build');
@@ -165,10 +170,6 @@ function buildByRemarkable(){
 
 		asideHtml = asideHtml.toString().replace('{$nav}',buildAside(categories));
 
-		var _blogDirectory = '';
-		if(!isDev){
-			_blogDirectory = '/blog';
-		}
 		//console.log('>>>>>>>>>>>'+_blogDirectory);
 		layoutHtml = layoutHtml.toString();
 		//console.log(layoutHtml);
@@ -184,7 +185,7 @@ function buildByRemarkable(){
 	function buildAside(categories){
 		var html = '';
 		for(var i = 0; i < categories.length;i++){
-			html += '<li><a href="/categories-'+categories[i]+'.html">'+categories[i]+'</a></li>';
+			html += '<li><a href="'+_blogDirectory+'/categories-'+categories[i]+'.html">'+categories[i]+'</a></li>';
 		}
 		return html;
 	}
