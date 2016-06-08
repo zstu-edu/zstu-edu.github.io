@@ -13,7 +13,7 @@ function build(_isDev){
 		isDev = _isDev;
 	}
 	if(!isDev){
-		_blogDirectory = '/blog';
+		_blogDirectory = '/news';
 	}
 	exec('cp -r ./source/css ./build');
 	exec('cp -r ./source/js ./build');
@@ -197,7 +197,7 @@ function buildByRemarkable(){
 			postListHtml += '<li><a href="'+postList[index].link+'">'+(postList[index].info.title||'No title')+'</a></li>';
 		}
 
-		postListHtml = '<h2>Articles</h2><ul class="post-list">' + postListHtml + '</ul>';
+		postListHtml = '<h2>新闻列表</h2><ul class="post-list">' + postListHtml + '</ul>';
 
 		var html = layout(postListHtml,'index');
 
