@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Linked List--Set 2(Inserting a node)-浙江理工大学</title>
+	<link rel="icon" href="/favicon.ico" type="/image/x-icon" />
+	<link rel="shortcut icon" href="/favicon.ico" type="/image/x-icon" />
+	<meta name="keywords" content="xiebaochun,sunshine of micro,front-end,zstu,edu,zhejiang hangzhou" />
+	<meta name="description" content="xiebaochun's blog of front end technology" />
+	<link rel="stylesheet" type="text/css" href="/news/css/common.css">
+	<link rel="stylesheet" type="text/css" href="/news/css/layout.css">
+	<link rel="stylesheet" type="text/css" href="/news/css/index.css">
+</head>
+<body>
+<div class="wrap">
+	<header>
+	<div class="top-loader-bar" id="top-loader-bar"></div>
+	<div>
+		<a style="display:inline-block;line-height:60px;" href="/news/index.html"><span class="title">浙江理工大学新闻</span></a>
+	</div>
+</header>
+	<aside>
+    <span class="cate-txt">分类</span> 
+	<ul>
+		<!-- <li>web</li>
+		<li>android</li>
+		<li>ios</li>
+		<li>life</li>
+		<li>game</li>
+		<li>book</li>
+		<li>php</li> -->
+		<li><a href="/news/categories-node.js.html">node.js</a></li><li><a href="/news/categories-Data Structure.html">Data Structure</a></li><li><a href="/news/categories-ios.html">ios</a></li><li><a href="/news/categories-life.html">life</a></li><li><a href="/news/categories-web.html">web</a></li>
+	</ul>
+</aside><article>
+		<div class="markdown-body">
+			<h1>Linked List--Set 2(Inserting a node)</h1>
+<p>In this post, methods to insert a new node in linked list are discussed. A node can be added in three ways<br>
+<strong>1)</strong> At the front of the linked list</p>
+<pre><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Node</span><span class="hljs-params">(data, next)</span></span>{
+    <span class="hljs-keyword">this</span>._data = data || <span class="hljs-literal">null</span>;
+    <span class="hljs-keyword">this</span>._next = next || <span class="hljs-literal">null</span>;
+}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">List</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-keyword">this</span>._head = <span class="hljs-literal">null</span>;
+}
+<span class="hljs-keyword">var</span> p = List.prototype;
+p.push = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(node)</span></span>{
+    node._next = <span class="hljs-keyword">this</span>._head;
+    <span class="hljs-keyword">this</span>._head = node;
+}
+</code></pre>
+<p><strong>2)</strong> After a given node.</p>
+<pre><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">List</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-keyword">this</span>._head = <span class="hljs-literal">null</span>;
+}
+<span class="hljs-keyword">var</span> p = List.prototype;
+p.push = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(pre_node,node)</span></span>{
+    node._next = pre_node.next;
+    pre_node.next = node;
+}
+</code></pre>
+<p><strong>3)</strong> At the end of the linked list.</p>
+<pre><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">List</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-keyword">this</span>._head = <span class="hljs-literal">null</span>;
+}
+<span class="hljs-keyword">var</span> p = List.prototype;
+p.push = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(node)</span></span>{
+    node._next = <span class="hljs-literal">null</span>;
+    <span class="hljs-keyword">var</span> current = <span class="hljs-keyword">this</span>._next;
+    <span class="hljs-keyword">while</span>(current._next){
+        current = current._next;
+    }
+    current.next = node;
+}
+</code></pre>
+<script>								var idcomments_acct = '1d91760ed815800e7c6d113414d302cf';								var idcomments_post_id;								var idcomments_post_url;								</script>								<span id="IDCommentsPostTitle" style="display:none"></span>								<script type='text/javascript' src='http://www.intensedebate.com/js/genericCommentWrapperV2.js'></script>	
+		</div>
+	</article>
+	<footer>
+	<span class="copy-right">© 2016 浙江理工大学, Inc.</span>
+</footer>	
+</div>
+<script type="text/javascript" src="/news/js/common.js"></script>
+<script>
+	console.log($('.top-loader-bar'));
+	//$('#top-loader-bar').dom.style.width  = '50%';
+	var step = 0;
+	var loader = setInterval(function(){
+		step ++;
+		$('#top-loader-bar').dom.style.width = step + '%';
+		if(step >= 100) {
+			clearInterval(loader);
+			$('#top-loader-bar').dom.style.width = 0;
+		}
+	},1);
+</script>
+</body>
+</html>

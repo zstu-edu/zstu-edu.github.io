@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Some algorithms of javascript-浙江理工大学</title>
+	<link rel="icon" href="/favicon.ico" type="/image/x-icon" />
+	<link rel="shortcut icon" href="/favicon.ico" type="/image/x-icon" />
+	<meta name="keywords" content="xiebaochun,sunshine of micro,front-end,zstu,edu,zhejiang hangzhou" />
+	<meta name="description" content="xiebaochun's blog of front end technology" />
+	<link rel="stylesheet" type="text/css" href="/news/css/common.css">
+	<link rel="stylesheet" type="text/css" href="/news/css/layout.css">
+	<link rel="stylesheet" type="text/css" href="/news/css/index.css">
+</head>
+<body>
+<div class="wrap">
+	<header>
+	<div class="top-loader-bar" id="top-loader-bar"></div>
+	<div>
+		<a style="display:inline-block;line-height:60px;" href="/news/index.html"><span class="title">浙江理工大学新闻</span></a>
+	</div>
+</header>
+	<aside>
+    <span class="cate-txt">分类</span> 
+	<ul>
+		<!-- <li>web</li>
+		<li>android</li>
+		<li>ios</li>
+		<li>life</li>
+		<li>game</li>
+		<li>book</li>
+		<li>php</li> -->
+		<li><a href="/news/categories-node.js.html">node.js</a></li><li><a href="/news/categories-Data Structure.html">Data Structure</a></li><li><a href="/news/categories-ios.html">ios</a></li><li><a href="/news/categories-life.html">life</a></li><li><a href="/news/categories-web.html">web</a></li>
+	</ul>
+</aside><article>
+		<div class="markdown-body">
+			<h1>Some algorithms of javascript</h1>
+<h2>Array unique</h2>
+<h3>The best &amp; fast algorithm to find unique items in array</h3>
+<p>This method is kind of cheeky in its implementation.It uses the Javascript's object to add every item in the array as key.As we all know,
+objects accepts only unique keys and sure we did capitalize on that.</p>
+<pre><code><span class="hljs-built_in">Array</span>.prototype.unique = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> o = {}, i, l = <span class="hljs-keyword">this</span>.length, r = [];
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i=<span class="hljs-number">0</span>; i&lt;l;i++) o[<span class="hljs-keyword">this</span>[i]] = <span class="hljs-keyword">this</span>[i];
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i <span class="hljs-keyword">in</span> o) r.push(o[i]);
+    <span class="hljs-keyword">return</span> r;
+};
+</code></pre>
+<p>This is somewhat classified as “Hash Sieving” method and can also be related to a somewhat modified “Hash Sorting Algorithm” where every item in the array is a hash value and a hash function inserts item into a bucket, replacing existing values in case of hash collision. As such, this can be applied to any programming language for faster sieving of very large arrays.</p>
+<p>This algorithm has a linear time complexity of O(2n) in worst case scenario. This is way better than what we will observe for the classic method as described below.</p>
+<h3>About the classic method</h3>
+<p>The classic (and most popular) method of finding unique items in an array runs two loops in a nested order to compare each element with rest of the elements. Consequently, the time complexity of the classic method to find the unique items in an array is around quadratic O(n²).</p>
+<p>This is not a good thing when you have to find unique items within array of 10,000 items.</p>
+<pre><code class="language-javascript"><span class="hljs-built_in">Array</span>.prototype.unique = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> a = [], l = <span class="hljs-keyword">this</span>.length;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i=<span class="hljs-number">0</span>; i&lt;l; i++) {
+      <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> j=i+<span class="hljs-number">1</span>; j&lt;l; j++)
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>[i] === <span class="hljs-keyword">this</span>[j]) j = ++i;
+      a.push(<span class="hljs-keyword">this</span>[i]);
+    }
+    <span class="hljs-keyword">return</span> a;
+};
+</code></pre>
+<h3>Comparing the above two algorithms</h3>
+<p>Test Data: An array of elements having N random integers.</p>
+<table>
+<thead>
+<tr><th>Sample (N)</th><th>Average  Case</th><th></th><th>Best Case</th><th></th></tr>
+</thead>
+<tbody>
+<tr><td></td><td>Classic</td><td>New</td><td>Classic</td><td>New</td></tr>
+<tr><td>50</td><td>0.43</td><td>0.25</td><td>0.01</td><td>0.02</td></tr>
+<tr><td>100</td><td>0.60</td><td>0.30</td><td>0.09</td><td>0.16</td></tr>
+<tr><td>500</td><td>9.57</td><td>0.87</td><td>0.1</td><td>0.2</td></tr>
+<tr><td>1000</td><td>24.44</td><td>1.51</td><td>0.21</td><td>0.31</td></tr>
+<tr><td>5000</td><td>584.28</td><td>7.74</td><td>0.4</td><td>1.0</td></tr>
+<tr><td>10000</td><td>2360.90</td><td>15.03</td><td>0.7</td><td>1.8</td></tr>
+</tbody>
+</table>
+<h3>Conclusion</h3>
+<p>This method of finding unique items within an array seems to be particularly useful for large arrays that are tending towards the real-life situations. When there are more items in an array that are similar, there is not much of a difference in performance and in fact, the classic algorithm scores better by a small margin. However, as the array gets more random, the runtime of the classic algorithm increases manifold.</p>
+<h2>Deep clone in Javascript</h2>
+<p>The following function will deep copy arrays or objects. Better than JSON.parse / JSON.stringify, because it clones functions as well, and it doesn't require you to install a third party library (jQuery, lodash, etc).</p>
+<pre><code><span class="hljs-keyword">function</span> <span class="hljs-title">copy</span>(o) {
+  var _out, v, _key;
+  _out = Array.<span class="hljs-keyword">is</span><span class="hljs-keyword">Array</span>(o) ? [] : {};
+  <span class="hljs-keyword">for</span> (_key <span class="hljs-keyword">in</span> o) {
+    v = o[_key];
+    _out[_key] = (typeof v === <span class="hljs-string">"object"</span>) ? copy(v) : <span class="hljs-type">v</span>;
+  }
+  <span class="hljs-keyword">return</span> _out;
+}
+</code></pre>
+<p>A code example which clones object literals, any primitives, arrays and nodes.</p>
+<pre><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">clone</span>(<span class="hljs-params">item</span>) </span>{
+    <span class="hljs-keyword">if</span> (!item) { <span class="hljs-keyword">return</span> item; } <span class="hljs-comment">// null, undefined values check</span>
+
+    <span class="hljs-keyword">var</span> types = [ <span class="hljs-built_in">Number</span>, <span class="hljs-built_in">String</span>, <span class="hljs-built_in">Boolean</span> ], 
+        result;
+
+    <span class="hljs-comment">// normalizing primitives if someone did new String('aaa'), or new Number('444');</span>
+    types.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">type</span>) </span>{
+        <span class="hljs-keyword">if</span> (item <span class="hljs-keyword">instanceof</span> type) {
+            result = type( item );
+        }
+    });
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> result == <span class="hljs-string">"undefined"</span>) {
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Object</span>.prototype.toString.call( item ) === <span class="hljs-string">"[object Array]"</span>) {
+            result = [];
+            item.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">child, index, array</span>) </span>{ 
+                result[index] = clone( child );
+            });
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> item == <span class="hljs-string">"object"</span>) {
+            <span class="hljs-comment">// testing that this is DOM</span>
+            <span class="hljs-keyword">if</span> (item.nodeType &amp;&amp; <span class="hljs-keyword">typeof</span> item.cloneNode == <span class="hljs-string">"function"</span>) {
+                <span class="hljs-keyword">var</span> result = item.cloneNode( <span class="hljs-literal">true</span> );    
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!item.prototype) { <span class="hljs-comment">// check that this is a literal</span>
+                <span class="hljs-keyword">if</span> (item <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Date</span>) {
+                    result = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(item);
+                } <span class="hljs-keyword">else</span> {
+                    <span class="hljs-comment">// it is an object literal</span>
+                    result = {};
+                    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i <span class="hljs-keyword">in</span> item) {
+                        result[i] = clone( item[i] );
+                    }
+                }
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-comment">// depending what you would like here,</span>
+                <span class="hljs-comment">// just keep the reference, or create new object</span>
+                <span class="hljs-keyword">if</span> (<span class="hljs-literal">false</span> &amp;&amp; item.constructor) {
+                    <span class="hljs-comment">// would not advice to do that, reason? Read below</span>
+                    result = <span class="hljs-keyword">new</span> item.constructor();
+                } <span class="hljs-keyword">else</span> {
+                    result = item;
+                }
+            }
+        } <span class="hljs-keyword">else</span> {
+            result = item;
+        }
+    }
+
+    <span class="hljs-keyword">return</span> result;
+}
+</code></pre>
+<script>								var idcomments_acct = '1d91760ed815800e7c6d113414d302cf';								var idcomments_post_id;								var idcomments_post_url;								</script>								<span id="IDCommentsPostTitle" style="display:none"></span>								<script type='text/javascript' src='http://www.intensedebate.com/js/genericCommentWrapperV2.js'></script>	
+		</div>
+	</article>
+	<footer>
+	<span class="copy-right">© 2016 浙江理工大学, Inc.</span>
+</footer>	
+</div>
+<script type="text/javascript" src="/news/js/common.js"></script>
+<script>
+	console.log($('.top-loader-bar'));
+	//$('#top-loader-bar').dom.style.width  = '50%';
+	var step = 0;
+	var loader = setInterval(function(){
+		step ++;
+		$('#top-loader-bar').dom.style.width = step + '%';
+		if(step >= 100) {
+			clearInterval(loader);
+			$('#top-loader-bar').dom.style.width = 0;
+		}
+	},1);
+</script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>ios-浙江理工大学</title>
+	<link rel="icon" href="/favicon.ico" type="/image/x-icon" />
+	<link rel="shortcut icon" href="/favicon.ico" type="/image/x-icon" />
+	<meta name="keywords" content="xiebaochun,sunshine of micro,front-end,zstu,edu,zhejiang hangzhou" />
+	<meta name="description" content="xiebaochun's blog of front end technology" />
+	<link rel="stylesheet" type="text/css" href="/news/css/common.css">
+	<link rel="stylesheet" type="text/css" href="/news/css/layout.css">
+	<link rel="stylesheet" type="text/css" href="/news/css/index.css">
+</head>
+<body>
+<div class="wrap">
+	<header>
+	<div class="top-loader-bar" id="top-loader-bar"></div>
+	<div>
+		<a style="display:inline-block;line-height:60px;" href="/news/index.html"><span class="title">浙江理工大学新闻</span></a>
+	</div>
+</header>
+	<aside>
+    <span class="cate-txt">分类</span> 
+	<ul>
+		<!-- <li>web</li>
+		<li>android</li>
+		<li>ios</li>
+		<li>life</li>
+		<li>game</li>
+		<li>book</li>
+		<li>php</li> -->
+		<li><a href="/news/categories-node.js.html">node.js</a></li><li><a href="/news/categories-Data Structure.html">Data Structure</a></li><li><a href="/news/categories-ios.html">ios</a></li><li><a href="/news/categories-life.html">life</a></li><li><a href="/news/categories-web.html">web</a></li>
+	</ul>
+</aside><article>
+		<div class="markdown-body">
+			<h2>Articles</h2><ul class="post-list"><li><a href="./posts/2016/05/30/mobile_web_develope_research.html">Mobile web develope research</a></li><li><a href="./posts/2016/05/30/test2.html">No title</a></li></ul>	
+		</div>
+	</article>
+	<footer>
+	<span class="copy-right">© 2016 浙江理工大学, Inc.</span>
+</footer>	
+</div>
+<script type="text/javascript" src="/news/js/common.js"></script>
+<script>
+	console.log($('.top-loader-bar'));
+	//$('#top-loader-bar').dom.style.width  = '50%';
+	var step = 0;
+	var loader = setInterval(function(){
+		step ++;
+		$('#top-loader-bar').dom.style.width = step + '%';
+		if(step >= 100) {
+			clearInterval(loader);
+			$('#top-loader-bar').dom.style.width = 0;
+		}
+	},1);
+</script>
+</body>
+</html>

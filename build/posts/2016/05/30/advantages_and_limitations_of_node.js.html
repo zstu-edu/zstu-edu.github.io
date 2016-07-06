@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Advantages and limitations of node.js-浙江理工大学</title>
+	<link rel="icon" href="/favicon.ico" type="/image/x-icon" />
+	<link rel="shortcut icon" href="/favicon.ico" type="/image/x-icon" />
+	<meta name="keywords" content="xiebaochun,sunshine of micro,front-end,zstu,edu,zhejiang hangzhou" />
+	<meta name="description" content="xiebaochun's blog of front end technology" />
+	<link rel="stylesheet" type="text/css" href="/news/css/common.css">
+	<link rel="stylesheet" type="text/css" href="/news/css/layout.css">
+	<link rel="stylesheet" type="text/css" href="/news/css/index.css">
+</head>
+<body>
+<div class="wrap">
+	<header>
+	<div class="top-loader-bar" id="top-loader-bar"></div>
+	<div>
+		<a style="display:inline-block;line-height:60px;" href="/news/index.html"><span class="title">浙江理工大学新闻</span></a>
+	</div>
+</header>
+	<aside>
+    <span class="cate-txt">分类</span> 
+	<ul>
+		<!-- <li>web</li>
+		<li>android</li>
+		<li>ios</li>
+		<li>life</li>
+		<li>game</li>
+		<li>book</li>
+		<li>php</li> -->
+		<li><a href="/news/categories-node.js.html">node.js</a></li><li><a href="/news/categories-Data Structure.html">Data Structure</a></li><li><a href="/news/categories-ios.html">ios</a></li><li><a href="/news/categories-life.html">life</a></li><li><a href="/news/categories-web.html">web</a></li>
+	</ul>
+</aside><article>
+		<div class="markdown-body">
+			<h1>Advantages and limitations of node.js</h1>
+<p>Today, Node.js is the most popular and widely used server side framework for small, large and any sized web app and web application development.</p>
+<p>The advantages of Node.js are listed below:</p>
+<p><strong>Open Source</strong></p>
+<p>Node.js is open source, so it’s free to use and no need to pay for license. There are also many open source modules supported by Node.js.
+JavaScript as Programming Language
+It uses JavaScript as a programming language for both front-end and back-end which increase programmer productivity and code reusability.</p>
+<p><strong>Scalable</strong></p>
+<p>You can scale your Node.js application by using two ways – Horizontal Scaling and Vertical Scaling, which helps you to improve your application performance.
+In Horizontal scaling you can add more nodes to your existing system.
+In Vertical scaling you can add more resources to a single node.</p>
+<p><strong>Better Performance</strong></p>
+<p>It provides better performance, since Node.js I/O operations are non-blocking. Also, it uses V8 JavaScript engine to execute JavaScript code. V8 engine compiles the JS code directly into machine code which make it fast.</p>
+<p><strong>Caching Support</strong></p>
+<p>Node.js supports caching of modules. Hence, when a Node.js modules is requested first time, it is cached into the application memory. So next calls for loading the same module may not cause the module code to be executed again.</p>
+<p><strong>Lightweight and Extensible</strong></p>
+<p>Node.js is based on JavaScript which can be executed on client side as well as server side. Also, it supports exchange of data using JSON which is easily consumed by JavaScript. This makes it light weight as compared to other frameworks.
+Node.js is open source. Hence you can extend it as per your need.</p>
+<p><strong>REST API Support</strong></p>
+<p>Using Node.js you can also develop RESTful services API easily.</p>
+<p><strong>Unit Testing</strong></p>
+<p>It supports unit testing out of box. You can use any JS unit testing frameworks like Jasmin to test your Node.js code.</p>
+<p><strong>Server Development</strong></p>
+<p>Node.js has some built-in API which help you to create different types of Server like HTTP Server, DNS Server, TCP Server etc.</p>
+<p><strong>Community Support</strong></p>
+<p>Node.js has a wide community of developers around the world. They are active in development of new modules or packages to support different types of applications development.</p>
+<h4>Limitations of Node.js</h4>
+<p>There are following limitations of Node.js:</p>
+<ul>
+<li>It doesn’t support multi-threaded programming.</li>
+<li>It doesn’t support very high computational intensive tasks. When it executes long running task, it will queue all the incoming requests to wait for execution, since it follows JavaScript event loop which is single threaded.</li>
+<li>Node good for executing synchronous and CPU intensive tasks.</li>
+</ul>
+<h4>What do you think?</h4>
+<p>I hope you have enjoyed the advantages and limitations of Node.js. I would like to have feedback from my blog readers. Your valuable feedback, question, or comments about this article are always welcome.</p>
+<h4>Referrence</h4>
+<p><a href="http://www.dotnet-tricks.com/Tutorial/nodejs/U91V311215-Advantages-and-Limitations-of-Node.js.html">Advantages and Limitations of Node.js</a></p>
+<script>								var idcomments_acct = '1d91760ed815800e7c6d113414d302cf';								var idcomments_post_id;								var idcomments_post_url;								</script>								<span id="IDCommentsPostTitle" style="display:none"></span>								<script type='text/javascript' src='http://www.intensedebate.com/js/genericCommentWrapperV2.js'></script>	
+		</div>
+	</article>
+	<footer>
+	<span class="copy-right">© 2016 浙江理工大学, Inc.</span>
+</footer>	
+</div>
+<script type="text/javascript" src="/news/js/common.js"></script>
+<script>
+	console.log($('.top-loader-bar'));
+	//$('#top-loader-bar').dom.style.width  = '50%';
+	var step = 0;
+	var loader = setInterval(function(){
+		step ++;
+		$('#top-loader-bar').dom.style.width = step + '%';
+		if(step >= 100) {
+			clearInterval(loader);
+			$('#top-loader-bar').dom.style.width = 0;
+		}
+	},1);
+</script>
+</body>
+</html>
